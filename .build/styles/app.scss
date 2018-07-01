@@ -1,0 +1,68 @@
+@charset "UTF-8";
+@import "compass/css3";
+@import "../settings.json";
+
+/*
+>> SETTINGS
+>> variables used inside Sass
+>> no output expected
+*/
+@import "_______settings/grid";
+@import "_______settings/app";
+@import "_______settings/default.transition";
+@import "_______settings/default.boxshadow";
+/*
+>> TOOLS
+>> Mixins and Functions used inside Sass
+>> no output expected
+*/
+@import "______tools/functions.breakpoints";
+@import "______tools/mixins.clearfix";
+@import "______tools/mixins.word-wrap";
+@import "______tools/mixins.ellipsis";
+@import "______tools/mixins.breakpoints";
+@import "______tools/mixins.spinner";
+@import "______tools/mixins.grid";
+@import "______tools/mixins.theme";
+@import "______tools/functions.color";
+/*
+>> GENERIC
+>> reset and/or normalize styles, box-sizing definition, etc.
+*/
+@import "_____generic/box-sizing";
+@import "_____generic/normalize";
+@import "_____generic/resets";
+@import "_____generic/button";
+@import "_____generic/a11y";
+@import "_____generic/keyframes.spinner";
+/*
+>> ELEMENTS
+>> styling for bare HTML elements (like H1, A, etc.) 
+*/
+@import "____elements/document";
+@import "____elements/forms";
+@import "____elements/font";
+@import "____elements/font-heading";
+@import "____elements/iframe";
+@import "____elements/table";
+@import "____elements/img";
+/*
+>> OBJECTS
+>> class-based selectors which define undecorated design patterns, for example media object known from OOCSS
+*/
+@import "___objects/hidden";
+@import "___objects/button";
+@import "___objects/hello-icon";
+@import "___objects/css-loaded";
+@import "___objects/theme-dev";
+@import "___objects/browser-check";
+@import "___objects/lazyimage";
+/*
+>> COMPONENTS
+>> specific UI components
+*/
+
+/*
+>> TRUMPS
+>> utilities and helper classes with ability to override anything which goes before in the triangle, eg. hide helper class
+*/

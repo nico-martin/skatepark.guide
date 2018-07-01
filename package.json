@@ -1,0 +1,38 @@
+{
+    "name": "skatepark.guide",
+    "version": "1.0.0",
+    "description": "A Vue-APP for https://skatepark.guide",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/nico-martin/skatepark.guide.git"
+    },
+    "dependencies": {
+        "vue": "^2.1.0",
+        "vuex": "^2.0.0"
+    },
+    "devDependencies": {
+        "babel-core": "^6.0.0",
+        "babel-loader": "^6.0.0",
+        "babel-preset-es2015": "^6.0.0",
+        "babel-preset-stage-2": "^6.18.0",
+        "cross-env": "^3.0.0",
+        "css-loader": "^0.25.0",
+        "file-loader": "^0.9.0",
+        "vue-loader": "^10.0.0",
+        "vue-template-compiler": "^2.1.0",
+        "webpack": "^2.1.0-beta.25",
+        "webpack-dev-server": "^2.1.0-beta.0"
+    },
+    "author": "Nico Martin",
+    "license": "UNLICENSED",
+    "scripts": {
+        "start": "npm run build",
+        "build": "webpack -d --watch",
+        "build:test": "webpack -d",
+        "build:prod": "webpack -p"
+    },
+    "bugs": {
+        "url": "https://github.com/nico-martin/skatepark.guide/issues"
+    },
+    "homepage": "https://github.com/nico-martin/skatepark.guide#README"
+}
