@@ -1,6 +1,4 @@
 @charset "UTF-8";
-@import "compass/css3";
-@import "../settings.json";
 
 /*
 >> SETTINGS
@@ -16,6 +14,7 @@
 >> Mixins and Functions used inside Sass
 >> no output expected
 */
+@import "______tools/compass";
 @import "______tools/functions.breakpoints";
 @import "______tools/mixins.clearfix";
 @import "______tools/mixins.word-wrap";
@@ -57,6 +56,7 @@
 @import "___objects/theme-dev";
 @import "___objects/browser-check";
 @import "___objects/lazyimage";
+
 /*
 >> COMPONENTS
 >> specific UI components
