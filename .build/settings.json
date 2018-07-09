@@ -8,8 +8,11 @@
         "white": {
             "base": "#fff"
         },
-        "blue": {
-            "base": "#77adbf"
+        "primary": {
+            "base": "#FF5722"
+        },
+        "secondary": {
+            "base": "#00796B"
         }
     },
     "theme_breakpoints": {
@@ -18,13 +21,13 @@
         "tablet_landscape": 900,
         "desktop": 1300
     },
-    "easing_speed": 200,
-    "easing_speed_fast": 100,
+    "easing_speed": 300,
+    "easing_speed_fast": 150,
     "easing_speed_slow": 400,
     "easing_bezier": [
-        0.455,
-        0.03,
-        0.515,
-        0.955
+        0.25,
+        0.8,
+        0.25,
+        1
     ]
 }

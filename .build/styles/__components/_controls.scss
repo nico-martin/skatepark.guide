@@ -1,0 +1,36 @@
+.controls {
+	&__logo,
+	&__menu,
+	&__settings {
+		display: block;
+		position: absolute;
+	}
+
+	&__logo {
+		top: $item_space;
+		left: $item_space;
+		width: 80px;
+		color: c();
+	}
+
+	&__menu {
+		bottom: $item_space;
+		left: $item_space;
+		@include translate(-200%, 0);
+		@include transition();
+	}
+
+	&__settings {
+		bottom: $item_space;
+		right: $item_space;
+		@include translate(200%, 0);
+		@include transition();
+	}
+}
+
+.app--loaded .controls {
+	&__menu,
+	&__settings {
+		@include translate(0, 0);
+	}
+}

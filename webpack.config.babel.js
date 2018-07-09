@@ -18,8 +18,14 @@ const config = {
 	module: {
 		rules: [
 			{
+				test: /\.svg$/,
+				exclude: /node_modules/,
+				use: 'raw-loader'
+			},
+			{
 				test: /\.vue$/,
 				loader: 'vue-loader',
+				exclude: /node_modules/,
 				options: {
 					// vue-loader options go here
 				}
@@ -30,7 +36,7 @@ const config = {
 				exclude: /node_modules/
 			},
 			{
-				test: /\.(png|jpg|gif|svg)$/,
+				test: /\.(png|jpg|gif)$/,
 				loader: 'file-loader',
 				options: {
 					name: '[name].[ext]?[hash]'

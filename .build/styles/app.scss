@@ -7,15 +7,17 @@
 */
 @import "_______settings/grid";
 @import "_______settings/app";
-@import "_______settings/default.transition";
-@import "_______settings/default.boxshadow";
 /*
 >> TOOLS
 >> Mixins and Functions used inside Sass
 >> no output expected
 */
-@import "______tools/compass";
+//@import "______tools/compass";
 @import "______tools/functions.breakpoints";
+@import "______tools/mixins.keyframes";
+@import "______tools/mixins.transform";
+@import "______tools/mixins.box-shadow";
+@import "______tools/mixins.transition";
 @import "______tools/mixins.clearfix";
 @import "______tools/mixins.word-wrap";
 @import "______tools/mixins.ellipsis";
@@ -52,8 +54,7 @@
 @import "___objects/hidden";
 @import "___objects/button";
 @import "___objects/hello-icon";
-@import "___objects/css-loaded";
-@import "___objects/theme-dev";
+@import "___objects/dev";
 @import "___objects/browser-check";
 @import "___objects/lazyimage";
 
@@ -61,6 +62,12 @@
 >> COMPONENTS
 >> specific UI components
 */
+
+@import "__components/app";
+@import "__components/controls";
+@import "__components/menu";
+@import "__components/menutoggler";
+@import "__components/map";
 
 /*
 >> TRUMPS

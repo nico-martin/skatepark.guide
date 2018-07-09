@@ -1,0 +1,61 @@
+.menutoggler {
+
+	&__line {
+		position: absolute;
+		top: 50%;
+		left: 25%;
+		right: 25%;
+		height: .15rem;
+		@include transform(translateY(-50%));
+		background-color: currentColor;
+		display: block;
+		@include transition();
+		will-change: transform;
+		&--1 {
+			top: 35%;
+		}
+		&--3 {
+			top: 65%;
+		}
+	}
+}
+
+.menu[data-state=open] {
+	.menutoggler {
+		&__line {
+			&--1 {
+				top: 50%;
+				@include transform(translateY(-50%) rotate(45deg));
+			}
+
+			&--2 {
+				left: 50%;
+				right: 50%;
+			}
+
+			&--3 {
+				top: 50%;
+				@include transform(translateY(-50%) rotate(-45deg));
+			}
+		}
+	}
+}
+
+.menu[data-state=back] {
+	.menutoggler {
+		&__line {
+			&--1 {
+				top: 40%;
+				right: 50%;
+				left: 18%;
+				@include transform(translateY(-50%) rotate(-45deg));
+			}
+			&--3 {
+				top: 60%;
+				right: 50%;
+				left: 18%;
+				@include transform(translateY(-50%) rotate(45deg));
+			}
+		}
+	}
+}
