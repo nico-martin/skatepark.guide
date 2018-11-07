@@ -3,9 +3,11 @@ import App from './App.vue';
 import './modules/a11y.js'
 
 import {store} from './store/store';
+import router from './router';
 
 new Vue({
 	el: '#app',
+	router,
 	store,
 	render: h => h(App)
 });

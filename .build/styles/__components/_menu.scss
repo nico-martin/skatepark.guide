@@ -15,12 +15,12 @@
 
 .menu[data-state=open] .menu {
 	&__links {
-		@include translate (170%, 10%);
+		transform: translate(170%, 10%);
 		&--information {
-			@include translate (-10%, -170%);
+			transform: translate(-10%, -170%);
 		}
 		&--markerplus {
-			@include translate (120%, -120%);
+			transform: translate(120%, -120%);
 		}
 	}
 }

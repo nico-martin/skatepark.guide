@@ -53,7 +53,15 @@ const config = {
 								url: false
 							}
 						},
-						'sass-loader',
+						{
+							loader: 'postcss-loader',
+							options: {
+								plugins: () => [require('autoprefixer')]
+							}
+						},
+						{
+							loader: 'sass-loader'
+						},
 						{
 							loader: "@epegzz/sass-vars-loader",
 							options: {

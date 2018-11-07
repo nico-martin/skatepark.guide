@@ -6,20 +6,16 @@
 >> no output expected
 */
 @import "_______settings/grid";
-@import "_______settings/app";
+@import "_______settings/fonts";
 /*
 >> TOOLS
 >> Mixins and Functions used inside Sass
 >> no output expected
 */
-//@import "______tools/compass";
-@import "______tools/functions.breakpoints";
-@import "______tools/mixins.keyframes";
-@import "______tools/mixins.transform";
-@import "______tools/mixins.box-shadow";
 @import "______tools/mixins.transition";
+@import "______tools/mixins.box-shadow";
+@import "______tools/functions.breakpoints";
 @import "______tools/mixins.clearfix";
-@import "______tools/mixins.word-wrap";
 @import "______tools/mixins.ellipsis";
 @import "______tools/mixins.breakpoints";
 @import "______tools/mixins.spinner";
@@ -65,6 +61,7 @@
 
 @import "__components/app";
 @import "__components/controls";
+@import "__components/settings";
 @import "__components/menu";
 @import "__components/menutoggler";
 @import "__components/map";

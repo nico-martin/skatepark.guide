@@ -7,23 +7,23 @@
 	}
 
 	&__logo {
-		top: $item_space;
-		left: $item_space;
+		top: $space_item;
+		left: $space_item;
 		width: 80px;
 		color: c();
 	}
 
 	&__menu {
-		bottom: $item_space;
-		left: $item_space;
-		@include translate(-200%, 0);
+		bottom: $space_item;
+		left: $space_item;
+		transform: translate(-200%, 0);
 		@include transition();
 	}
 
 	&__settings {
-		bottom: $item_space;
-		right: $item_space;
-		@include translate(200%, 0);
+		bottom: $space_item;
+		right: $space_item;
+		transform: translate(200%, 0);
 		@include transition();
 	}
 }
@@ -31,6 +31,6 @@
 .app--loaded .controls {
 	&__menu,
 	&__settings {
-		@include translate(0, 0);
+		transform: translate(0, 0);
 	}
 }

@@ -5,4 +5,28 @@
 	left: 0;
 	top: 0;
 	overflow: hidden;
+
+	&__overlay {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		top: 0;
+		background-color: rgba(#000, .5);
+		cursor: pointer;
+		@include transition(opacity);
+		display: none;
+		opacity: 0;
+	}
+
+	&__settings {
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: calc(100vw - 160px);
+		max-width: 400px;
+		z-index: 200;
+		transform: translate(100%, 0);
+	}
 }
