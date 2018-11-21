@@ -4,12 +4,13 @@
 	&__settings {
 		display: block;
 		position: absolute;
+		font-size: 2.5vmin;
 	}
 
 	&__logo {
 		top: $space_item;
 		left: $space_item;
-		width: 80px;
+		width: 4em;
 		color: c();
 	}
 

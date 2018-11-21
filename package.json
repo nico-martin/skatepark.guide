@@ -8,6 +8,8 @@
     },
     "dependencies": {
         "axios": "^0.18.0",
+        "google-maps": "^3.3.0",
+        "idb-keyval": "^3.1.0",
         "vue": "^2.1.0",
         "vue-router": "^3.0.1",
         "vuex": "^2.0.0"
@@ -17,6 +19,8 @@
         "autoprefixer": "^9.3.1",
         "babel-core": "^6.0.0",
         "babel-loader": "^6.0.0",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "babel-polyfill": "^6.26.0",
         "babel-preset-env": "^1.6.0",
         "babel-preset-es2015": "^6.0.0",
         "css-loader": "^0.25.0",
@@ -50,6 +54,14 @@
         "presets": [
             "env",
             "es2015"
+        ],
+        "plugins": [
+            [
+                "transform-runtime",
+                {
+                    "regenerator": true
+                }
+            ]
         ]
     },
     "browserslist": [

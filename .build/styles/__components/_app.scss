@@ -29,4 +29,12 @@
 		z-index: 200;
 		transform: translate(100%, 0);
 	}
+
+	&__map {
+		position: fixed !important;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		top: 0;
+	}
 }
