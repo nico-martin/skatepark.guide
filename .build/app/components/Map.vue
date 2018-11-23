@@ -30,6 +30,17 @@
 				const center = await getCenter();
 				const zoom = await getZoom();
 
+				/**
+				 * Prevent roboto from loading
+				 */
+				const head = document.getElementsByTagName('head')[0];
+				const insertBefore = head.insertBefore;
+				head.insertBefore = function (newElement, referenceElement) {
+					if (newElement.href && newElement.href.indexOf('https://fonts.googleapis.com/css?family=Roboto') === 0) {
+						return;
+					}
+					insertBefore.call(head, newElement, referenceElement);
+				};
 				map = new google.maps.Map(document.getElementById('map'), {
 					zoom: zoom,
 					center: {

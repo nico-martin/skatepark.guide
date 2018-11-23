@@ -2,6 +2,7 @@ import path from 'path';
 import LiveReloadPlugin from 'webpack-livereload-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 
 const DIST_DIR = path.resolve(__dirname, "dist");
 const SRC_DIR = path.resolve(__dirname, ".build");
@@ -94,7 +95,29 @@ const config = {
 			title: 'Skatepark.guide',
 			template: '.build/index.html',
 			filename: './index.html'
-		})
+		}),
+		new FaviconsWebpackPlugin({
+			logo: './dist/favicon/favicon.png',
+			prefix: 'favicon/[hash]/',
+			emitStats: true,
+			statsFilename: 'favicon/iconstats-[hash].json',
+			persistentCache: true,
+			inject: true,
+			background: '#fff',
+			title: 'Skatepark.guide',
+			icons: {
+				android: true,
+				appleIcon: true,
+				appleStartup: true,
+				coast: false,
+				favicons: true,
+				firefox: true,
+				opengraph: false,
+				twitter: true,
+				yandex: false,
+				windows: false
+			}
+		}),
 	]
 };
 
