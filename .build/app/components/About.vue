@@ -3,11 +3,11 @@
 </template>
 
 <script>
-	import overlay from './../modules/overlay';
+	import fade from './../modules/fade';
 
 	export default {
 		mounted: function () {
-			overlay.show();
+			fade.in('.app__overlay');
 			document.getElementById('menu').setAttribute('data-state', 'back');
 		}
 	}

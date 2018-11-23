@@ -1,0 +1,30 @@
+.parks-map {
+
+	&__loader {
+		position: absolute;
+		top: 5vh;
+		left: 50%;
+		background-color: #fff;
+		@include box-shadow;
+		width: 5rem;
+		height: 5rem;
+		z-index: 100;
+		border-radius: 50%;
+		@include transition();
+		&:after {
+			content: '';
+			@include spinner(60%);
+			top: 20%;
+			left: 20%;
+			position: absolute;
+		}
+	}
+
+	&__map {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		top: 0;
+	}
+}

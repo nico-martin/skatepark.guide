@@ -11,6 +11,14 @@ export const c = (mycolor, tone = 'base') => {
 export const settings = s;
 
 /**
+ * API
+ */
+
+export const api = {
+	base: 'https://skateparkguide.ch/wp-json/wp/v2/',
+};
+
+/**
  * Maps
  */
 
@@ -96,22 +104,22 @@ export const maps = {
 			]
 		}
 	],
-	clusterSryles: [
+	clusterStyles: [
 		{
 			textColor: 'white',
-			url: '/assets/img/cluster_small.svg',
+			url: '/dist/img/cluster_small.svg',
 			height: 40,
 			width: 40,
 			textSize: 15
 		}, {
 			textColor: 'white',
-			url: '/assets/img/cluster_medium.svg',
+			url: '/dist/img/cluster_medium.svg',
 			height: 50,
 			width: 50,
 			textSize: 15
 		}, {
 			textColor: 'white',
-			url: '/assets/img/cluster_big.svg',
+			url: '/dist/img/cluster_big.svg',
 			height: 80,
 			width: 80,
 			textSize: 15

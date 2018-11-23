@@ -1,10 +1,10 @@
 <template></template>
 <script>
-	import overlay from './../modules/overlay';
+	import fade from './../modules/fade';
 
 	export default {
 		mounted: function () {
-			overlay.hide();
+			fade.out('.app__overlay');
 			document.getElementById('menu').setAttribute('data-state', 'closed');
 		}
 	}

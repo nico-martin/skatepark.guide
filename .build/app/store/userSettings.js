@@ -1,11 +1,12 @@
 import {Store, set, get} from 'idb-keyval';
 
-const userSettings = new Store('skateparkguide', 'user-settings');
+const userSettingsStore = new Store('skateparkguide', 'user-settings');
 
-export const userSet = function (key, val) {
-	return set(key, val, userSettings);
-};
-
-export const userGet = function (key) {
-	return get(key, userSettings);
+export default {
+	set: function (key, val) {
+		return set(key, val, userSettingsStore);
+	},
+	get: function (key) {
+		return get(key, userSettingsStore);
+	}
 };

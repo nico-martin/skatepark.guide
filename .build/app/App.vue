@@ -39,7 +39,7 @@
 <script>
 	import logo from './../icons/logo-portrait.svg';
 	import icons from './modules/icons.js';
-	import overlay from './modules/overlay';
+	import fade from './modules/fade';
 
 	import Map from './components/Map.vue';
 
@@ -58,12 +58,12 @@
 				const $menu = document.getElementById('menu');
 				const state = $menu.getAttribute('data-state');
 				if (state === 'open') {
-					overlay.hide();
+					fade.out('.app__overlay');
 					$menu.setAttribute('data-state', 'closed');
 				} else if (state === 'closed') {
 					$menu.setAttribute('data-state', 'open');
 				} else if (state === 'back') {
-					overlay.hide();
+					fade.out('.app__overlay');
 					this.$router.push({
 						path: '/'
 					});
@@ -71,7 +71,7 @@
 				}
 			},
 			openPage: function () {
-				overlay.show();
+				fade.in('.app__overlay');
 				const $menu = document.getElementById('menu');
 				$menu.setAttribute('data-state', 'back');
 			}
