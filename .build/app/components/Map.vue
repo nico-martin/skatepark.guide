@@ -14,6 +14,7 @@
 	import MarkerClusterer from '@google/markerclusterer';
 	import {maps} from '../modules/settings';
 	import fade from '../modules/fade';
+	import router from '../router';
 
 	let map = false;
 	let loadParksTimer = 'init';
@@ -49,6 +50,7 @@
 								if (markersSet.includes(park)) {
 									continue;
 								}
+
 								i++;
 								const marker = new google.maps.Marker({
 									position: {
@@ -59,6 +61,11 @@
 									map: map,
 									title: state.map[park].title
 								});
+
+								google.maps.event.addListener(marker, 'click', function () {
+									router.push({path: `/park/${state.map[park].slug}`});
+								});
+
 								markers.push(marker);
 								markersSet.push(park);
 							}
