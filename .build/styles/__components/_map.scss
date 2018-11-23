@@ -2,18 +2,28 @@
 
 	&__loader {
 		position: absolute;
-		top: 5vh;
 		left: 50%;
 		background-color: #fff;
 		@include box-shadow;
-		width: 5rem;
-		height: 5rem;
+		width: 4rem;
+		height: 4rem;
+		top: 3rem;
+		margin-left: -1.5rem;
+		@include desktop {
+			top: 4rem;
+			width: 5rem;
+			height: 5rem;
+			margin-left: -2.5rem;
+		}
 		z-index: 100;
 		border-radius: 50%;
 		@include transition();
 		&:after {
 			content: '';
-			@include spinner(60%);
+			@include spinner(60%, .3rem solid c());
+			@include desktop {
+				@include spinner(60%);
+			}
 			top: 20%;
 			left: 20%;
 			position: absolute;
