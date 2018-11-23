@@ -63,7 +63,7 @@
 								});
 
 								google.maps.event.addListener(marker, 'click', function () {
-									router.push({path: `/park/${state.map[park].slug}`});
+									router.push({path: `/park/${state.map[park].slug}/`});
 								});
 
 								markers.push(marker);

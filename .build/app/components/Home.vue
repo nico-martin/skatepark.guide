@@ -1,11 +1,13 @@
 <template></template>
 <script>
-	import fade from './../modules/fade';
+	import content from './../modules/content';
 
 	export default {
 		mounted: function () {
-			fade.out('.app__overlay');
-			document.getElementById('menu').setAttribute('data-state', 'closed');
+			content.hide();
+		},
+		beforeDestroy: function () {
+			content.show();
 		}
 	}
 </script>

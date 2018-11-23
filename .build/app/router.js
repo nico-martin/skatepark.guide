@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Park from './components/Park.vue';
-import About from './components/About.vue';
+import Page from './components/Page.vue';
+import Account from './components/Account.vue';
 import Home from './components/Home.vue';
 
 Vue.use(Router);
@@ -11,22 +12,18 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'home',
 			component: Home
 		}, {
-			path: '/about/',
-			name: 'about',
-			component: About
+			path: '/account/',
+			component: Account
 		}, {
-			path: '/about/:slug',
-			name: 'about',
-			component: About
-		}, {
-			path: '/park/:slug',
-			name: 'park-single',
+			path: '/park/:slug/',
 			components: {
 				park: Park
 			}
+		}, {
+			path: '/:page/',
+			component: Page
 		}
 	]
 })

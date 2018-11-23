@@ -1,37 +1,28 @@
 .controls {
-	&__logo,
-	&__menu,
-	&__settings {
+	position: fixed;
+	&--logo,
+	&--menu,
+	&--settings {
 		display: block;
-		position: absolute;
 		font-size: calc(1.1rem + 1.1vmin);
+		z-index: 200;
 	}
 
-	&__logo {
+	&--logo {
 		top: $space_item;
 		left: $space_item;
 		width: 4em;
 		color: c();
 	}
 
-	&__menu {
+	&--menu {
 		bottom: $space_item;
 		left: $space_item;
-		transform: translate(-200%, 0);
-		@include transition();
+		z-index: 1000;
 	}
 
-	&__settings {
+	&--settings {
 		bottom: $space_item;
 		right: $space_item;
-		transform: translate(200%, 0);
-		@include transition();
-	}
-}
-
-.app--loaded .controls {
-	&__menu,
-	&__settings {
-		transform: translate(0, 0);
 	}
 }

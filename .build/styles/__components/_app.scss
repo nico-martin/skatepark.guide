@@ -31,10 +31,28 @@
 	}
 
 	&__map {
-		position: fixed;
+		position: fixed !important;
 		bottom: 0;
 		right: 0;
 		left: 0;
 		top: 0;
+	}
+
+	&__content {
+		position: fixed;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		width: 100%;
+		max-width: 800px;
+		background-color: #fff;
+		z-index: 250;
+		overflow: auto;
+		@include transition();
+		transform: translateX(100%);
+		&[aria-hidden=false] {
+			transform: translateX(0);
+			@include box-shadow;
+		}
 	}
 }

@@ -245,7 +245,7 @@ body.no-outline a, body.no-outline button {
 >> styling for bare HTML elements (like H1, A, etc.) 
 */
 html {
-  overflow-y: scroll;
+  overflow: hidden;
   max-height: 100%; }
 
 body {
@@ -610,37 +610,45 @@ body.browser-outdated .browser-check--outdated {
     z-index: 200;
     transform: translate(100%, 0); }
   .app__map {
-    position: fixed;
+    position: fixed !important;
     bottom: 0;
     right: 0;
     left: 0;
     top: 0; }
+  .app__content {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    z-index: 250;
+    overflow: auto;
+    transition: all 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
+    transform: translateX(100%); }
+    .app__content[aria-hidden=false] {
+      transform: translateX(0);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23); }
 
-.controls__logo, .controls__menu, .controls__settings {
-  display: block;
-  position: absolute;
-  font-size: calc(1.1rem + 1.1vmin); }
-
-.controls__logo {
-  top: 2rem;
-  left: 2rem;
-  width: 4em;
-  color: #1d1d1b; }
-
-.controls__menu {
-  bottom: 2rem;
-  left: 2rem;
-  transform: translate(-200%, 0);
-  transition: all 300ms cubic-bezier(0.25, 0.8, 0.25, 1); }
-
-.controls__settings {
-  bottom: 2rem;
-  right: 2rem;
-  transform: translate(200%, 0);
-  transition: all 300ms cubic-bezier(0.25, 0.8, 0.25, 1); }
-
-.app--loaded .controls__menu, .app--loaded .controls__settings {
-  transform: translate(0, 0); }
+.controls {
+  position: fixed; }
+  .controls--logo, .controls--menu, .controls--settings {
+    display: block;
+    font-size: calc(1.1rem + 1.1vmin);
+    z-index: 200; }
+  .controls--logo {
+    top: 2rem;
+    left: 2rem;
+    width: 4em;
+    color: #1d1d1b; }
+  .controls--menu {
+    bottom: 2rem;
+    left: 2rem;
+    z-index: 1000; }
+  .controls--settings {
+    bottom: 2rem;
+    right: 2rem; }
 
 .settings {
   background-color: #fff; }
@@ -757,6 +765,40 @@ body.browser-outdated .browser-check--outdated {
   right: 0;
   left: 0;
   top: 0; }
+
+.content__navigation {
+  display: flex;
+  padding: 0 2rem;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  background-color: #fff; }
+
+.content__link {
+  display: block;
+  padding: 2rem;
+  position: relative; }
+  .content__link:after {
+    content: '';
+    bottom: 1.6rem;
+    left: 2rem;
+    right: 2rem;
+    position: absolute;
+    border-bottom: 2px solid #1d1d1b;
+    opacity: 0;
+    transform: translateY(5px);
+    transition: all 300ms cubic-bezier(0.25, 0.8, 0.25, 1); }
+  .content__link--active:after {
+    opacity: 1;
+    transform: translateY(0); }
+
+.content__title {
+  padding: 2rem 4rem; }
+
+.content__content {
+  padding: 2rem 4rem; }
+  .content__content > * + * {
+    margin-top: 1em; }
 
 /*
 >> TRUMPS

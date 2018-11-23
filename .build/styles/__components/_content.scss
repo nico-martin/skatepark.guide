@@ -1,0 +1,42 @@
+.content {
+
+	&__navigation {
+		display: flex;
+		padding: 0 $space-item;
+		position: sticky;
+		top: 0;
+		background-color: #fff;
+	}
+
+	&__link {
+		display: block;
+		padding: $space-item;
+		position: relative;
+		&:after {
+			content: '';
+			bottom: $space-item * .8;
+			left: $space-item;
+			right: $space-item;
+			position: absolute;
+			border-bottom: 2px solid c();
+			opacity: 0;
+			transform: translateY(5px);
+			@include transition();
+		}
+		&--active:after {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	&__title {
+		padding: $space-item $space-item*2;
+	}
+
+	&__content {
+		padding: $space-item $space-item*2;
+		> * + * {
+			margin-top: 1em;
+		}
+	}
+}
