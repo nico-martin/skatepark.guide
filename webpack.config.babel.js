@@ -1,6 +1,7 @@
 import path from 'path';
 import LiveReloadPlugin from 'webpack-livereload-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 const DIST_DIR = path.resolve(__dirname, "dist");
 const SRC_DIR = path.resolve(__dirname, ".build");
@@ -87,7 +88,13 @@ const config = {
 		new ExtractTextPlugin({
 			filename: 'app.css'
 		}),
-		new LiveReloadPlugin()
+		new LiveReloadPlugin(),
+		new HtmlWebpackPlugin({
+			hash: true,
+			title: 'Skatepark.guide',
+			template: '.build/index.html',
+			filename: './index.html'
+		})
 	]
 };
 
