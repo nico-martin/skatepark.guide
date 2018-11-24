@@ -5,45 +5,48 @@
 			<router-link active-class="content__link--active" to="/impressum/" class="content__link">Impressum</router-link>
 			<router-link active-class="content__link--active" to="/privacy/" class="content__link">Privacy</router-link>
 		</nav>
-		<h1 class="content__title">{{title}}</h1>
-		<div class="content__loader" v-if="loading"></div>
-		<div class="content__content" v-else>
-			{{content}}
-		</div>
+		<h1 class="content__title">{{page.title}}</h1>
+		<div class="content__loader" v-if="page.loading"></div>
+		<div class="content__content" v-else v-html="page.content"></div>
 	</div>
 
 </template>
 
 <script>
+	import {mapState} from 'vuex';
 
 	const pages = {
 		'about': {
 			'title': 'About',
-			'path': ''
+			'path': 'pages/2086/'
 		},
 		'impressum': {
 			'title': 'Impressum',
-			'path': ''
+			'path': 'pages/2084/'
 		},
 		'privacy': {
 			'title': 'Data Privacy',
-			'path': ''
+			'path': 'pages/2088/'
 		}
 	};
 
 	export default {
 		data: function () {
 			return {
-				title: (pages[this.$route.params.page] ? pages[this.$route.params.page].title : '404'),
-				content: 'ddd',
+				title: '',
+				content: '',
 				loading: true
 			}
 		},
+		mounted: function () {
+			this.$store.dispatch('loadPage', [this.$route.params.page, pages]);
+		},
 		beforeRouteUpdate(to, from, next) {
-			this.title = (pages[to.params.page] ? pages[to.params.page].title : '404');
-			this.content = '';
-			this.loading = true;
+			this.$store.dispatch('loadPage', [to.params.page, pages]);
 			next();
-		}
+		},
+		computed: mapState([
+			'page'
+		])
 	}
 </script>

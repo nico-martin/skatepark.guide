@@ -9,7 +9,7 @@
 	import axios from 'axios';
 	import {store} from '../store/store';
 	import {mapState} from 'vuex';
-	import userSettings from '../store/userSettings';
+	import {userSettings} from '../store/storeDB';
 	import GoogleMapsLoader from 'google-maps';
 	import MarkerClusterer from '@google/markerclusterer';
 	import {maps} from '../modules/settings';
