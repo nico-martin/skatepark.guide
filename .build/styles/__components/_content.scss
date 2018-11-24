@@ -33,6 +33,15 @@
 		padding: $space-item $space-item*2;
 	}
 
+	&__loader {
+		text-align: center;
+		padding-top: 15vh;
+		&:after {
+			content: '';
+			@include spinner(5rem, 6px solid c());
+		}
+	}
+
 	&__content {
 		padding: $space-item $space-item*2;
 		> * + * {

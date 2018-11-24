@@ -795,6 +795,23 @@ body.browser-outdated .browser-check--outdated {
 .content__title {
   padding: 2rem 4rem; }
 
+.content__loader {
+  text-align: center;
+  padding-top: 15vh; }
+  .content__loader:after {
+    content: '';
+    background-color: transparent;
+    border: 6px solid #1d1d1b;
+    border-radius: 50%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    width: 5rem;
+    height: 5rem;
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    animation: spinner 0.65s infinite linear; }
+
 .content__content {
   padding: 2rem 4rem; }
   .content__content > * + * {
