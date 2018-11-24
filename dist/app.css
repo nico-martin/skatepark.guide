@@ -817,6 +817,30 @@ body.browser-outdated .browser-check--outdated {
   .content__content > * + * {
     margin-top: 1em; }
 
+.park__image {
+  background-color: rgba(221, 221, 221, 0.5);
+  padding-bottom: 33.33333%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: -20%; }
+
+.park__loader {
+  text-align: center;
+  padding-top: 15vh; }
+  .park__loader:after {
+    content: '';
+    background-color: transparent;
+    border: 6px solid #1d1d1b;
+    border-radius: 50%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    width: 5rem;
+    height: 5rem;
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    animation: spinner 0.65s infinite linear; }
+
 /*
 >> TRUMPS
 >> utilities and helper classes with ability to override anything which goes before in the triangle, eg. hide helper class

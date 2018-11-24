@@ -17,10 +17,8 @@ export default new Router({
 			path: '/account/',
 			component: Account
 		}, {
-			path: '/park/:slug/',
-			components: {
-				park: Park
-			}
+			path: '/parks/:slug/',
+			component: Park
 		}, {
 			path: '/:page/',
 			component: Page

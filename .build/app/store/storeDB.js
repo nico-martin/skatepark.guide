@@ -20,3 +20,13 @@ export const pages = {
 		return get(key, pagesStore);
 	}
 };
+
+const parksStore = new Store(`${db}-parks`, 'parks');
+export const parks = {
+	set: function (key, val) {
+		return set(key, val, parksStore);
+	},
+	get: function (key) {
+		return get(key, parksStore);
+	}
+};

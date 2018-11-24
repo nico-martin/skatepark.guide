@@ -31,13 +31,6 @@
 	};
 
 	export default {
-		data: function () {
-			return {
-				title: '',
-				content: '',
-				loading: true
-			}
-		},
 		mounted: function () {
 			this.$store.dispatch('loadPage', [this.$route.params.page, pages]);
 		},

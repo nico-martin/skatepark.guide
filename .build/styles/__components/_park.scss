@@ -1,0 +1,16 @@
+.park {
+	&__image {
+		background-color: rgba(c(black, light), .5);
+		padding-bottom: percentage(1/3);
+		position: sticky;
+		top: -20%;
+	}
+	&__loader {
+		text-align: center;
+		padding-top: 15vh;
+		&:after {
+			content: '';
+			@include spinner(5rem, 6px solid c());
+		}
+	}
+}
