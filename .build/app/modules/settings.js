@@ -107,19 +107,19 @@ export const maps = {
 	clusterStyles: [
 		{
 			textColor: 'white',
-			url: '/dist/img/cluster_small.svg',
+			url: '/img/cluster_small.svg',
 			height: 40,
 			width: 40,
 			textSize: 15
 		}, {
 			textColor: 'white',
-			url: '/dist/img/cluster_medium.svg',
+			url: '/img/cluster_medium.svg',
 			height: 50,
 			width: 50,
 			textSize: 15
 		}, {
 			textColor: 'white',
-			url: '/dist/img/cluster_big.svg',
+			url: '/img/cluster_big.svg',
 			height: 80,
 			width: 80,
 			textSize: 15
