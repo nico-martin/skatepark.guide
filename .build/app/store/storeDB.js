@@ -1,32 +1,64 @@
-import {Store, set, get} from 'idb-keyval';
+//import {Store, set, get} from 'idb-keyval';
+import idb from 'idb';
 
-const db = 'skateparkguide';
-const userSettingsStore = new Store(db, 'user-settings');
+const db = 'skatepark.guide';
+const dbVersion = 1;
+const stores = [
+	'user-settings',
+	'pages',
+	'parks'
+];
+
+const Store = idb.open(db, dbVersion, upgradeDB => {
+	stores.forEach((store) => {
+		upgradeDB.createObjectStore(store);
+	});
+});
+
 export const userSettings = {
 	set: function (key, val) {
-		return set(key, val, userSettingsStore);
+		return Store.then(db => {
+			const tx = db.transaction('user-settings', 'readwrite');
+			tx.objectStore('user-settings').put(val, key);
+			return tx.complete;
+		});
 	},
 	get: function (key) {
-		return get(key, userSettingsStore);
+		return Store.then(db => {
+			return db.transaction('user-settings')
+				.objectStore('user-settings').get(key);
+		});
 	}
 };
 
-const pagesStore = new Store(`${db}-pages`, 'pages');
 export const pages = {
 	set: function (key, val) {
-		return set(key, val, pagesStore);
+		return Store.then(db => {
+			const tx = db.transaction('pages', 'readwrite');
+			tx.objectStore('pages').put(val, key);
+			return tx.complete;
+		});
 	},
 	get: function (key) {
-		return get(key, pagesStore);
+		return Store.then(db => {
+			return db.transaction('pages')
+				.objectStore('pages').get(key);
+		});
 	}
 };
 
-const parksStore = new Store(`${db}-parks`, 'parks');
 export const parks = {
 	set: function (key, val) {
-		return set(key, val, parksStore);
+		return Store.then(db => {
+			const tx = db.transaction('parks', 'readwrite');
+			tx.objectStore('parks').put(val, key);
+			return tx.complete;
+		});
 	},
 	get: function (key) {
-		return get(key, parksStore);
+		return Store.then(db => {
+			return db.transaction('parks')
+				.objectStore('parks').get(key);
+		});
 	}
 };
