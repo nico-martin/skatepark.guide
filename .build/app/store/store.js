@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import router from '../router'
 import {api} from '../modules/settings';
-import {pages, parks} from './storeDB';
+import {pagesDB, parksDB} from './storeDB';
 
 Vue.use(Vuex);
 
@@ -12,8 +12,16 @@ function fetchPark(slug) {
 		axios.get(`${api.base}parks/?slug=${slug}`)
 			.then(r => r.data)
 			.then(resp => {
-				parks.set(slug, resp[0]);
-				resolve(resp[0]);
+				const park = resp[0];
+				const r = {
+					'title': park.title.rendered,
+					'slug': slug,
+					'image': park['head-image'],
+					'map': park.map,
+					'content': park.content.rendered,
+				};
+				parksDB.set(slug, r);
+				resolve(r);
 			});
 	});
 }
@@ -23,7 +31,7 @@ function fetchPage(path, slug) {
 		axios.get(`${api.base}${path}`)
 			.then(r => r.data)
 			.then(resp => {
-				pages.set(slug, resp.content.rendered);
+				pagesDB.set(slug, resp.content.rendered);
 				resolve(resp.content.rendered);
 			});
 	});
@@ -40,7 +48,19 @@ export const store = new Vuex.Store({
 			axios.get(`${api.base}map-parks/?bounds=${data}`)
 				.then(r => r.data)
 				.then(resp => {
-					commit('SET_PARKS', resp.parks);
+					const r = {};
+					Object.keys(resp.parks).forEach((slug) => {
+						const park = resp.parks[slug];
+						const parkData = {
+							'title': park.title,
+							'slug': slug,
+							'image': park['head-image'],
+							'map': park.map
+						};
+						parksDB.set(slug, parkData);
+						r[slug] = parkData;
+					});
+					commit('SET_PARKS', r);
 				});
 		},
 		loadPark({commit, state}, slug) {
@@ -51,19 +71,13 @@ export const store = new Vuex.Store({
 			commit('SET_PARK', {
 				loading: true,
 			});
-			parks.get(slug).then(resp => {
-				commit('SET_PARK', {
-					title: (resp ? resp.title.rendered : title),
-					park: resp,
-					loader: !resp
-				});
+			parksDB.get(slug).then(resp => {
+				resp.loader = !resp;
+				commit('SET_PARK', resp);
 			});
 			fetchPark(slug).then(resp => {
-				commit('SET_PARK', {
-					title: (resp ? resp.title.rendered : title),
-					park: resp,
-					loader: !resp
-				});
+				resp.loader = !resp;
+				commit('SET_PARK', resp);
 			});
 		},
 		loadPage({commit}, data) {
@@ -84,7 +98,7 @@ export const store = new Vuex.Store({
 				title: validPage.title,
 				loading: true
 			});
-			pages.get(slug).then(resp => {
+			pagesDB.get(slug).then(resp => {
 				commit('SET_PAGE', {
 					title: validPage.title,
 					content: resp,
@@ -102,11 +116,9 @@ export const store = new Vuex.Store({
 	},
 	mutations: {
 		SET_PARKS(state, parks) {
-			for (let park in parks) {
-				if (!state.map[park]) {
-					state.map[park] = parks[park];
-				}
-			}
+			Object.keys(parks).forEach((slug) => {
+				state.map[slug] = parks[slug];
+			});
 		},
 		SET_PARK(state, park) {
 			state.park = park;

@@ -9,7 +9,7 @@
 	import axios from 'axios';
 	import {store} from '../store/store';
 	import {mapState} from 'vuex';
-	import {userSettings} from '../store/storeDB';
+	import {settingsDB} from '../store/storeDB';
 	import GoogleMapsLoader from 'google-maps';
 	import MarkerClusterer from '@google/markerclusterer';
 	import {maps} from '../modules/settings';
@@ -111,14 +111,14 @@
 				});
 
 				map.addListener('center_changed', function () {
-					userSettings.set('mapCenter', {
+					settingsDB.set('mapCenter', {
 						'lat': map.getCenter().lat(),
 						'lng': map.getCenter().lng()
 					});
 				});
 
 				map.addListener('zoom_changed', function () {
-					userSettings.set('mapZoom', map.getZoom());
+					settingsDB.set('mapZoom', map.getZoom());
 				});
 			});
 		}
@@ -142,7 +142,7 @@
 
 	function getCenter() {
 		return new Promise((resolve) => {
-			userSettings.get('mapCenter').then(resp => {
+			settingsDB.get('mapCenter').then(resp => {
 				if (typeof resp !== 'undefined') {
 					resolve(resp);
 				} else {
@@ -152,7 +152,7 @@
 								'lat': response.data.latitude,
 								'lng': response.data.longitude
 							};
-							userSettings.set('mapCenter', data);
+							settingsDB.set('mapCenter', data);
 							resolve(data);
 						});
 				}
@@ -162,11 +162,11 @@
 
 	function getZoom() {
 		return new Promise((resolve) => {
-			userSettings.get('mapZoom').then(resp => {
+			settingsDB.get('mapZoom').then(resp => {
 				if (typeof resp !== 'undefined') {
 					resolve(resp);
 				} else {
-					userSettings.set('mapZoom', 9);
+					settingsDB.set('mapZoom', 9);
 					resolve(9);
 				}
 			});
