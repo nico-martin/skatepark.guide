@@ -822,8 +822,11 @@ body.browser-outdated .browser-check--outdated {
   padding-bottom: 33.33333%;
   position: -webkit-sticky;
   position: sticky;
-  top: -20%;
+  top: -18vw;
   overflow: hidden; }
+  @media screen and (min-width: 800px) {
+    .park__image {
+      top: -180px; } }
   .park__image .lazyimage {
     position: absolute;
     left: 0;

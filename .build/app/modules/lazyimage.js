@@ -1,11 +1,10 @@
 export default function (image, ratio, biggestSize = false) {
-	if (typeof image !== 'object' || !ratio in image) {
-		return 'wrong image format';
+	if (image === null || typeof image[ratio] === 'undefined') {
+		return '';
 	}
+
 	const bemBlock = 'lazyimage';
 	const img = image[ratio];
-	console.log(img);
-
 	let biggestWidth = 0;
 	let biggestHeight = 0;
 	if (biggestSize && biggestSize in img['sizes']) {

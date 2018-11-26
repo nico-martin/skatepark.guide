@@ -4,6 +4,7 @@
 		<h1 class="park__title">{{park.title}}</h1>
 		<div class="park__loader" v-if="park.loading"></div>
 		<div class="park__body" v-else v-html="park.content"></div>
+		<div style="height: 3000px"></div>
 	</div>
 </template>
 
