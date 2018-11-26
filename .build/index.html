@@ -52,6 +52,13 @@
 	</script>
 </head>
 <body>
+<svg class="lazysizes-svgfilter">
+	<filter id="ls-sharp-blur">
+		<feGaussianBlur stdDeviation="10"></feGaussianBlur>
+		<feColorMatrix type="matrix" values="1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 9 0"></feColorMatrix>
+		<feComposite in2="SourceGraphic" operator='in'></feComposite>
+	</filter>
+</svg>
 <div id="app"></div>
 <div class="loading-body">
 	<svg class="loading-body__icon" viewBox="0 0 885 885" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="1.414">
