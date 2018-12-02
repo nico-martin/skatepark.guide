@@ -64,9 +64,9 @@
 					}
 					const opacity = 1 - (1 / offset * scroll);
 					$image.style.opacity = opacity;
-					$image.style.transform = `translateY(${($image.offsetHeight - ($image.offsetHeight * opacity / 2) - $image.offsetHeight / 2) / 2}px)`;
+					//$image.style.transform = `translateY(${($image.offsetHeight - ($image.offsetHeight * opacity / 2) - $image.offsetHeight / 2) / 2}px)`;
 				});
-			}, 100);
+			}, 200);
 		},
 		computed: mapState([
 			'park'
