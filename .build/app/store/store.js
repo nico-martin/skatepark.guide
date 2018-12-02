@@ -73,11 +73,11 @@ export const store = new Vuex.Store({
 				loading: true,
 			});
 			parksDB.get(slug).then(resp => {
-				resp.loader = !resp;
+				resp.loader = resp !== false;
 				commit('SET_PARK', resp);
 			});
 			fetchPark(slug).then(resp => {
-				resp.loader = !resp;
+				resp.loader = resp !== false;
 				commit('SET_PARK', resp);
 			});
 		},

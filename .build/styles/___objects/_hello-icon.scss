@@ -4,8 +4,10 @@
 
 	svg {
 		vertical-align: middle;
+		display: block;
 		height: 1em;
-		width: auto;
+		width: 1em;
+		text-align: center;
 		fill: currentColor;
 	}
 
@@ -13,11 +15,6 @@
 		font-size: (4em / 3);
 		line-height: (3em / 4);
 		vertical-align: -15%;
-	}
-
-	&--fw {
-		width: (18em / 14);
-		text-align: center;
 	}
 
 	&--border {

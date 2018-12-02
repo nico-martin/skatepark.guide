@@ -12,11 +12,11 @@
 				<span class="menutoggler__line menutoggler__line--2"></span>
 				<span class="menutoggler__line menutoggler__line--3"></span>
 			</button>
-			<router-link to="/about/" class="menu__links menu__links--information button button--icon button--small" v-html="icons.information"></router-link>
-			<a class="menu__links menu__links--markerplus button button--icon button--small" v-html="icons.markerplus"></a>
-			<router-link to="/account/" class="menu__links menu__links--account button button--icon button--small" v-html="icons.account"></router-link>
+			<router-link to="/about/" class="menu__links menu__links--information button button--icon button--small" v-html="icon('information')"></router-link>
+			<a class="menu__links menu__links--markerplus button button--icon button--small" v-html="icon('markerplus')"></a>
+			<router-link to="/account/" class="menu__links menu__links--account button button--icon button--small" v-html="icon('account')"></router-link>
 		</div>
-		<button class="controls controls--settings button button--icon" v-html="icons.settings"></button>
+		<button class="controls controls--settings button button--icon" v-html="icon('settings')"></button>
 		<ul class="app__settings settings">
 			Settings
 		</ul>
@@ -25,7 +25,7 @@
 
 <script>
 	import logo from './../icons/logo-portrait.svg';
-	import icons from './modules/icons.js';
+	import {icon} from './modules/icons.js';
 	import content from './modules/content';
 
 	import Map from './components/Map.vue';
@@ -34,8 +34,16 @@
 		data() {
 			return {
 				logo,
-				icons
+				icon
 			}
+		},
+		metaInfo: function () {
+			return {
+				title: false,
+				titleTemplate: (title) => {
+					return title ? `${title} 💗 Skatepark.guide` : 'Skatepark.guide';
+				}
+			};
 		},
 		components: {
 			Map

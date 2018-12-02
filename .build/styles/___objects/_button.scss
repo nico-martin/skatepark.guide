@@ -15,12 +15,18 @@
 		height: 3.2em;
 		position: relative;
 		border-radius: 50%;
-		svg {
+		.hello-icon {
+			font-size: 1.8em;
+			position: absolute;
+			left: .35em;
+			top: .35em;
+			/*
 			width: 1.6em;
 			position: absolute;
 			top: 50%;
 			left: 50%;
 			margin: -.8em 0 0 -.8em;
+			*/
 		}
 	}
 

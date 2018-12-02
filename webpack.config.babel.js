@@ -76,7 +76,6 @@ const config = {
 					]
 				})
 			},
-
 		]
 	},
 	resolve: {

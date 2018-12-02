@@ -9,7 +9,6 @@
 		<div class="content__loader" v-if="page.loading"></div>
 		<div class="content__content" v-else v-html="page.content"></div>
 	</div>
-
 </template>
 
 <script>
@@ -31,6 +30,11 @@
 	};
 
 	export default {
+		metaInfo: function () {
+			return {
+				title: this.page.title
+			};
+		},
 		mounted: function () {
 			this.$store.dispatch('loadPage', [this.$route.params.page, pages]);
 		},
