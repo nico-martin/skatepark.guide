@@ -33,37 +33,40 @@
 		mounted: function () {
 
 			this.$store.dispatch('loadPark', this.$route.params.slug);
-			let offset = false;
 
-			setHeadingPosition();
+			window.setTimeout(() => {
+				let offset = false;
 
-			function setHeadingPosition() {
-				const $heading = document.querySelector('.park__heading');
-				const $header = document.querySelector('.park__header');
-				offset = $header.offsetHeight - $heading.offsetHeight;
-				$header.style.top = `-${offset}px`;
-			}
-
-			window.addEventListener('resize', () => {
 				setHeadingPosition();
-			});
 
-			const $content = document.querySelector('#content');
-			const $image = document.querySelector('.park__image');
-
-			$content.addEventListener('scroll', () => {
-				if (!offset) {
-					return;
+				function setHeadingPosition() {
+					const $heading = document.querySelector('.park__heading');
+					const $header = document.querySelector('.park__header');
+					offset = $header.offsetHeight - $heading.offsetHeight;
+					$header.style.top = `-${offset}px`;
 				}
 
-				let scroll = $content.scrollTop;
-				if (scroll >= offset) {
-					scroll = offset;
-				}
-				const opacity = 1 - (1 / offset * scroll);
-				$image.style.opacity = opacity;
-				$image.style.transform = `translateY(${($image.offsetHeight - ($image.offsetHeight * opacity / 2) - $image.offsetHeight / 2) / 2}px)`;
-			});
+				window.addEventListener('resize', () => {
+					setHeadingPosition();
+				});
+
+				const $content = document.querySelector('#content');
+				const $image = document.querySelector('.park__image');
+
+				$content.addEventListener('scroll', () => {
+					if (!offset) {
+						return;
+					}
+
+					let scroll = $content.scrollTop;
+					if (scroll >= offset) {
+						scroll = offset;
+					}
+					const opacity = 1 - (1 / offset * scroll);
+					$image.style.opacity = opacity;
+					$image.style.transform = `translateY(${($image.offsetHeight - ($image.offsetHeight * opacity / 2) - $image.offsetHeight / 2) / 2}px)`;
+				});
+			}, 100);
 		},
 		computed: mapState([
 			'park'
