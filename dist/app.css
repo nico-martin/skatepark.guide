@@ -831,12 +831,9 @@ body.browser-outdated .browser-check--outdated {
 
 .park__title, .park__love {
   color: #fff;
-  font-size: 3.5rem; }
-
-.park__title {
-  font-size: 2.625rem; }
+  font-size: 3.15rem; }
   @media (min-width: 900px) {
-    .park__title {
+    .park__title, .park__love {
       font-size: 3.5rem; } }
 
 .park__image {

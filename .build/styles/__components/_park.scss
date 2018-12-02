@@ -8,11 +8,7 @@
 
 	&__title, &__love {
 		color: #fff;
-		font-size: $font-size-h1;
-	}
-
-	&__title {
-		font-size: $font-size-h1*.75;
+		font-size: $font-size-h1*.9;
 		@include desktop {
 			font-size: $font-size-h1;
 		}
