@@ -19,19 +19,6 @@
 	import {mapState} from 'vuex';
 	import {icon} from '../modules/icons.js';
 
-	let offset = false;
-
-	function setHeadingPosition() {
-		const $heading = document.querySelector('.park__heading');
-		const $header = document.querySelector('.park__header');
-		offset = $header.offsetHeight - $heading.offsetHeight;
-		$header.style.top = `-${offset}px`;
-	}
-
-	window.addEventListener('resize', () => {
-		setHeadingPosition();
-	});
-
 	export default {
 		data() {
 			return {
