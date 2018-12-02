@@ -8,6 +8,14 @@
 
 	&__title, &__love {
 		color: #fff;
+		font-size: $font-size-h1;
+	}
+
+	&__title {
+		font-size: $font-size-h1*.75;
+		@include desktop {
+			font-size: $font-size-h1;
+		}
 	}
 
 	&__image {
@@ -25,11 +33,13 @@
 		z-index: 5;
 		display: flex;
 		padding: $space-item $space-section;
+		justify-content: space-between;
+		align-items: flex-end;
 		overflow: hidden;
 	}
 
 	&__love {
-		margin-left: auto;
+		margin-left: $space-section;
 		font-size: $font-size-h1;
 	}
 

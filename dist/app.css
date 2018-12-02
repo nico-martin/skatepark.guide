@@ -830,7 +830,14 @@ body.browser-outdated .browser-check--outdated {
   overflow: hidden; }
 
 .park__title, .park__love {
-  color: #fff; }
+  color: #fff;
+  font-size: 3.5rem; }
+
+.park__title {
+  font-size: 2.625rem; }
+  @media (min-width: 900px) {
+    .park__title {
+      font-size: 3.5rem; } }
 
 .park__image {
   width: 100%;
@@ -846,10 +853,12 @@ body.browser-outdated .browser-check--outdated {
   z-index: 5;
   display: flex;
   padding: 2rem 4rem;
+  justify-content: space-between;
+  align-items: flex-end;
   overflow: hidden; }
 
 .park__love {
-  margin-left: auto;
+  margin-left: 4rem;
   font-size: 3.5rem; }
 
 .park__body {

@@ -44,11 +44,26 @@
 			};
 		},
 		mounted: function () {
+
 			this.$store.dispatch('loadPark', this.$route.params.slug);
+
 			setHeadingPosition();
+
+			function setHeadingPosition() {
+				const $heading = document.querySelector('.park__heading');
+				const $header = document.querySelector('.park__header');
+				offset = $header.offsetHeight - $heading.offsetHeight;
+				$header.style.top = `-${offset}px`;
+			}
+
+			window.addEventListener('resize', () => {
+				setHeadingPosition();
+			});
+
 			const $content = document.querySelector('#content');
 			const $image = document.querySelector('.park__image');
-			$content.addEventListener('scroll', (event) => {
+
+			$content.addEventListener('scroll', () => {
 				if (!offset) {
 					return;
 				}
