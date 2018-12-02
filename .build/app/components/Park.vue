@@ -33,6 +33,7 @@
 		mounted: function () {
 
 			this.$store.dispatch('loadPark', this.$route.params.slug);
+			let offset = false;
 
 			setHeadingPosition();
 
