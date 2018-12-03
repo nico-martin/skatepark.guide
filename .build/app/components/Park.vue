@@ -87,10 +87,11 @@
 
 		let i = 0;
 		$links.forEach(($el) => {
+			$el.setAttribute('data-index', i);
 			i++;
 			$el.onclick = function (event) {
 				event.preventDefault();
-				options['index'] = i;
+				options['index'] = parseInt($el.getAttribute('data-index'));
 				options['getThumbBoundsFn'] = function (index) {
 					const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
 					const rect = $el.getBoundingClientRect();
@@ -103,9 +104,8 @@
 				const gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
 				gallery.init();
 				gallery.listen('afterChange', function () {
-					console.log(gallery.getCurrentIndex());
+					flkty.select(gallery.getCurrentIndex());
 				});
-
 			}
 		});
 	}
