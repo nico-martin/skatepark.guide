@@ -12,7 +12,9 @@
             "base": "#FF5722"
         },
         "secondary": {
-            "base": "#00796B"
+            "base": "#00796B",
+            "light": "#129282",
+            "dark": "#116f63"
         }
     },
     "theme_breakpoints": {

@@ -13,16 +13,30 @@ function fetchPark(slug) {
 		axios.get(`${api.base}parks/?slug=${slug}`)
 			.then(r => r.data)
 			.then(resp => {
+				if (!resp.length) {
+					reject();
+					return;
+				}
+
 				const park = resp[0];
-				const r = {
+				const rendered = {
 					'title': park.title.rendered,
 					'slug': slug,
 					'image': lazyimage(park['head-image'], '3x1'),
 					'map': park.map,
 					'content': park.content.rendered,
+					'loading': false,
+					'gallery': park['parks-gallery'],
+					'video': park['parks-video'],
+					'anlage': park['parks-anlage'],
+					'homepage': park['parks-homepage'],
+					'email': park['parks-email'],
+					'phone': park['parks-phone'],
+					'facebook': park['parks-facebook'],
+					'address': park['parks-address'],
 				};
-				parksDB.set(slug, r);
-				resolve(r);
+				parksDB.set(slug, rendered);
+				resolve(rendered);
 			});
 	});
 }
@@ -56,7 +70,8 @@ export const store = new Vuex.Store({
 							'title': park.title,
 							'slug': slug,
 							'image': lazyimage(park['head-image'], '3x1'),
-							'map': park.map
+							'map': park.map,
+							'loading': true,
 						};
 						parksDB.set(slug, parkData);
 						r[slug] = parkData;
@@ -65,19 +80,17 @@ export const store = new Vuex.Store({
 				});
 		},
 		loadPark({commit, state}, slug) {
-			let title = '';
-			if (slug in this.state.map) {
-				title = this.state.map[slug].title;
-			}
 			commit('SET_PARK', {
-				loading: true,
+				'title': '',
+				'image': '',
+				'loading': true,
 			});
 			parksDB.get(slug).then(resp => {
-				resp.loader = resp !== false;
-				commit('SET_PARK', resp);
+				if (resp) {
+					commit('SET_PARK', resp);
+				}
 			});
 			fetchPark(slug).then(resp => {
-				resp.loader = resp !== false;
 				commit('SET_PARK', resp);
 			});
 		},

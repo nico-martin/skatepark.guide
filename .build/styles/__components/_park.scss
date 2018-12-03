@@ -4,6 +4,7 @@
 		padding-bottom: percentage(1/3);
 		position: sticky;
 		overflow: hidden;
+		z-index: 9999;
 	}
 
 	&__title, &__love {
@@ -19,6 +20,7 @@
 		position: absolute;
 		left: 0;
 		top: 0;
+		will-change: opacity;
 	}
 
 	&__heading {
@@ -47,8 +49,32 @@
 	}
 
 	&__content {
-		> * + * {
-			margin-top: $space-item;
+	}
+
+	/*
+	&__gallery {
+		&.js-fallback {
+			.park__gallery-element {
+				display: none;
+				&:first-child {
+					display: block;
+				}
+			}
+		}
+	}
+	*/
+
+	&__gallery-element {
+		display: block;
+		& + .park__gallery-element {
+			margin-left: $space-item;
+		}
+		img, .lazyimage {
+			display: block;
+			width: 220px;
+			max-width: inherit !important;
+			height: (220 / 3 * 2) + 0px;
+			//width: 100%;
 		}
 	}
 

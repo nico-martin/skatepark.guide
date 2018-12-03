@@ -43,6 +43,11 @@
 @import "____elements/iframe";
 @import "____elements/table";
 @import "____elements/img";
+@import "____elements/modules/flickity/flickity";
+@import "____elements/modules/flickity/custom";
+@import "____elements/modules/photoswipe/photoswipe";
+@import "____elements/modules/photoswipe/skin";
+@import "____elements/modules/photoswipe/custom";
 /*
 >> OBJECTS
 >> class-based selectors which define undecorated design patterns, for example media object known from OOCSS
@@ -65,6 +70,7 @@
 @import "__components/map";
 @import "__components/content";
 @import "__components/park";
+@import "__components/post-content";
 
 /*
 >> TRUMPS

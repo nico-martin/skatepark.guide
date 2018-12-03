@@ -1,0 +1,23 @@
+.post-content {
+	> * + * {
+		margin-top: $space-item;
+	}
+
+	ul, ol {
+		padding-left: 2rem;
+	}
+
+	ul {
+		list-style: none;
+		li {
+			position: relative;
+			&:before {
+				transform: translateX(-200%);
+				position: absolute;
+				content: '-';
+				left: 0;
+				top: 0;
+			}
+		}
+	}
+}

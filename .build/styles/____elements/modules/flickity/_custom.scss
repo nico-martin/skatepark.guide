@@ -1,0 +1,25 @@
+.flickity-button {
+	background-color: #fff;
+	@include box-shadow();
+	&:disabled {
+		opacity: 0;
+	}
+}
+
+.flickity-prev-next-button {
+	color: #fff;
+	background-color: c(secondary);
+	&:hover {
+		background-color: c(secondary, light);
+	}
+	&.previous {
+		left: -20px
+	}
+	&.next {
+		right: -20px
+	}
+}
+
+.flickity-button-icon {
+	fill: currentColor;
+}
