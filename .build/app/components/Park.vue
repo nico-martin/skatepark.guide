@@ -3,10 +3,11 @@
 		<header class="park__header">
 			<div class="park__image" v-html="park.image"></div>
 			<div class="park__heading">
-				<h1 class="park__title">{{park.title}}</h1>
+				<span class="park__float-title">{{park.title}}</span>
 				<button class="park__love" v-html="icon('heartEmpty')"></button>
 			</div>
 		</header>
+		<h1 class="park__title">{{park.title}}</h1>
 		<div class="park__loader" v-if="park.loading"></div>
 		<div class="park__body" v-else>
 			<div class="park__video" v-if="park.video" v-html="getYoutubeIFrame(park.video)"></div>
@@ -127,6 +128,7 @@
 			scroll = offset;
 		}
 		document.querySelector('.park__image').style.opacity = 1 - (1 / offset * scroll);
+		document.querySelector('.park__float-title').style.opacity = (1 / offset * scroll);
 		//$image.style.transform = `translateY(${($image.offsetHeight - ($image.offsetHeight * opacity / 2) - $image.offsetHeight / 2) / 2}px)`;
 	}
 

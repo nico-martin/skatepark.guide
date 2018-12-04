@@ -475,14 +475,14 @@ https://flickity.metafizzy.co
 .flickity-button {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23); }
+  .flickity-button:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), 0 6px 8px rgba(0, 0, 0, 0.22); }
   .flickity-button:disabled {
     opacity: 0; }
 
 .flickity-prev-next-button {
-  color: #fff;
-  background-color: #00796B; }
-  .flickity-prev-next-button:hover {
-    background-color: #129282; }
+  color: #1d1d1b;
+  background-color: #fff; }
   .flickity-prev-next-button.previous {
     left: -20px; }
   .flickity-prev-next-button.next {
@@ -1586,19 +1586,12 @@ body.browser-outdated .browser-check--outdated {
     padding-bottom: 33.33333%;
     position: -webkit-sticky;
     position: sticky;
-    overflow: hidden;
     z-index: 9999; }
-  .park__title, .park__love {
-    color: #fff;
-    font-size: 3.15rem; }
-    @media (min-width: 900px) {
-      .park__title, .park__love {
-        font-size: 3.5rem; } }
   .park__image {
     width: 100%;
     position: absolute;
     left: 0;
-    top: 0;
+    bottom: 0;
     will-change: opacity; }
   .park__heading {
     position: absolute;
@@ -1606,16 +1599,38 @@ body.browser-outdated .browser-check--outdated {
     right: 0;
     bottom: 0;
     z-index: 5;
-    display: flex;
     padding: 2rem 4rem;
     justify-content: space-between;
-    align-items: flex-end;
-    overflow: hidden; }
+    align-items: flex-end; }
   .park__love {
     margin-left: 4rem;
-    font-size: 3.5rem; }
-  .park__body {
+    font-size: 3.5rem;
+    color: #1d1d1b;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    text-align: center;
+    position: absolute;
+    right: 4rem;
+    bottom: -2rem; }
+    .park__love:hover {
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), 0 6px 8px rgba(0, 0, 0, 0.22); }
+    .park__love .hello-icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translateX(-50%) translateY(-50%); }
+  .park__title {
     padding: 4rem; }
+  .park__float-title {
+    color: #fff;
+    font-weight: 700;
+    opacity: 0;
+    will-change: opacity; }
+  .park__body {
+    padding: 0 4rem 4rem 4rem; }
     .park__body > * + * {
       margin-top: 4rem; }
   .park__gallery-element {
