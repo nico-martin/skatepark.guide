@@ -11,3 +11,4 @@ $breakpoints: map-merge((small-phone : 0), $theme_breakpoints);
 
 $space-item: 2rem;
 $space-section: $space-item*2;
+$space-section-small: $space-section*.6;
