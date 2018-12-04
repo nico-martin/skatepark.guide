@@ -25,12 +25,9 @@
 		@include desktop {
 			padding: $space-item $space-section;
 		}
-		justify-content: space-between;
-		align-items: flex-end;
 	}
 
 	&__love {
-		margin-left: $space-section;
 		color: c();
 		background-color: #fff;
 		@include box-shadow();
@@ -43,13 +40,14 @@
 		width: 5rem;
 		height: 5rem;
 		font-size: 3rem;
-		bottom: -1.5rem;
+		bottom: -1.3rem;
+		right: $space-section-small;
 		@include desktop {
 			right: $space-section;
 			width: 6rem;
 			height: 6rem;
 			font-size: 4rem;
-			bottom: -2rem;
+			bottom: -1.7rem;
 		}
 
 		.hello-icon {

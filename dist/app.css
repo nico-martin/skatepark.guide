@@ -1600,14 +1600,11 @@ body.browser-outdated .browser-check--outdated {
     right: 0;
     bottom: 0;
     z-index: 5;
-    padding: 2rem 2.4rem;
-    justify-content: space-between;
-    align-items: flex-end; }
+    padding: 2rem 2.4rem; }
     @media (min-width: 900px) {
       .park__heading {
         padding: 2rem 4rem; } }
   .park__love {
-    margin-left: 4rem;
     color: #1d1d1b;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
@@ -1617,7 +1614,8 @@ body.browser-outdated .browser-check--outdated {
     width: 5rem;
     height: 5rem;
     font-size: 3rem;
-    bottom: -1.5rem; }
+    bottom: -1.3rem;
+    right: 2.4rem; }
     .park__love:hover {
       box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25), 0 6px 8px rgba(0, 0, 0, 0.22); }
     @media (min-width: 900px) {
@@ -1626,7 +1624,7 @@ body.browser-outdated .browser-check--outdated {
         width: 6rem;
         height: 6rem;
         font-size: 4rem;
-        bottom: -2rem; } }
+        bottom: -1.7rem; } }
     .park__love .hello-icon {
       position: absolute;
       left: 50%;
