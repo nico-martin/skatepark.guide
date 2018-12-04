@@ -1647,6 +1647,8 @@ body.browser-outdated .browser-check--outdated {
         padding: 0 4rem 4rem 4rem; } }
     .park__body > * + * {
       margin-top: 4rem; }
+  .park__video {
+    background-color: #e8e8e8; }
   .park__gallery-element {
     display: block; }
     .park__gallery-element + .park__gallery-element {
