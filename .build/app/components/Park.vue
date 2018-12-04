@@ -14,7 +14,6 @@
 			<div class="park__gallery js-fallback" v-if="park.gallery" v-html="getParkGallery(park.gallery)"></div>
 			<div class="park__content post-content" v-html="park.content"></div>
 		</div>
-		<div style="height: 3000px"></div>
 	</main>
 </template>
 
