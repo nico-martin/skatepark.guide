@@ -14,7 +14,7 @@
 		<h1 class="park__title">{{park.title}}</h1>
 		<div class="park__loader" v-if="park.loading"></div>
 		<div class="park__body" v-else>
-			<div class="park__video" v-if="park.video" v-html="getYoutubeIFrame(park.video)"></div>
+			<ParkVideo v-if="park.video" :link="park.video"></ParkVideo>
 			<ParkGallery v-if="park.gallery" :images="park.gallery"></ParkGallery>
 			<div class="park__content post-content" v-html="park.content"></div>
 		</div>
@@ -25,21 +25,10 @@
 	import Icon from './globals/Icon.vue';
 	import LazyImage from './globals/LazyImage.vue';
 	import ParkGallery from './ParkGallery.vue';
+	import ParkVideo from './ParkVideo.vue';
 	import {mapState} from 'vuex';
 
 	let offset = false;
-
-	function getYoutubeIFrame(link) {
-		const regex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i;
-		let m;
-
-		const r = regex.exec(link);
-		if (r === null) {
-			return '';
-		}
-
-		return `<div class="responsive-iframe"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/${r[1]}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
-	}
 
 	function setHeadingPosition() {
 		const $heading = document.querySelector('.park__heading');
@@ -67,11 +56,6 @@
 	});
 
 	export default {
-		data() {
-			return {
-				getYoutubeIFrame
-			}
-		},
 		metaInfo: function () {
 			return {
 				title: this.park.title
@@ -89,7 +73,8 @@
 		components: {
 			Icon,
 			LazyImage,
-			ParkGallery
+			ParkGallery,
+			ParkVideo
 		},
 		computed: mapState([
 			'park'
