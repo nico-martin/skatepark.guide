@@ -4,7 +4,6 @@ import axios from 'axios';
 import router from '../router'
 import {api} from '../modules/settings';
 import {pagesDB, parksDB} from './storeDB';
-import lazyimage from '../modules/lazyimage';
 
 Vue.use(Vuex);
 
@@ -22,7 +21,7 @@ function fetchPark(slug) {
 				const rendered = {
 					'title': park.title.rendered,
 					'slug': slug,
-					'image': lazyimage(park['head-image'], '3x1'),
+					'image': park['head-image'],
 					'map': park.map,
 					'content': park.content.rendered,
 					'loading': false,
@@ -69,7 +68,7 @@ export const store = new Vuex.Store({
 						const parkData = {
 							'title': park.title,
 							'slug': slug,
-							'image': lazyimage(park['head-image'], '3x1'),
+							'image': park['head-image'],
 							'map': park.map,
 							'loading': true,
 						};
@@ -82,7 +81,7 @@ export const store = new Vuex.Store({
 		loadPark({commit, state}, slug) {
 			commit('SET_PARK', {
 				'title': '',
-				'image': '',
+				'image': false,
 				'loading': true,
 			});
 			parksDB.get(slug).then(resp => {

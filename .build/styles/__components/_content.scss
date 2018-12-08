@@ -1,5 +1,6 @@
 .content {
 
+	margin-bottom: $space-section*2;
 	&__navigation {
 		display: flex;
 		padding: 0 $space-item;
@@ -43,7 +44,7 @@
 	}
 
 	&__content {
-		padding: $space-item $space-item*2 $space-section*2 $space-item*2;
+		padding: $space-item $space-item*2;
 		> * + * {
 			margin-top: 1em;
 		}
