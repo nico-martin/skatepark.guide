@@ -65,7 +65,16 @@
 				zoomEl: false,
 				shareEl: false,
 				bgOpacity: .9,
-				showHideOpacity: true
+				showHideOpacity: true,
+				getThumbBoundsFn: function (index) {
+					const pageYScroll = window.pageYOffset;
+					const rect = $gallery.getBoundingClientRect();
+					return {
+						x: rect.left,
+						y: rect.top + pageYScroll,
+						w: rect.width
+					};
+				}
 			};
 
 			let i = 0;
@@ -75,15 +84,7 @@
 				$el.onclick = function (event) {
 					event.preventDefault();
 					options['index'] = parseInt($el.getAttribute('data-index'));
-					options['getThumbBoundsFn'] = function (index) {
-						const pageYScroll = window.pageYOffset || document.documentElement.scrollTop;
-						const rect = $el.getBoundingClientRect();
-						return {
-							x: rect.left,
-							y: rect.top + pageYScroll,
-							w: rect.width
-						};
-					};
+
 					const gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, options);
 					gallery.init();
 					gallery.listen('afterChange', function () {
