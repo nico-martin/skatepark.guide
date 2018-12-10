@@ -1,6 +1,6 @@
 <template>
-	<div class="park__gallery js-fallback">
-		<a class="park__gallery-element"
+	<div class="park-gallery">
+		<a class="park-gallery__element"
 		   v-for="image in images"
 		   v-bind:href="image.org.sizes.window.url"
 		   v-bind:data-width="image.org.sizes.window.width"
@@ -24,7 +24,7 @@
 		components: {
 			LazyImage
 		},
-		mounted: () => {
+		mounted() {
 
 			if (document.getElementById('PhotoSwipeTemplate') === null) {
 				const e = document.createElement('div');
@@ -33,15 +33,9 @@
 				document.body.appendChild(e);
 			}
 
-			const $gallery = document.querySelector('.park__gallery');
-			if ($gallery === null) {
-				return;
-			}
-			if (!$gallery.classList.contains('js-fallback')) {
-				return;
-			}
-			$gallery.classList.remove('js-fallback');
-			const flkty = new Flickity('.park__gallery', {
+			const $gallery = this.$el;
+			const $links = $gallery.querySelectorAll('.park-gallery__element');
+			const flkty = new Flickity($gallery, {
 				cellAlign: 'left',
 				imagesLoaded: true,
 				pageDots: false,
@@ -50,7 +44,7 @@
 
 			const pswpElement = document.querySelectorAll('.pswp')[0];
 			const items = [];
-			const $links = $gallery.querySelectorAll('.park__gallery-element');
+
 			$links.forEach(($el) => {
 				items.push({
 					'src': $el.getAttribute('href'),

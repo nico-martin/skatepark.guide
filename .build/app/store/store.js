@@ -28,6 +28,7 @@ function fetchPark(slug) {
 					'gallery': park['parks-gallery'],
 					'video': park['parks-video'],
 					'anlage': park['parks-anlage'],
+					'facilities': park['parks-facilities'],
 					'homepage': park['parks-homepage'],
 					'email': park['parks-email'],
 					'phone': park['parks-phone'],

@@ -1,0 +1,23 @@
+.weather {
+	& > * + * {
+		margin-top: 10px;
+	}
+	&__icon {
+		font-size: 6rem;
+	}
+	&__description {
+		display: block;
+		font-size: $font-size-small;
+	}
+
+	&__temp {
+		padding: 10px 0;
+		display: block;
+		border-top: 1px solid c();
+		border-bottom: 1px solid c();
+		background-color: c(black, light);
+		margin-top: 20px;
+		font-size: $font-size-small;
+		font-weight: 700;
+	}
+}

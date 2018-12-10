@@ -33,6 +33,13 @@
 		border-radius: 50%;
 	}
 
+	&--button {
+		background-color: c(secondary);
+		color: #fff;
+		@include box-shadow;
+		padding: .4em;
+	}
+
 	&--animation-spin {
 		animation: spin 2s infinite linear;
 	}

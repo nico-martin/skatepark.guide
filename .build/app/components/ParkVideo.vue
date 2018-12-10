@@ -1,5 +1,5 @@
 <template>
-	<div class="park__video" v-if="videoLink">
+	<div v-if="videoLink">
 		<div class="responsive-iframe">
 			<iframe width="560" height="315" v-bind:src="videoLink" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		</div>
