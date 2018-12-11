@@ -1,3 +1,3 @@
 export default {
-	weather: 'Wetter'
+	weather: 'Weather'
 };
