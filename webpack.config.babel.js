@@ -4,6 +4,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 
+
 const DIST_DIR = path.resolve(__dirname, "dist");
 const SRC_DIR = path.resolve(__dirname, ".build");
 
@@ -28,9 +29,6 @@ const config = {
 				test: /\.vue$/,
 				loader: 'vue-loader',
 				exclude: /node_modules/,
-				options: {
-					// vue-loader options go here
-				}
 			},
 			{
 				test: /\.js$/,

@@ -15,6 +15,7 @@
 	import {maps} from '../modules/settings';
 	import fade from '../modules/fade';
 	import router from '../router';
+	import {i18n} from '../i18n';
 
 	let map = false;
 	let loadParksTimer = 'init';
@@ -74,7 +75,7 @@
 								});
 
 								google.maps.event.addListener(marker, 'click', function () {
-									router.push({path: `/parks/${state.map[park].slug}/`});
+									router.push({path: `/${i18n.locale}/parks/${state.map[park].slug}/`});
 								});
 
 								markers.push(marker);

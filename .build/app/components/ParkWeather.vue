@@ -1,6 +1,6 @@
 <template>
 	<div class="park-weather">
-		<h3 class="park-weather__heading">Weather</h3>
+		<h3 class="park-weather__heading">{{$t('weather')}}</h3>
 		<div class="park-weather__loading" v-if="loading"></div>
 		<ul class="park-weather__list" v-else-if="weather">
 			<li class="park-weather__element weather" v-for="data in weather">
@@ -17,12 +17,9 @@
 <script>
 	import {api} from '../modules/settings';
 	import axios from 'axios';
-	import dateFormat from 'dateformat';
 	import Icon from './globals/Icon.vue';
 	import moment from 'moment';
 	import 'moment/locale/de';
-
-	moment.locale('en');
 
 	export default {
 		props: ['slug'],
@@ -34,7 +31,8 @@
 		},
 		mounted() {
 			if (this.slug) {
-				const link = `${api.base}park-weather/${this.slug}/`;
+				moment.locale(this.$i18n.locale);
+				const link = `${api.base}park-weather/${this.slug}/?lang=${this.$i18n.locale}`;
 				axios.get(link)
 					.then(r => r.data)
 					.then(resp => {
@@ -42,23 +40,16 @@
 							return;
 						}
 
-						const weather = [];
+						const weather = {};
 						resp.list.forEach((data) => {
 
 							const date = moment(data.dt * 1000);
 							const day = date.format('YYYY-MM-DD');
 							const hour = date.format('HH');
 
-							let title = date.format('ddd D.M.');
-							if (title === moment().format('ddd D.M.')) {
-								title = 'Today';
-							} else if (title === moment().add(1, 'day').format('ddd D.M.')) {
-								title = 'Tomorrow';
-							}
-
 							if (hour <= '14') {
 								weather[day] = {
-									title,
+									title: date.format('ddd'),
 									icon: `weather/${data.weather[0].icon}`,
 									description: data.weather[0].description,
 									temp: parseInt(data.main.temp)
@@ -66,15 +57,10 @@
 							}
 						});
 
-						// ToDo: component not updated :(
 						this.loading = false;
 						this.weather = Object.values(weather);
-						this.$forceUpdate();
 					});
 			}
-		},
-		methods: {
-			dateFormat
 		},
 		components: {
 			Icon

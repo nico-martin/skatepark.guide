@@ -2,22 +2,37 @@
 	& > * + * {
 		margin-top: 10px;
 	}
+
 	&__icon {
-		font-size: 6rem;
+		font-size: 4rem;
 	}
+
+	&__heading {
+		font-size: 1.6rem;
+	}
+
 	&__description {
-		display: block;
+		display: none;
 		font-size: $font-size-small;
 	}
 
 	&__temp {
-		padding: 10px 0;
 		display: block;
-		border-top: 1px solid c();
-		border-bottom: 1px solid c();
-		background-color: c(black, light);
 		margin-top: 20px;
-		font-size: $font-size-small;
+		font-size: $font-size-small * .8;
 		font-weight: 700;
+	}
+
+	@include desktop {
+		&__icon {
+			font-size: 5rem;
+		}
+		&__heading {
+			font-size: 2rem;
+		}
+		&__description {
+			display: block;
+			font-size: $font-size-small;
+		}
 	}
 }

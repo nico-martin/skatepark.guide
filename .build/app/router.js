@@ -5,6 +5,7 @@ import Park from './components/Park.vue';
 import Page from './components/Page.vue';
 import Account from './components/Account.vue';
 import Home from './components/Home.vue';
+import {defaultLang} from './i18n';
 
 Vue.use(Router);
 Vue.use(Meta);
@@ -14,16 +15,20 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
+			redirect: `/${defaultLang}/`,
+		},
+		{
+			path: '/:lang/',
 			component: Home
 		}, {
-			path: '/account/',
+			path: '/:lang/account/',
 			component: Account
 		}, {
-			path: '/parks/:slug/',
+			path: '/:lang/parks/:slug/',
 			component: Park
 		}, {
-			path: '/:page/',
+			path: '/:lang/:page/',
 			component: Page
 		}
 	]
-})
+});

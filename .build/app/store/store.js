@@ -85,6 +85,9 @@ export const store = new Vuex.Store({
 				'image': false,
 				'loading': true,
 			});
+			if (!slug) {
+				return;
+			}
 			parksDB.get(slug).then(resp => {
 				if (resp) {
 					commit('SET_PARK', resp);

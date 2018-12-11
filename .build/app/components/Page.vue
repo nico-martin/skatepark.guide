@@ -1,9 +1,9 @@
 <template>
 	<div class="content">
 		<nav class="content__navigation">
-			<router-link active-class="content__link--active" to="/about/" class="content__link">About</router-link>
-			<router-link active-class="content__link--active" to="/impressum/" class="content__link">Impressum</router-link>
-			<router-link active-class="content__link--active" to="/privacy/" class="content__link">Privacy</router-link>
+			<router-link active-class="content__link--active" :to="'/'+this.$i18n.locale+'/about/'" class="content__link">About</router-link>
+			<router-link active-class="content__link--active" :to="'/'+this.$i18n.locale+'/impressum/'" class="content__link">Impressum</router-link>
+			<router-link active-class="content__link--active" :to="'/'+this.$i18n.locale+'/privacy/'" class="content__link">Privacy</router-link>
 		</nav>
 		<h1 class="content__title">{{page.title}}</h1>
 		<div class="content__loader" v-if="page.loading"></div>

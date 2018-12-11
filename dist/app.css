@@ -1709,27 +1709,56 @@ body.browser-outdated .browser-check--outdated {
 
 .park-weather__element {
   text-align: center;
-  width: 50%; }
+  width: 50%;
+  position: relative;
+  padding: 0 1rem; }
+  .park-weather__element:after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    bottom: 2rem;
+    right: 0;
+    border-right: 1px solid #ddd; }
+  .park-weather__element:first-child:before {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    bottom: 2rem;
+    left: 0;
+    border-left: 1px solid #ddd; }
+  .park-weather__element:last-child {
+    display: none; }
+    @media (min-width: 900px) {
+      .park-weather__element:last-child {
+        display: block; } }
 
 .weather > * + * {
   margin-top: 10px; }
 
 .weather__icon {
-  font-size: 6rem; }
+  font-size: 4rem; }
+
+.weather__heading {
+  font-size: 1.6rem; }
 
 .weather__description {
-  display: block;
+  display: none;
   font-size: 1.6rem; }
 
 .weather__temp {
-  padding: 10px 0;
   display: block;
-  border-top: 1px solid #1d1d1b;
-  border-bottom: 1px solid #1d1d1b;
-  background-color: #ddd;
   margin-top: 20px;
-  font-size: 1.6rem;
+  font-size: 1.28rem;
   font-weight: 700; }
+
+@media (min-width: 900px) {
+  .weather__icon {
+    font-size: 5rem; }
+  .weather__heading {
+    font-size: 2rem; }
+  .weather__description {
+    display: block;
+    font-size: 1.6rem; } }
 
 .post-content > * + * {
   margin-top: 2rem; }

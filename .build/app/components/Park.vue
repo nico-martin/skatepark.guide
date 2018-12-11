@@ -57,8 +57,10 @@
 	function setHeadingPosition() {
 		const $heading = document.querySelector('.park__heading');
 		const $header = document.querySelector('.park__header');
-		offset = $header.offsetHeight - $heading.offsetHeight;
-		$header.style.top = `-${offset}px`;
+		if ($heading && $header) {
+			offset = $header.offsetHeight - $heading.offsetHeight;
+			$header.style.top = `-${offset}px`;
+		}
 	}
 
 	function nl2br(str = '') {
@@ -106,6 +108,9 @@
 				$title.style.opacity = (1 / offset * scroll);
 				//$image.style.transform = `translateY(${($image.offsetHeight - ($image.offsetHeight * opacity / 2) - $image.offsetHeight / 2) / 2}px)`;
 			});
+		},
+		beforeDestroy() {
+			this.$store.dispatch('loadPark', false);
 		},
 		updated() {
 			setHeadingPosition();

@@ -1,24 +1,24 @@
 <template>
 	<div class="app" id="app">
-		<router-link to="/" class="controls controls--logo logo" v-html="logo"></router-link>
+		<router-link :to="'/'+this.$i18n.locale+'/'" class="controls controls--logo logo" v-html="logo"></router-link>
 		<Map></Map>
 		<div id="content" class="app__content" aria-hidden="true">
 			<router-view></router-view>
 		</div>
-		<router-link to="/" class="app__overlay"></router-link>
+		<router-link :to="'/'+this.$i18n.locale+'/'" class="app__overlay"></router-link>
 		<div class="controls controls--menu menu" data-state="closed" id="menu">
 			<button class="menu__toggler menutoggler button button--icon" v-on:click="toggleMenu">
 				<span class="menutoggler__line menutoggler__line--1"></span>
 				<span class="menutoggler__line menutoggler__line--2"></span>
 				<span class="menutoggler__line menutoggler__line--3"></span>
 			</button>
-			<router-link to="/about/" class="menu__links menu__links--information button button--icon button--small">
+			<router-link :to="'/'+this.$i18n.locale+'/about/'" class="menu__links menu__links--information button button--icon button--small">
 				<Icon icon="information"></Icon>
 			</router-link>
 			<a class="menu__links menu__links--markerplus button button--icon button--small">
 				<Icon icon="markerplus"></Icon>
 			</a>
-			<router-link to="/account/" class="menu__links menu__links--account button button--icon button--small">
+			<router-link :to="'/'+this.$i18n.locale+/account/" class="menu__links menu__links--account button button--icon button--small">
 				<Icon icon="account"></Icon>
 			</router-link>
 		</div>
@@ -66,7 +66,7 @@
 					$menu.setAttribute('data-state', 'open');
 				} else if (state === 'back') {
 					this.$router.push({
-						path: '/'
+						path: `/${this.$i18n.locale}/`
 					});
 				}
 			}
@@ -75,7 +75,7 @@
 			window.setTimeout(() => {
 				document.getElementById("app").classList.add('app--loaded');
 			}, 100);
-			if (this.$router.history.current.path !== '/') {
+			if (this.$router.history.current.path !== `/${this.$i18n.locale}/`) {
 				content.show();
 			}
 		}

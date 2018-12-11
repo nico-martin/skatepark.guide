@@ -153,5 +153,32 @@
 	&__element {
 		text-align: center;
 		width: 50%;
+		position: relative;
+		padding: 0 $space-item/2;
+		
+		&:after {
+			content: '';
+			position: absolute;
+			top: $space-item;
+			bottom: $space-item;
+			right: 0;
+			border-right: 1px solid c(black, light);
+		}
+		
+		&:first-child:before {
+			content: '';
+			position: absolute;
+			top: $space-item;
+			bottom: $space-item;
+			left: 0;
+			border-left: 1px solid c(black, light);
+		}
+		
+		&:last-child {
+			display: none;
+			@include desktop {
+				display: block;
+			}
+		}
 	}
 }
