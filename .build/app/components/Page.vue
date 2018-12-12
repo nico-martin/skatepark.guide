@@ -1,9 +1,9 @@
 <template>
 	<div class="content">
 		<nav class="content__navigation">
-			<router-link active-class="content__link--active" :to="'/'+this.$i18n.locale+'/about/'" class="content__link">About</router-link>
-			<router-link active-class="content__link--active" :to="'/'+this.$i18n.locale+'/impressum/'" class="content__link">Impressum</router-link>
-			<router-link active-class="content__link--active" :to="'/'+this.$i18n.locale+'/privacy/'" class="content__link">Privacy</router-link>
+			<router-link active-class="content__link--active" :to="'/'+this.$i18n.locale+'/about/'" class="content__link">{{$t('menu.about.title')}}</router-link>
+			<router-link active-class="content__link--active" :to="'/'+this.$i18n.locale+'/impressum/'" class="content__link">{{$t('menu.impressum.title')}}</router-link>
+			<router-link active-class="content__link--active" :to="'/'+this.$i18n.locale+'/privacy/'" class="content__link">{{$t('menu.privacy.title')}}</router-link>
 		</nav>
 		<h1 class="content__title">{{page.title}}</h1>
 		<div class="content__loader" v-if="page.loading"></div>
@@ -12,21 +12,13 @@
 </template>
 
 <script>
+	import {i18n} from '../i18n';
 	import {mapState} from 'vuex';
 
 	const pages = {
-		'about': {
-			'title': 'About',
-			'path': 'pages/2086/'
-		},
-		'impressum': {
-			'title': 'Impressum',
-			'path': 'pages/2084/'
-		},
-		'privacy': {
-			'title': 'Data Privacy',
-			'path': 'pages/2088/'
-		}
+		'about': i18n.t('menu.about'),
+		'impressum': i18n.t('menu.impressum'),
+		'privacy': i18n.t('menu.privacy'),
 	};
 
 	export default {

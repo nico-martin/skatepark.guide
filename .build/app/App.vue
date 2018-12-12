@@ -38,6 +38,8 @@
 	import Map from './components/Map.vue';
 	import Icon from './components/globals/Icon.vue';
 
+	import router from './router';
+
 	export default {
 		data() {
 			return {
@@ -75,6 +77,12 @@
 			window.setTimeout(() => {
 				document.getElementById("app").classList.add('app--loaded');
 			}, 100);
+
+			const currentRoute = this.$router.currentRoute;
+			if (this.$i18n.locale !== currentRoute.params.lang) {
+				const path = this.$router.currentRoute.fullPath.replace(`/${currentRoute.params.lang}/`, `/${this.$i18n.locale}/`);
+				router.push(path);
+			}
 			if (this.$router.history.current.path !== `/${this.$i18n.locale}/`) {
 				content.show();
 			}

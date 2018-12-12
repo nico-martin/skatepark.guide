@@ -3,11 +3,18 @@ import VueI18n from 'vue-i18n';
 import en from './lang/en';
 import de from './lang/de';
 import axios from 'axios';
+import './router';
 import 'vue-cookies';
 
 Vue.use(VueI18n);
 
-export const defaultLang = ($cookies.isKey('lang') ? $cookies.get('lang') : 'en');
+let lang = ($cookies.isKey('lang') ? $cookies.get('lang') : 'en');
+if (!['de', 'en'].includes(lang)) {
+	lang = 'en';
+	$cookies.set('lang', lang);
+}
+
+export const defaultLang = lang;
 export const i18n = new VueI18n({
 	locale: defaultLang,
 	fallbackLocale: defaultLang,
