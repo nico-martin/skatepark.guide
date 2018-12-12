@@ -26,8 +26,14 @@
 		bottom: 0;
 		width: calc(100vw - 160px);
 		max-width: 400px;
-		z-index: 200;
+		z-index: 199;
 		transform: translate(100%, 0);
+		@include transition();
+		will-change: transform;
+		&[aria-hidden=false] {
+			transform: translateX(0);
+			@include box-shadow;
+		}
 	}
 
 	&__map {
@@ -50,6 +56,7 @@
 		overflow: auto;
 		@include transition();
 		transform: translateX(100%);
+		will-change: transform;
 		&[aria-hidden=false] {
 			transform: translateX(0);
 			@include box-shadow;

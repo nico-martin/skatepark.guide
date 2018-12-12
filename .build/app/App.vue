@@ -22,12 +22,10 @@
 				<Icon icon="account"></Icon>
 			</router-link>
 		</div>
-		<button class="controls controls--settings button button--icon">
+		<button class="controls controls--settings button button--icon" v-on:click="toggleSettings">
 			<Icon icon="settings"></Icon>
 		</button>
-		<ul class="app__settings settings">
-			Settings
-		</ul>
+		<Settings class="app__settings settings" aria-hidden="true"></Settings>
 	</div>
 </template>
 
@@ -37,8 +35,9 @@
 
 	import Map from './components/Map.vue';
 	import Icon from './components/globals/Icon.vue';
+	import Settings from './components/Settings.vue';
 
-	import router from './router';
+	import {setI18nLanguage} from "./i18n";
 
 	export default {
 		data() {
@@ -56,7 +55,8 @@
 		},
 		components: {
 			Map,
-			Icon
+			Icon,
+			Settings
 		},
 		methods: {
 			toggleMenu: function () {
@@ -71,6 +71,14 @@
 						path: `/${this.$i18n.locale}/`
 					});
 				}
+			},
+			toggleSettings: function () {
+				const $settings = this.$el.querySelector('.app__settings');
+				if ($settings.getAttribute('aria-hidden') === 'false') {
+					$settings.setAttribute('aria-hidden', 'true');
+				} else {
+					$settings.setAttribute('aria-hidden', 'false');
+				}
 			}
 		},
 		mounted: function () {
@@ -78,11 +86,7 @@
 				document.getElementById("app").classList.add('app--loaded');
 			}, 100);
 
-			const currentRoute = this.$router.currentRoute;
-			if (this.$i18n.locale !== currentRoute.params.lang) {
-				const path = this.$router.currentRoute.fullPath.replace(`/${currentRoute.params.lang}/`, `/${this.$i18n.locale}/`);
-				router.push(path);
-			}
+			setI18nLanguage();
 			if (this.$router.history.current.path !== `/${this.$i18n.locale}/`) {
 				content.show();
 			}

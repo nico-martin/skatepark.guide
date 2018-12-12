@@ -1,5 +1,6 @@
 export default {
 	weather: 'Wetter',
+	languages: 'Sprachen',
 	menu: {
 		about: {
 			title: 'Über uns',
