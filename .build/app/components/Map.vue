@@ -19,8 +19,7 @@
 
 	let map = false;
 	let loadParksTimer = 'init';
-	const markers = [];
-	const markersSet = [];
+	let markers = [];
 	let markerCluster = false;
 
 	export default {
@@ -54,16 +53,39 @@
 				});
 
 				store.subscribe((mutation, state) => {
-					if (mutation.type === 'SET_PARKS') {
+					if (mutation.type === 'SET_PARKS' || mutation.type === 'SET_MAP_FILTER') {
 
-						let i = 0;
+						// set Filter
+						const filters = [];
+						for (let filter in state.mapFilter) {
+							if (state.mapFilter.hasOwnProperty(filter) && state.mapFilter[filter]) {
+								filters.push(filter);
+							}
+						}
+
+						// reset Markers
+						for (let i = 0; i < markers.length; i++) {
+							markers[i].setMap(null);
+						}
+						markers = [];
+
 						for (let park in state.map) {
 							if (state.map.hasOwnProperty(park)) {
-								if (markersSet.includes(park)) {
-									continue;
+
+								if (filters.length) {
+									let valid = false;
+									for (let parkFacility in state.map[park].facilities) {
+										if (state.map[park].facilities.hasOwnProperty(parkFacility)) {
+											if (state.map[park].facilities[parkFacility] === '1' && filters.indexOf(parkFacility) !== -1) {
+												valid = true;
+											}
+										}
+									}
+									if (!valid) {
+										continue;
+									}
 								}
 
-								i++;
 								const marker = new google.maps.Marker({
 									position: {
 										lat: state.map[park].map.lat,
@@ -79,7 +101,6 @@
 								});
 
 								markers.push(marker);
-								markersSet.push(park);
 							}
 						}
 
@@ -139,6 +160,10 @@
 		];
 
 		store.dispatch('loadMapParks', bounds.join('|'));
+	}
+
+	function resetParks() {
+
 	}
 
 	function getCenter() {

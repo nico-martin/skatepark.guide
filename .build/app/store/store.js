@@ -55,6 +55,7 @@ function fetchPage(path, slug) {
 export const store = new Vuex.Store({
 	state: {
 		map: [],
+		mapFilter: {},
 		page: [],
 		park: []
 	},
@@ -72,12 +73,16 @@ export const store = new Vuex.Store({
 							'image': park['head-image'],
 							'map': park.map,
 							'loading': true,
+							'facilities': park['parks-facilities'],
 						};
 						parksDB.set(slug, parkData);
 						r[slug] = parkData;
 					});
 					commit('SET_PARKS', r);
 				});
+		},
+		changeMapFilter({commit}, data) {
+			commit('SET_MAP_FILTER', data);
 		},
 		loadPark({commit, state}, slug) {
 			commit('SET_PARK', {
@@ -136,6 +141,9 @@ export const store = new Vuex.Store({
 			Object.keys(parks).forEach((slug) => {
 				state.map[slug] = parks[slug];
 			});
+		},
+		SET_MAP_FILTER(state, filters) {
+			state.mapFilter = filters;
 		},
 		SET_PARK(state, park) {
 			state.park = park;
