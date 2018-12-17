@@ -3,9 +3,11 @@ import App from './App.vue';
 import './modules/a11y.js';
 import VueI18n from 'vue-i18n';
 import VueCookies from 'vue-cookies';
+import VueSnackbar from 'vue-snack';
 
 Vue.use(VueI18n);
 Vue.use(VueCookies);
+Vue.use(VueSnackbar);
 
 import {store} from './store/store';
 import router from './router';

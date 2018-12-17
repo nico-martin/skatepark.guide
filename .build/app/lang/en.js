@@ -13,6 +13,11 @@ export default {
 		de: 'German',
 		en: 'English'
 	},
+	msg: {
+		geolocation: {
+			error: 'Geo position could not be loaded'
+		}
+	},
 	menu: {
 		about: {
 			title: 'About',

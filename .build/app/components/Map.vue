@@ -18,6 +18,7 @@
 	import {i18n} from '../i18n';
 
 	let map = false;
+	window.map = map;
 	let loadParksTimer = 'init';
 	let markers = [];
 	let markerCluster = false;
@@ -51,6 +52,7 @@
 					mapTypeId: google.maps.MapTypeId.ROADMAP,
 					styles: maps.styles
 				});
+				window.map = map;
 
 				store.subscribe((mutation, state) => {
 					if (mutation.type === 'SET_PARKS' || mutation.type === 'SET_MAP_FILTER') {

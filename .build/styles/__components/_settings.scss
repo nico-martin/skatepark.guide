@@ -18,6 +18,14 @@
 	}
 }
 
+.settings-location {
+	&__set {
+		&--active {
+			color: c(secondary);
+		}
+	}
+}
+
 .settings-lang {
 
 }

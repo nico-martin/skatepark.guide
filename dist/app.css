@@ -1130,6 +1130,104 @@ a.pswp__share--download:hover {
 .pswp--minimal--dark .pswp__top-bar {
   background: none; }
 
+.snackbar {
+  --primary: #C849F4;
+  --text: #E3E3E3; }
+
+.snackbar {
+  font-size: 1.6rem;
+  background-color: #1d1d1b;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  min-height: 1.6rem;
+  padding: 1.6rem;
+  border-radius: 4px; }
+  @media (max-width: 899.9px) {
+    .snackbar {
+      border-radius: 0;
+      width: 100%; } }
+  @media (min-width: 900px) {
+    .snackbar.top, .snackbar.bottom {
+      transform: translateX(-50%);
+      left: 50%; }
+      .snackbar.top-left, .snackbar.bottom-left {
+        left: 1rem; }
+      .snackbar.top-right, .snackbar.bottom-right {
+        right: 1rem; } }
+  .snackbar[class*="bottom"] {
+    bottom: 1rem; }
+  .snackbar[class*="top"] {
+    top: 1rem; }
+  @media (max-width: 899.9px) {
+    .snackbar {
+      left: 0; }
+      .snackbar[class*="bottom"] {
+        bottom: 0; }
+      .snackbar[class*="top"] {
+        top: 0; } }
+  .snackbar .snackbar__text {
+    flex: 1; }
+  .snackbar .snackbar__action {
+    text-transform: uppercase;
+    font-weight: 500;
+    margin: 0 0 0 1rem;
+    color: var(--primary);
+    cursor: pointer;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none; }
+  .snackbar .times {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin-left: 1rem;
+    transform: scale(1.25);
+    position: relative; }
+    .snackbar .times:before {
+      display: block;
+      content: '';
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: scale(0.9);
+      border-radius: 50%;
+      transition: transform .1s ease-in; }
+    .snackbar .times:hover:before {
+      background-color: rgba(255, 255, 255, 0.2);
+      transform: scale(2); }
+
+.snack-enter-active, .snack-leave-active {
+  transition: all .4s ease; }
+
+.snack-enter, .snack-leave-to {
+  opacity: 0; }
+  @media (min-width: 900px) {
+    .snack-enter.bottom, .snack-leave-to.bottom {
+      transform: translateY(100%) translateX(-50%); }
+    .snack-enter.top, .snack-leave-to.top {
+      transform: translateY(-100%) translateX(-50%); } }
+  @media (max-width: 899.9px) {
+    .snack-enter[class*="top"], .snack-leave-to[class*="top"] {
+      transform: translateY(-100%); } }
+  @media (max-width: 899.9px) {
+    .snack-enter[class*="bottom"], .snack-leave-to[class*="bottom"] {
+      transform: translateY(100%); } }
+  @media (min-width: 900px) {
+    .snack-enter[class*="-left"], .snack-leave-to[class*="-left"] {
+      transform: translateX(-50%); } }
+  @media (min-width: 900px) {
+    .snack-enter[class*="-right"], .snack-leave-to[class*="-right"] {
+      transform: translateX(50%); } }
+
 /*
 >> OBJECTS
 >> class-based selectors which define undecorated design patterns, for example media object known from OOCSS
@@ -1394,7 +1492,7 @@ body.browser-outdated .browser-check--outdated {
     top: 0;
     bottom: 0;
     width: calc(100vw - 160px);
-    max-width: 400px;
+    max-width: 600px;
     z-index: 199;
     transform: translate(100%, 0);
     transition: all 300ms cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -1456,6 +1554,9 @@ body.browser-outdated .browser-check--outdated {
   .settings-filter__element {
     margin-bottom: 2rem;
     flex: 1 0 50%; }
+
+.settings-location__set--active {
+  color: #00796B; }
 
 .menu__toggler {
   position: relative; }

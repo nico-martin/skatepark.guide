@@ -13,6 +13,11 @@ export default {
 		de: 'Deutsch',
 		en: 'Englisch'
 	},
+	msg: {
+		geolocation: {
+			error: 'Geoposition konnte nicht geladen werden'
+		}
+	},
 	menu: {
 		about: {
 			title: 'Über uns',
