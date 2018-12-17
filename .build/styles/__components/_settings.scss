@@ -1,3 +1,23 @@
 .settings {
 	background-color: #fff;
+	padding: $space-item;
+	& > * + * {
+		margin-top: $space-item;
+	}
+	&__heading {
+		//margin-top: $space-item;
+	}
+}
+
+.settings-filter {
+	display: flex;
+	flex-wrap: wrap;
+	&__element {
+		margin-bottom: $space-item;
+		flex: 1 0 50%;
+	}
+}
+
+.settings-lang {
+
 }

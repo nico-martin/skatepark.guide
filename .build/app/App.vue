@@ -23,9 +23,9 @@
 			</router-link>
 		</div>
 		<button class="controls controls--settings button button--icon" v-on:click="toggleSettings">
-			<Icon icon="settings"></Icon>
+			<Icon icon="filter"></Icon>
 		</button>
-		<Settings class="app__settings settings" aria-hidden="true"></Settings>
+		<Settings class="app__settings settings" aria-hidden="false"></Settings>
 	</div>
 </template>
 

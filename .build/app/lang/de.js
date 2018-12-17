@@ -1,12 +1,17 @@
 export default {
 	weather: 'Wetter',
-	languages: 'Sprachen',
 	filter: 'Filter',
+	location: 'Standort',
 	facilities: {
 		bowl: 'Bowl',
 		mini: 'Mini',
 		pumptrack: 'Pumptrack',
 		street: 'Street',
+	},
+	languages: {
+		title: 'Sprachen',
+		de: 'Deutsch',
+		en: 'Englisch'
 	},
 	menu: {
 		about: {
