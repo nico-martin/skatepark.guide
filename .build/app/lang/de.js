@@ -8,7 +8,7 @@ export default {
 		pumptrack: 'Pumptrack',
 		street: 'Street',
 	},
-	settings: 'Einstellungen',
+	settings: 'App-Einstellungen',
 	languages: {
 		title: 'Sprache',
 		de: 'Deutsch',
