@@ -23,7 +23,7 @@
 			</router-link>
 		</div>
 		<button class="controls controls--settings button button--icon" v-on:click="toggleSettings">
-			<Icon icon="filter"></Icon>
+			<Icon icon="settings"></Icon>
 		</button>
 		<Settings class="app__settings settings" aria-hidden="false"></Settings>
 	</div>

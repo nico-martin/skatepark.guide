@@ -33,11 +33,17 @@
 		border-radius: 50%;
 	}
 
-	&--button {
+	&--button, &--button-white {
 		background-color: c(secondary);
 		color: #fff;
 		@include box-shadow;
 		padding: .4em;
+	}
+
+	&--button-white {
+		background-color: #fff;
+		border: 1px solid #c9c9c9;
+		color: c();
 	}
 
 	&--animation-spin {

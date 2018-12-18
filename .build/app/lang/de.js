@@ -8,15 +8,16 @@ export default {
 		pumptrack: 'Pumptrack',
 		street: 'Street',
 	},
+	settings: 'Einstellungen',
 	languages: {
-		title: 'Sprachen',
+		title: 'Sprache',
 		de: 'Deutsch',
 		en: 'Englisch'
 	},
-	msg: {
-		geolocation: {
-			error: 'Geoposition konnte nicht geladen werden'
-		}
+	geolocation: {
+		active: 'Position wird angezeigt..',
+		action: 'Meine Position anzeigen',
+		error: 'Geoposition konnte nicht gefunden werden'
 	},
 	menu: {
 		about: {

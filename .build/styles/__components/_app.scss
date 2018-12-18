@@ -24,8 +24,8 @@
 		right: 0;
 		top: 0;
 		bottom: 0;
-		width: calc(100vw - 160px);
-		max-width: 600px;
+		width: calc(100vw - 100px);
+		max-width: 400px;
 		z-index: 199;
 		transform: translate(100%, 0);
 		@include transition();

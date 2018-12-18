@@ -1,17 +1,28 @@
 .settings {
 	background-color: #fff;
-	padding: $space-item;
-	& > * + * {
-		margin-top: $space-item;
-	}
+	padding: $space-item $space-item $space-section*3 $space-item;
+	display: flex;
+	flex-direction: column;
+
 	&__heading {
-		//margin-top: $space-item;
+		margin-bottom: $space-item;
+	}
+
+	&__element {
+		margin-top: $space-item;
+		&:first-child {
+			margin-top: 0;
+		}
+		&--config {
+			margin-top: auto;
+		}
 	}
 }
 
 .settings-filter {
 	display: flex;
 	flex-wrap: wrap;
+
 	&__element {
 		margin-bottom: $space-item;
 		flex: 1 0 50%;
@@ -20,12 +31,62 @@
 
 .settings-location {
 	&__set {
+		display: flex;
+		align-items: center;
+		.hello-icon {
+			margin-right: .6em;
+			color: rgba(c(), .5);
+		}
+		&--permit {
+			.hello-icon {
+				color: c();
+			}
+		}
 		&--active {
-			color: c(secondary);
+			.hello-icon {
+				color: c(secondary);
+				animation: geolocation-pulse 1s infinite;
+			}
 		}
 	}
 }
 
-.settings-lang {
+@keyframes geolocation-pulse {
+	0% {
+		color: c();
+	}
+	50% {
+		color: c(secondary);
+	}
+	100% {
+		color: c();
+	}
+}
 
+.settings-config {
+	position: relative;
+	padding: .6em 0;
+	&:after, &:before {
+		content: '';
+		position: absolute;
+		left: -$space-item;
+		right: -$space-item;
+		top: 0;
+		border-bottom: 1px solid c(black, light);
+		display: block;
+	}
+	&:after {
+		top: inherit;
+		bottom: 0;
+	}
+
+	+ .settings-config:before {
+		display: none;
+	}
+
+	&--language {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
 }

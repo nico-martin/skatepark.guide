@@ -42,3 +42,14 @@
 		}
 	}
 }
+
+.input-text, .input-select {
+	font-family: $font;
+	border: none;
+	border-bottom: 2px solid c();
+	padding: .2em .5em;
+}
+
+.input-select {
+
+}

@@ -4,9 +4,11 @@
 	@include box-shadow();
 	background-color: c(secondary);
 	color: #fff;
+	padding: .5em 1em;
 
 	&:hover {
 		@include box-shadow-hover();
+		transform: translateY(-1%);
 	}
 
 	&--icon {
@@ -32,5 +34,16 @@
 
 	&--small {
 		font-size: .6em;
+	}
+
+	&--round {
+		border-radius: 3em;
+	}
+
+	// Color
+	&--white {
+		background-color: #fff;
+		color: c();
+		border: 1px solid c(black, light);
 	}
 }
