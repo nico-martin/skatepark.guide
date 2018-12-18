@@ -35,8 +35,32 @@
 	import {setI18nLanguage, i18n} from '../i18n';
 	import {store} from '../store/store';
 	import Icon from '../components/globals/Icon.vue';
-	import {settingsDB} from '../store/storeDB';
-	import Map from './Map.vue';
+	import {maps} from '../modules/settings';
+
+	let userMarker = false;
+	let watchID = false;
+
+	function setUserMarker(position) {
+		if (!window.map) {
+			return;
+		}
+		if (!userMarker) {
+			userMarker = new google.maps.Marker({
+				position: position,
+				map: window.map,
+				icon: {
+					url: maps.markerUser,
+					scaledSize: new google.maps.Size(30, 30),
+					anchor: new google.maps.Point(15, 15),
+				}
+			});
+			window.map.setCenter(position);
+			if (window.map.getZoom() <= 13) {
+				window.map.setZoom(13);
+			}
+		}
+		userMarker.setPosition(position);
+	}
 
 	export default {
 		data: () => {
@@ -61,22 +85,25 @@
 				store.dispatch('changeMapFilter', facilities);
 			},
 			setGeoPosition: function () {
-				navigator.geolocation.watchPosition((position) => {
-					console.log(position);
-					this.geolocationActive = true;
-					this.geolocationPerm = true;
-					const lat = position.coords.latitude;
-					const lng = position.coords.longitude;
-					if (window.map) {
-						window.map.setCenter({lat, lng});
-						window.map.setZoom(13);
-					}
-				}, () => {
-					this.$snack.danger({
-						text: this.$t('geolocation.error'),
-						button: 'OK'
+				if (this.geolocationActive) {
+					this.geolocationActive = false;
+					navigator.geolocation.clearWatch(watchID);
+					userMarker.setMap(null);
+					userMarker = false;
+				} else {
+					watchID = navigator.geolocation.watchPosition((position) => {
+						this.geolocationActive = true;
+						this.geolocationPerm = true;
+						const lat = position.coords.latitude;
+						const lng = position.coords.longitude;
+						setUserMarker({lat, lng});
+					}, () => {
+						this.$snack.danger({
+							text: this.$t('geolocation.error'),
+							button: 'OK'
+						});
 					});
-				});
+				}
 			}
 		},
 		components: {

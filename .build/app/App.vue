@@ -25,14 +25,13 @@
 		<button class="controls controls--settings button button--icon" v-on:click="toggleSettings">
 			<Icon icon="settings"></Icon>
 		</button>
-		<Settings class="app__settings settings" aria-hidden="false"></Settings>
+		<Settings class="app__settings settings" aria-hidden="true"></Settings>
 	</div>
 </template>
 
 <script>
 	import logo from './../icons/logo-portrait.svg';
 	import content from './modules/content';
-
 	import Map from './components/Map.vue';
 	import Icon from './components/globals/Icon.vue';
 	import Settings from './components/Settings.vue';
