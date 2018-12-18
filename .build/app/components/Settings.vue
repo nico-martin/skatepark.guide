@@ -104,6 +104,7 @@
 						});
 					});
 				}
+				this.$el.setAttribute('aria-hidden', 'true');
 			}
 		},
 		components: {
