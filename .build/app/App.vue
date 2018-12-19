@@ -15,9 +15,9 @@
 			<router-link :to="'/'+this.$i18n.locale+'/about/'" class="menu__links menu__links--information button button--icon button--small">
 				<Icon icon="information"></Icon>
 			</router-link>
-			<a class="menu__links menu__links--markerplus button button--icon button--small">
+			<button @click="newPark()" class="menu__links menu__links--markerplus button button--icon button--small">
 				<Icon icon="markerplus"></Icon>
-			</a>
+			</button>
 			<router-link :to="'/'+this.$i18n.locale+/account/" class="menu__links menu__links--account button button--icon button--small">
 				<Icon icon="account"></Icon>
 			</router-link>
@@ -78,6 +78,12 @@
 				} else {
 					$settings.setAttribute('aria-hidden', 'false');
 				}
+			},
+			newPark: function () {
+				this.$snack.danger({
+					text: this.$t('comingsoon'),
+					button: 'OK'
+				});
 			}
 		},
 		mounted: function () {

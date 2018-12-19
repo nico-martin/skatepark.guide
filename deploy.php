@@ -29,8 +29,8 @@ $commands = array(
 	'git pull',
 );
 $output   = "\n";
-$log      = "####### " . date( 'Y-m-d H:i:s' ) . " #######\n";
-foreach ( $commands AS $command ) {
+$log      = '####### ' . date( 'Y-m-d H:i:s' ) . " #######\n";
+foreach ( $commands as $command ) {
 	// Run it
 	$tmp = shell_exec( "$command 2>&1" );
 	// Output

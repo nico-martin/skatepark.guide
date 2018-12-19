@@ -2,6 +2,7 @@ export default {
 	weather: 'Wetter',
 	filter: 'Filter',
 	location: 'Standort',
+	comingsoon: 'Sorry, dieses Feature ist noch nicht verfügbar',
 	facilities: {
 		bowl: 'Bowl',
 		mini: 'Mini',
