@@ -302,7 +302,10 @@ body {
 html {
   font-family: "Cairo", sans-serif;
   font-weight: normal;
-  font-size: 62.5%; }
+  font-size: 58%; }
+  @media (min-width: 900px) {
+    html {
+      font-size: 62.5%; } }
 
 body {
   font-size: 2rem; }
@@ -1563,7 +1566,8 @@ body.browser-outdated .browser-check--outdated {
   display: flex;
   flex-direction: column; }
   .settings__heading {
-    margin-bottom: 2rem; }
+    margin-bottom: 2rem;
+    font-size: 2.5rem; }
   .settings__element {
     margin-top: 2rem; }
     .settings__element:first-child {

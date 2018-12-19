@@ -2,14 +2,18 @@
 html {
 	font-family: $font;
 	font-weight: normal;
-	font-size: 62.5%;
+	font-size: 58%;
+	@include desktop {
+		font-size: 62.5%;
+	}
 }
 
 body {
 	font-size: $font-size;
 }
 
-a, button {
+a,
+button {
 	color: c();
 	text-decoration: none;
 	@include transition();
@@ -17,8 +21,10 @@ a, button {
 	font-family: $font;
 }
 
-p, tr, li, input {
-
+p,
+tr,
+li,
+input {
 	color: c();
 	line-height: 1.2;
 	margin: 0 0 0 0;
@@ -27,7 +33,8 @@ p, tr, li, input {
 		font-style: italic;
 	}
 
-	strong, b {
+	strong,
+	b {
 		font-weight: bold;
 	}
 
@@ -36,11 +43,13 @@ p, tr, li, input {
 		display: inline-block;
 	}
 
-	&.big, .big {
+	&.big,
+	.big {
 		font-size: $font-size-large;
 	}
 
-	sub, sup {
+	sub,
+	sup {
 		font-size: 0.75em;
 		line-height: 0;
 		position: relative;

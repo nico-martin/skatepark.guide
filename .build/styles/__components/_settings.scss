@@ -1,11 +1,12 @@
 .settings {
 	background-color: #fff;
-	padding: $space-item $space-item $space-section*3 $space-item;
+	padding: $space-item $space-item $space-section * 3 $space-item;
 	display: flex;
 	flex-direction: column;
 
 	&__heading {
 		margin-bottom: $space-item;
+		font-size: $font-size-h3;
 	}
 
 	&__element {
@@ -34,8 +35,8 @@
 		display: flex;
 		align-items: center;
 		.hello-icon {
-			margin-right: .6em;
-			color: rgba(c(), .5);
+			margin-right: 0.6em;
+			color: rgba(c(), 0.5);
 		}
 		&--permit {
 			.hello-icon {
@@ -65,8 +66,9 @@
 
 .settings-config {
 	position: relative;
-	padding: .6em 0;
-	&:after, &:before {
+	padding: 0.6em 0;
+	&:after,
+	&:before {
 		content: '';
 		position: absolute;
 		left: -$space-item;
