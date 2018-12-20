@@ -15,6 +15,9 @@
             "base": "#00796B",
             "light": "#129282",
             "dark": "#116f63"
+        },
+        "danger": {
+            "base": "#af1616"
         }
     },
     "theme_breakpoints": {

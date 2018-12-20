@@ -2,8 +2,9 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import router from '../router'
-import {api} from '../modules/settings';
-import {pagesDB, parksDB} from './storeDB';
+import { api } from '../modules/settings';
+import { pagesDB, parksDB } from './storeDB';
+import { i18n } from '../i18n';
 
 Vue.use(Vuex);
 
@@ -46,7 +47,7 @@ function fetchPage(path, slug) {
 		axios.get(`${api.base}${path}`)
 			.then(r => r.data)
 			.then(resp => {
-				pagesDB.set(slug, resp.content.rendered);
+				pagesDB.set(`${i18n.locale}-${slug}`, resp.content.rendered);
 				resolve(resp.content.rendered);
 			});
 	});
@@ -60,7 +61,7 @@ export const store = new Vuex.Store({
 		park: []
 	},
 	actions: {
-		loadMapParks({commit}, data) {
+		loadMapParks({ commit }, data) {
 			axios.get(`${api.base}map-parks/?bounds=${data}`)
 				.then(r => r.data)
 				.then(resp => {
@@ -81,10 +82,10 @@ export const store = new Vuex.Store({
 					commit('SET_PARKS', r);
 				});
 		},
-		changeMapFilter({commit}, data) {
+		changeMapFilter({ commit }, data) {
 			commit('SET_MAP_FILTER', data);
 		},
-		loadPark({commit, state}, slug) {
+		loadPark({ commit, state }, slug) {
 			commit('SET_PARK', {
 				'title': '',
 				'image': false,
@@ -102,7 +103,7 @@ export const store = new Vuex.Store({
 				commit('SET_PARK', resp);
 			});
 		},
-		loadPage({commit}, data) {
+		loadPage({ commit }, data) {
 
 			const slug = data[0];
 			const validPages = data[1];
@@ -120,7 +121,7 @@ export const store = new Vuex.Store({
 				title: validPage.title,
 				loading: true
 			});
-			pagesDB.get(slug).then(resp => {
+			pagesDB.get(`${i18n.locale}-${slug}`).then(resp => {
 				commit('SET_PAGE', {
 					title: validPage.title,
 					content: resp,

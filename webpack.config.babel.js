@@ -5,6 +5,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import { GenerateSW } from 'workbox-webpack-plugin';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const DIST_DIR = path.resolve(__dirname, "dist");
 const SRC_DIR = path.resolve(__dirname, ".build");
@@ -88,9 +89,16 @@ const config = {
 		new ExtractTextPlugin({
 			filename: 'app.css'
 		}),
+		new CopyWebpackPlugin([
+			{
+				from: '.build/.htaccess.example',
+				to: './.htaccess',
+				toType: 'file'
+			}
+		]),
 		new LiveReloadPlugin(),
 		new HtmlWebpackPlugin({
-			//hash: true,
+			hash: true,
 			title: 'Skatepark.guide',
 			template: '.build/index.html',
 			filename: './index.html'

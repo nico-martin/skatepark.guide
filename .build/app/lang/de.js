@@ -1,5 +1,6 @@
 export default {
 	weather: 'Wetter',
+	weatherError: 'Die Wetterdaten konnten nicht geladen werden.',
 	filter: 'Filter',
 	location: 'Standort',
 	comingsoon: 'Sorry, dieses Feature ist noch nicht verfügbar',
