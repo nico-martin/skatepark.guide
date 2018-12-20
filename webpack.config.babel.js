@@ -116,7 +116,13 @@ const config = {
 			}
 		}),
 		new GenerateSW({
-			importWorkboxFrom: 'local'
+			importWorkboxFrom: 'local',
+			runtimeCaching: [{
+				urlPattern: new RegExp('https://skateparkguide.ch.*\.(jpg|jpeg|png|gif)'),
+				options: {
+					cacheName: 'image-cache',
+				}
+			}]
 		})
 	]
 };
