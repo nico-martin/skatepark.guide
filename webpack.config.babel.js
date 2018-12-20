@@ -117,12 +117,15 @@ const config = {
 		}),
 		new GenerateSW({
 			importWorkboxFrom: 'local',
-			runtimeCaching: [{
-				urlPattern: new RegExp('https://skateparkguide.ch.*\.(jpg|jpeg|png|gif)'),
-				options: {
-					cacheName: 'image-cache',
+			runtimeCaching: [
+				{
+					urlPattern: new RegExp('https://skateparkguide.ch.*\.(jpg|jpeg|png|gif)'),
+					handler: 'networkFirst',
+					options: {
+						cacheName: 'image-cache',
+					}
 				}
-			}]
+			]
 		})
 	]
 };

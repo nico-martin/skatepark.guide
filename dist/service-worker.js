@@ -15,7 +15,7 @@ importScripts("/workbox-v3.6.3/workbox-sw.js");
 workbox.setConfig({modulePathPrefix: "/workbox-v3.6.3"});
 
 importScripts(
-  "/precache-manifest.6a3d116a7848531f65d709df9daa6a48.js"
+  "/precache-manifest.0f7bc3cbf00b5b881658b68cd3cd75d3.js"
 );
 
 /**
@@ -26,3 +26,5 @@ importScripts(
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerRoute(/https:\/\/skateparkguide.ch.*.(jpg|jpeg|png|gif)/, workbox.strategies.networkFirst({ "cacheName":"image-cache", plugins: [] }), 'GET');
