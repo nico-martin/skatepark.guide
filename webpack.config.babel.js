@@ -3,7 +3,7 @@ import LiveReloadPlugin from 'webpack-livereload-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
-
+import { GenerateSW } from 'workbox-webpack-plugin';
 
 const DIST_DIR = path.resolve(__dirname, "dist");
 const SRC_DIR = path.resolve(__dirname, ".build");
@@ -115,6 +115,9 @@ const config = {
 				windows: false
 			}
 		}),
+		new GenerateSW({
+			importWorkboxFrom: 'local'
+		})
 	]
 };
 
