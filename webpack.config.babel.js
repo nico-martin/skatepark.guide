@@ -90,7 +90,7 @@ const config = {
 		}),
 		new LiveReloadPlugin(),
 		new HtmlWebpackPlugin({
-			hash: true,
+			//hash: true,
 			title: 'Skatepark.guide',
 			template: '.build/index.html',
 			filename: './index.html'
