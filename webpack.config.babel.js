@@ -4,6 +4,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import { GenerateSW } from 'workbox-webpack-plugin';
+import CleanWebpackPlugin from 'clean-webpack-plugin';
 
 const DIST_DIR = path.resolve(__dirname, "dist");
 const SRC_DIR = path.resolve(__dirname, ".build");
@@ -83,6 +84,7 @@ const config = {
 	},
 	devtool: '#eval-source-map',
 	plugins: [
+		new CleanWebpackPlugin(['dist']),
 		new ExtractTextPlugin({
 			filename: 'app.css'
 		}),
@@ -94,7 +96,7 @@ const config = {
 			filename: './index.html'
 		}),
 		new FaviconsWebpackPlugin({
-			logo: './dist/favicon/favicon.png',
+			logo: './.build/icons/favicon.png',
 			prefix: 'favicon/[hash]/',
 			emitStats: true,
 			statsFilename: 'favicon/iconstats-[hash].json',
@@ -125,7 +127,8 @@ const config = {
 						cacheName: 'image-cache',
 					}
 				}
-			]
+			],
+			navigateFallback: 'index.html'
 		})
 	]
 };
