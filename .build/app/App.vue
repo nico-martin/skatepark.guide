@@ -115,10 +115,11 @@ export default {
         //const VueContext = this;
         ServiceWorker().then(controller => {
             if (controller) {
-				console.log("New content is available.");
+                console.log("New content is available.");
+                location.reload();
             } else {
                 this.$snack.success({
-                    text: this.$t("serviceworker.installed"),
+                    text: this.$t("pwa.installed"),
                     button: "OK"
                 });
             }

@@ -21,8 +21,9 @@ export default {
 		action: 'Show my position',
 		error: 'Geo position could not be loaded'
 	},
-	serviceworker: {
-		installed: 'This App is now ready to work offline!'
+	pwa: {
+		installed: 'This App is now ready to work offline!',
+		a2h: 'install this app'
 	},
 	menu: {
 		about: {

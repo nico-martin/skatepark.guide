@@ -21,8 +21,9 @@ export default {
 		action: 'Meine Position anzeigen',
 		error: 'Geoposition konnte nicht gefunden werden'
 	},
-	serviceworker: {
-		installed: 'Diese App funktioniert nun auch offline!'
+	pwa: {
+		installed: 'Diese App funktioniert nun auch offline!',
+		a2h: 'Diese App installieren'
 	},
 	menu: {
 		about: {
