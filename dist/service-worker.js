@@ -15,8 +15,10 @@ importScripts("/workbox-v3.6.3/workbox-sw.js");
 workbox.setConfig({modulePathPrefix: "/workbox-v3.6.3"});
 
 importScripts(
-  "/precache-manifest.7cecb49509137fe8b7a2207fc60f38d1.js"
+  "/precache-manifest.b512a9df514a55565310fab163e725fc.js"
 );
+
+workbox.skipWaiting();
 
 /**
  * The workboxSW.precacheAndRoute() method efficiently caches and responds to

@@ -70,15 +70,6 @@
 		})();
 	</script>
 	<!-- End Matomo Code -->
-	<script type="text/javascript" id="serviceworker">
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker.register('/service-worker.js').then().catch(registrationError => {
-					console.log('SW registration failed: ', registrationError);
-				});
-			});
-		}
-	</script>
 </head>
 
 <body>

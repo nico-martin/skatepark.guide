@@ -21,6 +21,9 @@ export default {
 		action: 'Meine Position anzeigen',
 		error: 'Geoposition konnte nicht gefunden werden'
 	},
+	serviceworker: {
+		installed: 'Diese App funktioniert nun auch offline!'
+	},
 	menu: {
 		about: {
 			title: 'Über uns',

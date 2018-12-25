@@ -17,7 +17,7 @@ const config = {
 	],
 	output: {
 		path: `${DIST_DIR}`,
-		filename: "app.js",
+		filename: "app-[hash].js",
 		publicPath: '/'
 	},
 	module: {
@@ -87,7 +87,7 @@ const config = {
 	plugins: [
 		new CleanWebpackPlugin(['dist']),
 		new ExtractTextPlugin({
-			filename: 'app.css'
+			filename: 'app-[hash].css'
 		}),
 		new CopyWebpackPlugin([
 			{
@@ -98,7 +98,7 @@ const config = {
 		]),
 		new LiveReloadPlugin(),
 		new HtmlWebpackPlugin({
-			hash: true,
+			//hash: true,
 			title: 'Skatepark.guide',
 			template: '.build/index.html',
 			filename: './index.html'
@@ -136,7 +136,8 @@ const config = {
 					}
 				}
 			],
-			navigateFallback: 'index.html'
+			navigateFallback: 'index.html',
+			skipWaiting: true,
 		})
 	]
 };
