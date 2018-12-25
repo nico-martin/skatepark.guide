@@ -126,20 +126,6 @@ const config = {
 				windows: false
 			}
 		}),
-		new GenerateSW({
-			//importWorkboxFrom: 'local',
-			runtimeCaching: [
-				{
-					urlPattern: new RegExp('https://skateparkguide.ch.*\.(jpg|jpeg|png|gif)'),
-					handler: 'cacheFirst',
-					options: {
-						cacheName: 'image-cache',
-					}
-				}
-			],
-			navigateFallback: 'index.html',
-			skipWaiting: true,
-		}),
 		new WebpackPwaManifest({
 			name: 'Skatepark.guide',
 			short_name: 'Skatepark.guide',
@@ -156,6 +142,20 @@ const config = {
 					ios: true
 				}
 			]
+		}),
+		new GenerateSW({
+			//importWorkboxFrom: 'local',
+			runtimeCaching: [
+				{
+					urlPattern: new RegExp('https://skateparkguide.ch.*\.(jpg|jpeg|png|gif)'),
+					handler: 'cacheFirst',
+					options: {
+						cacheName: 'image-cache',
+					}
+				}
+			],
+			navigateFallback: 'index.html',
+			skipWaiting: true,
 		})
 	]
 };
