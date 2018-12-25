@@ -7,9 +7,6 @@ export default () => {
 			return;
 		}
 
-		resolve(false);
-		return;
-
 		navigator.serviceWorker
 			.register("/service-worker.js")
 			.then(reg => {
