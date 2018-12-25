@@ -48,6 +48,7 @@ import content from "./modules/content";
 import Map from "./components/Map.vue";
 import Icon from "./components/globals/Icon.vue";
 import Settings from "./components/Settings.vue";
+import ServiceWorker from "./modules/serviceworker";
 
 import { setI18nLanguage } from "./i18n";
 
@@ -111,44 +112,17 @@ export default {
             content.show();
         }
 
-        const VueContext = this;
-
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker
-                .register("/service-worker.js")
-                .then(reg => {
-                    reg.onupdatefound = function() {
-                        var installingWorker = reg.installing;
-                        installingWorker.onstatechange = function() {
-                            switch (installingWorker.state) {
-                                case "installed":
-                                    if (navigator.serviceWorker.controller) {
-                                        // At this point, the old content will have been purged and the fresh content will have been added to the cache. It's the perfect time to display a "New content is available; please refresh." message in the page's interface.
-                                        console.log(
-                                            "New content is available."
-                                        );
-                                    } else {
-                                        // At this point, everything has been precached. It's the perfect time to display a "Content is cached for offline use." message.
-                                        VueContext.$snack.success({
-                                            text: VueContext.$t(
-                                                "serviceworker.installed"
-                                            ),
-                                            button: "OK"
-                                        });
-                                    }
-                                    break;
-
-                                case "redundant":
-                                    //console.error('The installing service worker became redundant.');
-                                    break;
-                            }
-                        };
-                    };
-                })
-                .catch(registrationError => {
-                    console.log("SW registration failed: ", registrationError);
+        //const VueContext = this;
+        ServiceWorker().then(controller => {
+            if (controller) {
+				console.log("New content is available.");
+            } else {
+                this.$snack.success({
+                    text: this.$t("serviceworker.installed"),
+                    button: "OK"
                 });
-        }
+            }
+        });
     }
 };
 </script>

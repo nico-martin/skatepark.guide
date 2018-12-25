@@ -4,6 +4,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 import { GenerateSW } from 'workbox-webpack-plugin';
+import WebpackPwaManifest from 'webpack-pwa-manifest'
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
@@ -130,7 +131,7 @@ const config = {
 			runtimeCaching: [
 				{
 					urlPattern: new RegExp('https://skateparkguide.ch.*\.(jpg|jpeg|png|gif)'),
-					handler: 'networkFirst',
+					handler: 'cacheFirst',
 					options: {
 						cacheName: 'image-cache',
 					}
@@ -138,6 +139,22 @@ const config = {
 			],
 			navigateFallback: 'index.html',
 			skipWaiting: true,
+		}),
+		new WebpackPwaManifest({
+			name: 'Skatepark.guide',
+			short_name: 'Skatepark.guide',
+			description: 'A Progressive Web App for skateparks around the world!',
+			theme_color: '#00796B',
+			background_color: '#ffffff',
+			crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+			icons: [
+				{
+					src: path.resolve('.build/icons/favicon.png'),
+					sizes: [96, 128, 192, 256, 384, 512],
+					destination: 'icons',
+					ios: true
+				}
+			]
 		})
 	]
 };
