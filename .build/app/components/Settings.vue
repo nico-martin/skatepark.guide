@@ -158,7 +158,8 @@ export default {
         window.addEventListener("beforeinstallprompt", e => {
             e.preventDefault();
             window.deferredPrompt = e;
-            this.a2h = e;
+			this.a2h = e;
+			
         });
     }
 };

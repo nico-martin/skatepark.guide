@@ -147,6 +147,7 @@ const config = {
 			theme_color: '#00796B',
 			background_color: '#ffffff',
 			crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+			fingerprints: false,
 			icons: [
 				{
 					src: path.resolve('.build/icons/favicon.png'),
