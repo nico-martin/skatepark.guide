@@ -106,9 +106,9 @@ const config = {
 		}),
 		new FaviconsWebpackPlugin({
 			logo: './.build/icons/favicon.png',
-			prefix: 'favicon/[hash]/',
+			prefix: 'icons/[hash]/',
 			emitStats: true,
-			statsFilename: 'favicon/iconstats-[hash].json',
+			statsFilename: 'icons/iconstats-[hash].json',
 			persistentCache: true,
 			inject: true,
 			background: '#fff',
