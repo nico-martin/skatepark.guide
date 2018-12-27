@@ -90,7 +90,7 @@ function setUserMarker(position) {
 }
 
 export default {
-    data: () => {
+    data() {
         return {
             facilities: ["bowl", "mini", "pumptrack", "street"],
             languages: Object.keys(i18n.messages),
@@ -136,6 +136,9 @@ export default {
                 );
             }
             this.$el.setAttribute("aria-hidden", "true");
+            document
+                .querySelector(".controls--settings")
+                .setAttribute("data-close", "false");
         },
         installPrompt: function() {
             installEvent.prompt();

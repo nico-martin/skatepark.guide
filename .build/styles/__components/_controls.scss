@@ -24,5 +24,16 @@
 	&--settings {
 		bottom: $space_item;
 		right: $space_item;
+		.hello-icon:first-child {
+			display: none;
+		}
+		&[data-close='true'] {
+			.hello-icon {
+				display: none;
+			}
+			.hello-icon:first-child {
+				display: block;
+			}
+		}
 	}
 }

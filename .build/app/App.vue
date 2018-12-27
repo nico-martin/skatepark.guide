@@ -35,10 +35,13 @@
                 <Icon icon="account"></Icon>
             </router-link>
         </div>
-        <button class="controls controls--settings button button--icon" v-on:click="toggleSettings">
+        <button class="controls controls--settings button button--icon" @click="toggleSettings();">
+            <Icon icon="close"></Icon>
             <Icon icon="settings"></Icon>
         </button>
-        <Settings class="app__settings settings" aria-hidden="true"></Settings>
+        <p>
+            <Settings class="app__settings settings" aria-hidden="true"></Settings>
+        </p>
     </div>
 </template>
 
@@ -50,7 +53,6 @@ import Icon from "./components/globals/Icon.vue";
 import Settings from "./components/Settings.vue";
 import ServiceWorker from "./modules/serviceworker";
 import { IsDev } from "./modules/settings";
-
 import { setI18nLanguage } from "./i18n";
 
 export default {
@@ -59,7 +61,7 @@ export default {
             logo
         };
     },
-    metaInfo: function() {
+    metaInfo() {
         return {
             title: false,
             titleTemplate: title => {
@@ -88,13 +90,12 @@ export default {
                 });
             }
         },
-        toggleSettings: function() {
+        toggleSettings() {
             const $settings = this.$el.querySelector(".app__settings");
-            if ($settings.getAttribute("aria-hidden") === "false") {
-                $settings.setAttribute("aria-hidden", "true");
-            } else {
-                $settings.setAttribute("aria-hidden", "false");
-            }
+            const $button = this.$el.querySelector(".controls--settings");
+            const hide = $settings.getAttribute("aria-hidden") === "false";
+            $settings.setAttribute("aria-hidden", hide ? "true" : "false");
+            $button.setAttribute("data-close", hide ? "false" : "true");
         },
         newPark: function() {
             this.$snack.danger({
@@ -103,7 +104,7 @@ export default {
             });
         }
     },
-    mounted: function() {
+    mounted() {
         window.setTimeout(() => {
             document.getElementById("app").classList.add("app--loaded");
         }, 100);

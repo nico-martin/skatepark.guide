@@ -42,12 +42,12 @@ function fetchPark(slug) {
 	});
 }
 
-function fetchPage(path, slug) {
+function fetchPage(path, dbKey) {
 	return new Promise((resolve, reject) => {
 		axios.get(`${api.base}${path}`)
 			.then(r => r.data)
 			.then(resp => {
-				pagesDB.set(`${i18n.locale}-${slug}`, resp.content.rendered);
+				pagesDB.set(dbKey, resp.content.rendered);
 				resolve(resp.content.rendered);
 			});
 	});
@@ -95,21 +95,17 @@ export const store = new Vuex.Store({
 				return;
 			}
 			parksDB.get(slug).then(resp => {
-				if (resp) {
+				if (resp) commit('SET_PARK', resp);
+				fetchPark(slug).then(resp => {
 					commit('SET_PARK', resp);
-				}
-			});
-			fetchPark(slug).then(resp => {
-				commit('SET_PARK', resp);
+				});
 			});
 		},
 		loadPage({ commit }, data) {
 
 			const slug = data[0];
-			const validPages = data[1];
-			const validPage = validPages[slug];
-			const path = validPage.path;
-			if (!validPage) {
+			const validPage = i18n.t('menu.' + slug);
+			if (i18n.t('menu.' + slug) === 'menu.' + slug) {
 				commit('SET_PAGE', {
 					title: '404 error',
 					content: 'Page not found',
@@ -117,17 +113,21 @@ export const store = new Vuex.Store({
 				});
 				return;
 			}
+
+			const path = validPage.path;
+			const dbKey = path.replace('/', '');
+
 			commit('SET_PAGE', {
 				title: validPage.title,
 				loading: true
 			});
-			pagesDB.get(`${i18n.locale}-${slug}`).then(resp => {
+			pagesDB.get(dbKey).then(resp => {
 				commit('SET_PAGE', {
 					title: validPage.title,
 					content: resp,
 					loading: !resp
 				});
-				fetchPage(path, slug).then(content => {
+				fetchPage(path, dbKey).then(content => {
 					commit('SET_PAGE', {
 						title: validPage.title,
 						content: content,
