@@ -4,7 +4,7 @@ import './modules/a11y.js';
 import VueI18n from 'vue-i18n';
 import VueCookies from 'vue-cookies';
 import VueSnackbar from 'vue-snack';
-import { c } from './modules/settings';
+import { c, IsDev } from './modules/settings';
 
 Vue.use(VueI18n);
 Vue.use(VueCookies);
@@ -39,6 +39,6 @@ new Vue({
 	render: h => h(App)
 });
 
-if (window.location.href.indexOf('.hello') !== -1) {
+if (IsDev) {
 	document.body.classList.add('dev');
 }

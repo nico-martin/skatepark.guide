@@ -18,7 +18,7 @@ const config = {
 	],
 	output: {
 		path: `${DIST_DIR}`,
-		filename: "app-[hash].js",
+		filename: "assets/app-[hash].js",
 		publicPath: '/'
 	},
 	module: {
@@ -88,12 +88,24 @@ const config = {
 	plugins: [
 		new CleanWebpackPlugin(['dist']),
 		new ExtractTextPlugin({
-			filename: 'app-[hash].css'
+			filename: 'assets/app-[hash].css'
 		}),
 		new CopyWebpackPlugin([
 			{
 				from: '.build/.htaccess.example',
 				to: './.htaccess',
+				toType: 'file'
+			}, {
+				from: '.build/img/*',
+				to: './assets/img/',
+				flatten: true
+			}, {
+				from: '.build/fonts/*',
+				to: './assets/fonts/',
+				flatten: true
+			}, {
+				from: '.build/deploy.php',
+				to: './deploy.php',
 				toType: 'file'
 			}
 		]),
@@ -106,9 +118,9 @@ const config = {
 		}),
 		new FaviconsWebpackPlugin({
 			logo: './.build/icons/favicon.png',
-			prefix: 'icons/[hash]/',
+			prefix: 'assets/icon/[hash]/',
 			emitStats: true,
-			statsFilename: 'icons/iconstats-[hash].json',
+			statsFilename: 'assets/icon/iconstats-[hash].json',
 			persistentCache: true,
 			inject: true,
 			background: '#fff',
@@ -138,16 +150,24 @@ const config = {
 				{
 					src: path.resolve('.build/icons/favicon.png'),
 					sizes: [96, 128, 192, 256, 384, 512],
-					destination: 'icons',
+					destination: path.join('assets', 'icon'),
 					ios: true
 				}
 			]
 		}),
 		new GenerateSW({
 			importWorkboxFrom: 'local',
+			include: [/\.html$/, /\.js$/, /\.css$/],
 			runtimeCaching: [
 				{
-					urlPattern: new RegExp('https://skateparkguide.ch.*\.(jpg|jpeg|png|gif)'),
+					urlPattern: new RegExp('https://skateparkguide.ch.*\.(jpg|jpeg|png|gif|svg)'),
+					handler: 'cacheFirst',
+					options: {
+						cacheName: 'spg-image-cache',
+					}
+				},
+				{
+					urlPattern: new RegExp(/\.(?:png|gif|jpg|svg)$/),
 					handler: 'cacheFirst',
 					options: {
 						cacheName: 'image-cache',

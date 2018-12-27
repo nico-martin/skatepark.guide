@@ -1,10 +1,9 @@
 .button {
-
 	cursor: pointer;
 	@include box-shadow();
 	background-color: c(secondary);
 	color: #fff;
-	padding: .5em 1em;
+	padding: 0.5em 1em;
 
 	&:hover {
 		@include box-shadow-hover();
@@ -28,8 +27,15 @@
 		}
 	}
 
+	&--has-icon {
+		.hello-icon {
+			transform: translateY(0.2em) scale(1.4);
+			margin-right: 0.5em;
+		}
+	}
+
 	&--small {
-		font-size: .6em;
+		font-size: 0.6em;
 	}
 
 	&--round {
@@ -41,5 +47,17 @@
 		background-color: #fff;
 		color: c();
 		border: 1px solid c(black, light);
+	}
+
+	&--transparent {
+		background-color: transparent;
+		color: c();
+		border: none;
+		box-shadow: none;
+		margin-left: -1em;
+		&:hover {
+			box-shadow: none;
+			transform: translateY(0);
+		}
 	}
 }

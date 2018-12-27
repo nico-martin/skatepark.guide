@@ -44,8 +44,14 @@
                     >{{$t('languages.'+lang)}}</option>
                 </select>
             </div>
-            <div v-if="a2h" class="settings-config settings-config--a2h">
-                <button class="settings-config__a2h" @click="a2hPrompt();">{{$t('pwa.a2h')}}</button>
+            <div v-if="installBanner" class="settings-config settings-config--a2h">
+                <button
+                    class="settings-config__a2h button button--has-icon button--transparent"
+                    @click="installPrompt();"
+                >
+                    <Icon icon="a2h"></Icon>
+                    {{$t('pwa.a2h')}}
+                </button>
             </div>
         </div>
     </div>
@@ -59,6 +65,7 @@ import { maps } from "../modules/settings";
 
 let userMarker = false;
 let watchID = false;
+let installEvent;
 
 function setUserMarker(position) {
     if (!window.map) {
@@ -90,7 +97,7 @@ export default {
             geolocation: "geolocation" in navigator,
             geolocationPerm: false,
             geolocationActive: false,
-            a2h: false
+            installBanner: false
         };
     },
     methods: {
@@ -130,23 +137,23 @@ export default {
             }
             this.$el.setAttribute("aria-hidden", "true");
         },
-        a2hPrompt() {
-            this.a2h.prompt();
-            // Wait for the user to respond to the prompt
-            this.a2h.userChoice.then(choiceResult => {
+        installPrompt: function() {
+            installEvent.prompt();
+            installEvent.userChoice.then(choiceResult => {
                 if (choiceResult.outcome === "accepted") {
                     console.log("User accepted the A2HS prompt");
+                    this.installBanner = false;
                 } else {
                     console.log("User dismissed the A2HS prompt");
                 }
-                this.a2h = false;
+                installEvent = null;
             });
         }
     },
     components: {
         Icon
     },
-    mounted: function() {
+    created() {
         navigator.permissions
             .query({ name: "geolocation" })
             .then(permission => {
@@ -157,9 +164,8 @@ export default {
 
         window.addEventListener("beforeinstallprompt", e => {
             e.preventDefault();
-            window.deferredPrompt = e;
-			this.a2h = e;
-			
+            installEvent = e;
+            this.installBanner = true;
         });
     }
 };

@@ -49,6 +49,7 @@ import Map from "./components/Map.vue";
 import Icon from "./components/globals/Icon.vue";
 import Settings from "./components/Settings.vue";
 import ServiceWorker from "./modules/serviceworker";
+import { IsDev } from "./modules/settings";
 
 import { setI18nLanguage } from "./i18n";
 
@@ -116,7 +117,7 @@ export default {
         ServiceWorker().then(controller => {
             if (controller) {
                 console.log("New content is available.");
-                location.reload();
+                if (IsDev) location.reload();
             } else {
                 this.$snack.success({
                     text: this.$t("pwa.installed"),

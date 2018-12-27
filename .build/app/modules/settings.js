@@ -11,6 +11,12 @@ export const c = (mycolor, tone = 'base') => {
 export const settings = s;
 
 /**
+ * IsDev
+ */
+
+export const IsDev = window.location.href.indexOf('.hello') !== -1;
+
+/**
  * API
  */
 
@@ -107,19 +113,19 @@ export const maps = {
 	clusterStyles: [
 		{
 			textColor: 'white',
-			url: '/img/cluster_small.svg',
+			url: '/assets/img/cluster_small.svg',
 			height: 40,
 			width: 40,
 			textSize: 15
 		}, {
 			textColor: 'white',
-			url: '/img/cluster_medium.svg',
+			url: '/assets/img/cluster_medium.svg',
 			height: 50,
 			width: 50,
 			textSize: 15
 		}, {
 			textColor: 'white',
-			url: '/img/cluster_big.svg',
+			url: '/assets/img/cluster_big.svg',
 			height: 80,
 			width: 80,
 			textSize: 15
