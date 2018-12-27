@@ -3,5 +3,5 @@ node_modules/
 npm-debug.log
 .idea
 .htaccess
-dist/*
+dist/
 skatepark-guide.code-workspace
