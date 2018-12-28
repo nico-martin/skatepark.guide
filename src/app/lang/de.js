@@ -25,6 +25,16 @@ export default {
 		installed: 'Diese App funktioniert nun auch offline!',
 		a2h: 'Diese App installieren'
 	},
+	share: {
+		app: {
+			title: 'Diese App teilen',
+			text: 'Schau dir den neuen Skarepark.guide an!'
+		},
+		park: {
+			title: 'Diesen Park teilen',
+			text: 'Schau dir "{parkTitle}" im Skatepark.guide an.'
+		}
+	},
 	menu: {
 		about: {
 			title: 'Über uns',

@@ -41,6 +41,7 @@
                         v-for="lang in languages"
                         :value="lang"
                         v-bind:selected="$i18n.locale === lang"
+                        v-bind:key="lang"
                     >{{$t('languages.'+lang)}}</option>
                 </select>
             </div>
@@ -53,6 +54,9 @@
                     {{$t('pwa.a2h')}}
                 </button>
             </div>
+            <div v-if="navigatorShare" class="settings-config settings-config--share">
+                <Share :title="$t('share.app.title')" :text="$t('share.app.text')" :url="mainUrl"></Share>
+            </div>
         </div>
     </div>
 </template>
@@ -62,6 +66,7 @@ import { setI18nLanguage, i18n } from "../i18n";
 import { store } from "../store/store";
 import Icon from "../components/globals/Icon.vue";
 import { maps } from "../modules/settings";
+import Share from "./globals/Share.vue";
 
 let userMarker = false;
 let watchID = false;
@@ -97,7 +102,9 @@ export default {
             geolocation: "geolocation" in navigator,
             geolocationPerm: false,
             geolocationActive: false,
-            installBanner: false
+            installBanner: false,
+            mainUrl: location.host,
+            navigatorShare: navigator.share
         };
     },
     methods: {
@@ -154,7 +161,8 @@ export default {
         }
     },
     components: {
-        Icon
+        Icon,
+        Share
     },
     created() {
         navigator.permissions

@@ -55,6 +55,10 @@
                 </a>
             </div>
             <ParkWeather class="park__weather" :slug="park.slug"></ParkWeather>
+            <Share
+                :title="$t('share.park.title')"
+                :text="$t('share.park.text', {'parkTitle': park.title})"
+            ></Share>
         </div>
     </main>
 </template>
@@ -65,6 +69,7 @@ import LazyImage from "./globals/LazyImage.vue";
 import ParkGallery from "./ParkGallery.vue";
 import ParkVideo from "./ParkVideo.vue";
 import ParkWeather from "./ParkWeather.vue";
+import Share from "./globals/Share.vue";
 import { mapState } from "vuex";
 
 let offset = false;
@@ -132,7 +137,8 @@ export default {
         LazyImage,
         ParkGallery,
         ParkVideo,
-        ParkWeather
+        ParkWeather,
+        Share
     },
     computed: mapState(["park"]),
     methods: {

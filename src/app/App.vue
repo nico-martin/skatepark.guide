@@ -114,18 +114,19 @@ export default {
             content.show();
         }
 
-        //const VueContext = this;
-        ServiceWorker().then(controller => {
-            if (controller) {
-                console.log("New content is available.");
-                if (IsDev) location.reload();
-            } else {
-                this.$snack.success({
-                    text: this.$t("pwa.installed"),
-                    button: "OK"
-                });
-            }
-        });
+        if (!IsDev) {
+            ServiceWorker().then(controller => {
+                if (controller) {
+                    console.log("New content is available.");
+                    if (IsDev) location.reload();
+                } else {
+                    this.$snack.success({
+                        text: this.$t("pwa.installed"),
+                        button: "OK"
+                    });
+                }
+            });
+        }
     }
 };
 </script>

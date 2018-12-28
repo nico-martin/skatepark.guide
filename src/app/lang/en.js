@@ -25,6 +25,16 @@ export default {
 		installed: 'This App is now ready to work offline!',
 		a2h: 'install this app'
 	},
+	share: {
+		app: {
+			title: 'Share this App',
+			text: 'There is a neat Skatepark App'
+		},
+		park: {
+			title: 'Share this park',
+			text: 'Visit "{parkTitle}" on Skatepark.guide.'
+		}
+	},
 	menu: {
 		about: {
 			title: 'About',
