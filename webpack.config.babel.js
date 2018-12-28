@@ -9,7 +9,7 @@ import CleanWebpackPlugin from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const DIST_DIR = path.resolve(__dirname, "dist");
-const SRC_DIR = path.resolve(__dirname, ".build");
+const SRC_DIR = path.resolve(__dirname, "src");
 
 const config = {
 	entry: [
@@ -92,32 +92,28 @@ const config = {
 		}),
 		new CopyWebpackPlugin([
 			{
-				from: '.build/.htaccess.example',
+				from: 'src/.htaccess.example',
 				to: './.htaccess',
 				toType: 'file'
 			}, {
-				from: '.build/img/*',
+				from: 'src/img/*',
 				to: './assets/img/',
 				flatten: true
 			}, {
-				from: '.build/fonts/*',
+				from: 'src/fonts/*',
 				to: './assets/fonts/',
 				flatten: true
-			}, {
-				from: '.build/deploy.php',
-				to: './deploy.php',
-				toType: 'file'
 			}
 		]),
 		new LiveReloadPlugin(),
 		new HtmlWebpackPlugin({
 			//hash: true,
 			title: 'Skatepark.guide',
-			template: '.build/index.html',
+			template: 'src/index.html',
 			filename: './index.html'
 		}),
 		new FaviconsWebpackPlugin({
-			logo: './.build/icons/favicon.png',
+			logo: './src/icons/favicon.png',
 			prefix: 'assets/icon/[hash]/',
 			emitStats: true,
 			statsFilename: 'assets/icon/iconstats-[hash].json',
@@ -148,7 +144,7 @@ const config = {
 			fingerprints: false,
 			icons: [
 				{
-					src: path.resolve('.build/icons/favicon.png'),
+					src: path.resolve('src/icons/favicon.png'),
 					sizes: [96, 128, 192, 256, 384, 512],
 					destination: path.join('assets', 'icon'),
 					ios: true
