@@ -16,6 +16,10 @@ export default {
 		de: 'German',
 		en: 'English'
 	},
+	park: {
+		loved: 'This park was added to you favorites',
+		unloved: 'This park has been removed from you favorites'
+	},
 	geolocation: {
 		active: 'Position is displayed..',
 		action: 'Show my position',

@@ -56,6 +56,20 @@
 			left: 50%;
 			top: 50%;
 			transform: translateX(-50%) translateY(-50%);
+			@include transition();
+			&:first-child {
+				opacity: 0;
+			}
+		}
+
+		&--loved .hello-icon {
+			color: c(danger);
+			&:first-child {
+				opacity: 1;
+			}
+			&:last-child {
+				opacity: 0;
+			}
 		}
 	}
 

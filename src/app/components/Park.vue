@@ -6,7 +6,11 @@
             </div>
             <div class="park__heading">
                 <span class="park__float-title">{{park.title}}</span>
-                <button class="park__love" @click="lovePark()">
+                <button
+                    :class="'park__love '+(isLoved ? 'park__love--loved': '')"
+                    @click="lovePark(isLoved)"
+                >
+                    <Icon icon="heart"></Icon>
                     <Icon icon="heart-empty"></Icon>
                 </button>
             </div>
@@ -65,6 +69,7 @@
 </template>
 
 <script>
+import { lovedDB } from "../store/storeDB";
 import Icon from "./globals/Icon.vue";
 import LazyImage from "./globals/LazyImage.vue";
 import ParkGallery from "./ParkGallery.vue";
@@ -84,29 +89,28 @@ function setHeadingPosition() {
     }
 }
 
-function nl2br(str = "") {
-    return str === "" ? "" : (str + "").replace(/(\r\n|\n\r|\r|\n)/g, "<br>$1");
-}
-
-function displayUrl(url = "") {
-    return url
-        .replace(/http:\/\//g, "")
-        .replace(/https:\/\//g, "")
-        .replace(/www./g, "")
-        .replace(/facebook.com/g, "");
-}
-
 window.addEventListener("resize", () => {
     setHeadingPosition();
 });
 
 export default {
+    data() {
+        return {
+            isLoved: false
+        };
+    },
     metaInfo: function() {
         return {
             title: this.park.title
         };
     },
     mounted() {
+        lovedDB.get(this.$route.params.slug).then(result => {
+            if (result) {
+                this.isLoved = true;
+            }
+        });
+
         this.$store.dispatch("loadPark", this.$route.params.slug);
 
         setHeadingPosition();
@@ -143,11 +147,25 @@ export default {
     },
     computed: mapState(["park"]),
     methods: {
-        nl2br,
-        displayUrl,
-        lovePark: function() {
-            this.$snack.danger({
-                text: this.$t("comingsoon"),
+        nl2br: function(str = "") {
+            return str === ""
+                ? ""
+                : (str + "").replace(/(\r\n|\n\r|\r|\n)/g, "<br>$1");
+        },
+        displayUrl: function(url = "") {
+            return url
+                .replace(/http:\/\//g, "")
+                .replace(/https:\/\//g, "")
+                .replace(/www./g, "")
+                .replace(/facebook.com/g, "");
+        },
+        lovePark: function(isLoved) {
+            this.isLoved = !isLoved;
+            lovedDB.set(this.$route.params.slug, this.isLoved);
+            this.$snack.success({
+                text: this.isLoved
+                    ? this.$t("park.loved")
+                    : this.$t("park.unloved"),
                 button: "OK"
             });
         }

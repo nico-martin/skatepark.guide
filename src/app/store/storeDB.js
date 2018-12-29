@@ -5,7 +5,8 @@ const dbVersion = 1;
 const stores = [
 	'settings',
 	'pages',
-	'parks'
+	'parks',
+	'loved'
 ];
 
 const Store = idb.open(db, dbVersion, upgradeDB => {
@@ -36,3 +37,4 @@ stores.forEach((store) => {
 export const settingsDB = exp['settings'];
 export const pagesDB = exp['pages'];
 export const parksDB = exp['parks'];
+export const lovedDB = exp['loved'];
