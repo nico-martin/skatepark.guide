@@ -3,6 +3,7 @@
         <a
             class="park-gallery__element"
             v-for="image in images"
+            v-bind:key="image.org.placeholder"
             v-bind:href="image.org.sizes.window.url"
             v-bind:data-width="image.org.sizes.window.width"
             v-bind:data-height="image.org.sizes.window.height"

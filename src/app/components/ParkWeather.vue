@@ -3,7 +3,7 @@
         <h3 class="park-weather__heading">{{$t('weather')}}</h3>
         <div class="park-weather__loading" v-if="loading"></div>
         <ul class="park-weather__list" v-else-if="weather">
-            <li class="park-weather__element weather" v-for="data in weather">
+            <li class="park-weather__element weather" v-for="data in weather" v-bind:key="data.title">
                 <h4 class="weather__heading">{{data.title}}</h4>
                 <Icon class="weather__icon" :icon="data.icon"></Icon>
                 <span class="weather__description">{{data.description}}</span>

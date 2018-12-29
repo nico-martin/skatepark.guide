@@ -3,7 +3,7 @@
         <div class="settings__element settings__element--filter">
             <h2 class="settings__heading">{{$t('filter')}}</h2>
             <div class="settings-filter">
-                <div v-for="facility in facilities" class="settings-filter__element">
+                <div v-for="facility in facilities" v-bind:key="facility" class="settings-filter__element">
                     <input
                         @change="updateCheckedFacilities"
                         :id="'facility-'+facility"
