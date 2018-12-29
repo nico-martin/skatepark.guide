@@ -104,7 +104,7 @@ export default {
             geolocationActive: false,
             installBanner: false,
             mainUrl: location.host,
-            navigatorShare: navigator.share
+            navigatorShare: "share" in navigator
         };
     },
     methods: {

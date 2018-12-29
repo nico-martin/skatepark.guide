@@ -109,8 +109,8 @@ const config = {
 		new HtmlWebpackPlugin({
 			//hash: true,
 			title: 'Skatepark.guide',
-			template: 'src/index.html',
-			filename: './index.html'
+			template: 'src/index.php',
+			filename: './index.php'
 		}),
 		new FaviconsWebpackPlugin({
 			logo: './src/icons/favicon.png',

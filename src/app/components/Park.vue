@@ -56,6 +56,7 @@
             </div>
             <ParkWeather class="park__weather" :slug="park.slug"></ParkWeather>
             <Share
+                class="park__share"
                 :title="$t('share.park.title')"
                 :text="$t('share.park.text', {'parkTitle': park.title})"
             ></Share>

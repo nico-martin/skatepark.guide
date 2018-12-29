@@ -109,6 +109,12 @@
 		}
 	}
 
+	&__share {
+		float: right;
+		font-size: $font-size-small;
+		transform: translateY(40%);
+	}
+
 	&__loader {
 		text-align: center;
 		padding-top: 15vh;

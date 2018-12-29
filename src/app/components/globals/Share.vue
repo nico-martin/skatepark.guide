@@ -7,6 +7,7 @@
 
 <script>
 import Icon from "./Icon.vue";
+import router from "../../router";
 
 export default {
     props: {
@@ -20,12 +21,12 @@ export default {
         },
         url: {
             type: String,
-            default: location.href
+            default: ""
         }
     },
     data() {
         return {
-            show: navigator.share
+            show: "share" in navigator
         };
     },
     components: {
@@ -33,11 +34,15 @@ export default {
     },
     methods: {
         share: function() {
+            let url = this.url;
+            if ("" === url) {
+                url = location.origin + this.$router.currentRoute.fullPath;
+            }
             navigator
                 .share({
                     title: this.title,
                     text: this.text,
-                    url: this.url
+                    url
                 })
                 .then(() => console.log("Successful share"))
                 .catch(error => console.log("Error sharing", error));
