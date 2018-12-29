@@ -1,13 +1,53 @@
+<?php
+$uri = $_SERVER['REQUEST_URI'];
+$re = '/\/[a-z]{2}\/parks\/([a-z0-9-]*)\//m';
+preg_match_all( $re, $uri, $matches, PREG_SET_ORDER, 0 );
+
+$data = false;
+
+if ( ! empty( $matches ) ) {
+	$slug = $matches[0][1];
+	$file = dirname( __FILE__ ) . "/ssr-cache/{$slug}.json";
+	if ( file_exists( $file ) && filemtime( $file ) <= time() + 60 * 60 * 8 ) {
+		$data_raw = file_get_contents( $file );
+	} else {
+		echo 'fetched:<br>';
+		$url = "https://skateparkguide.ch/wp-json/wp/v2/parks/?slug={$slug}";
+		$ch = curl_init();
+		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+		curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+		curl_setopt( $ch, CURLOPT_URL, $url );
+		curl_setopt( $ch, CURLOPT_USERAGENT, 'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)' );
+		$data_raw = curl_exec( $ch );
+		curl_close( $ch );
+		@mkdir( 'ssr-cache' );
+		file_put_contents( $file, $data );
+	}
+
+	$data = json_decode( $data_raw, true );
+	if ( $data ) {
+		$park = $data[0];
+	}
+}
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="utf-8">
 	<title>
-		<%= htmlWebpackPlugin.options.title %>
+		<?php echo ( $data ? $park['title']['rendered'] . ' 💗 Skatepark.guide' : '<%= htmlWebpackPlugin.options.title %>' ); ?>
 	</title>
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<meta name="robots" content="noindex, nofollow">
+	<meta name="description" content="<?php echo ( $data ? htmlspecialchars( strip_tags( $park['content']['rendered'] ) ) : '' ); ?>">
+
+	<meta property="og:image" content="<?php echo ( $data ? htmlspecialchars( strip_tags( $park['head-image']['3x2']['sizes']['page']['url'] ) ) : '' ); ?>">
+	<meta property="og:image:width" content="<?php echo ( $data ? htmlspecialchars( strip_tags( $park['head-image']['3x2']['sizes']['page']['width'] ) ) : '' ); ?>">
+	<meta property="og:image:height" content="<?php echo ( $data ? htmlspecialchars( strip_tags( $park['head-image']['3x2']['sizes']['page']['height'] ) ) : '' ); ?>">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="<?php echo ( $data ? htmlspecialchars( strip_tags( $park['head-image']['3x2']['sizes']['page']['url'] ) ) : '' ); ?>">
 
 	<style id="loading-screen">
 		.loading-body {
