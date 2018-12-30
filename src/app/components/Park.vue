@@ -160,8 +160,13 @@ export default {
                 .replace(/facebook.com/g, "");
         },
         lovePark: function(isLoved) {
-            this.isLoved = !isLoved;
-            lovedDB.set(this.$route.params.slug, this.isLoved);
+            if (isLoved) {
+                this.isLoved = false;
+                lovedDB.delete(this.$route.params.slug);
+            } else {
+                this.isLoved = true;
+                lovedDB.set(this.$route.params.slug, this.park);
+            }
             this.$snack.success({
                 text: this.isLoved
                     ? this.$t("park.loved")

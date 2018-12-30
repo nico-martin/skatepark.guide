@@ -163,7 +163,7 @@ const config = {
 					}
 				},
 				{
-					urlPattern: new RegExp(/\.(?:png|gif|jpg|svg)$/),
+					urlPattern: new RegExp(/\.(?:png|gif|jpg|svg|ico)$/),
 					handler: 'cacheFirst',
 					options: {
 						cacheName: 'image-cache',

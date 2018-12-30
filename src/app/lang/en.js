@@ -4,6 +4,7 @@ export default {
 	filter: 'Filter',
 	location: 'Location',
 	comingsoon: 'Sorry, this feature is not yet ready',
+	readMore: 'read more',
 	facilities: {
 		bowl: 'Bowl',
 		mini: 'Mini',
@@ -19,6 +20,10 @@ export default {
 	park: {
 		loved: 'This park was added to you favorites',
 		unloved: 'This park has been removed from you favorites'
+	},
+	favorites: {
+		title: 'Your Favorites',
+		description: 'You are offline. The map could not be loaded. Instead you can find a list of all parks you marked as favorites.'
 	},
 	geolocation: {
 		active: 'Position is displayed..',

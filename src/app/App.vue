@@ -5,7 +5,8 @@
             class="controls controls--logo logo"
             v-html="logo"
         ></router-link>
-        <Map></Map>
+        <Map v-if="online"></Map>
+        <Favorites v-else></Favorites>
         <div id="content" class="app__content" aria-hidden="true">
             <router-view></router-view>
         </div>
@@ -49,6 +50,7 @@
 import logo from "./../icons/logo-portrait.svg";
 import content from "./modules/content";
 import Map from "./components/Map.vue";
+import Favorites from "./components/Favorites.vue";
 import Icon from "./components/globals/Icon.vue";
 import Settings from "./components/Settings.vue";
 import ServiceWorker from "./modules/serviceworker";
@@ -58,7 +60,8 @@ import { setI18nLanguage } from "./i18n";
 export default {
     data() {
         return {
-            logo
+            logo,
+            online: navigator.onLine
         };
     },
     metaInfo() {
@@ -74,7 +77,8 @@ export default {
     components: {
         Map,
         Icon,
-        Settings
+        Settings,
+        Favorites
     },
     methods: {
         toggleMenu: function() {
@@ -114,16 +118,7 @@ export default {
             content.show();
         }
 
-        swUserAgent = true;
-        if (
-            navigator.userAgent.indexOf("facebookexternalhit/") !== -1 ||
-            navigator.userAgent.indexOf("Facebot") !== -1
-        ) {
-            // Facebook
-            swUserAgent = false;
-        }
-
-        if (!IsDev && swUserAgent) {
+        if (!IsDev) {
             ServiceWorker().then(controller => {
                 if (controller) {
                     console.log("New content is available.");
@@ -136,6 +131,11 @@ export default {
                 }
             });
         }
+    },
+    created() {
+        window.addEventListener("online", () => {
+            this.online = true;
+        });
     }
 };
 </script>

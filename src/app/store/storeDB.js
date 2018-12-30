@@ -30,6 +30,33 @@ stores.forEach((store) => {
 				return db.transaction(store)
 					.objectStore(store).get(key);
 			});
+		},
+		delete: function (key) {
+			return Store.then(db => {
+				const tx = db.transaction(store, 'readwrite');
+				tx.objectStore(store).delete(key);
+				return tx.complete;
+			});
+		},
+		getAll: function () {
+			return Store.then(db => {
+				return db.transaction(store)
+					.objectStore(store).getAll();
+			});
+		},
+		keys: function () {
+			return Store.then(db => {
+				const tx = db.transaction(store);
+				const keys = [];
+				const oStore = tx.objectStore(store);
+				(oStore.iterateKeyCursor || oStore.iterateCursor).call(oStore, cursor => {
+					if (!cursor) return;
+					keys.push(cursor.key);
+					cursor.continue();
+				});
+
+				return tx.complete.then(() => keys);
+			});
 		}
 	};
 });

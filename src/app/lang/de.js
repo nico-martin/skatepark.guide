@@ -4,6 +4,7 @@ export default {
 	filter: 'Filter',
 	location: 'Standort',
 	comingsoon: 'Sorry, dieses Feature ist noch nicht verfügbar',
+	readMore: 'mehr anzeigen',
 	facilities: {
 		bowl: 'Bowl',
 		mini: 'Mini',
@@ -19,6 +20,10 @@ export default {
 	park: {
 		loved: 'Der Park wurde zu deinen Favoriten hinzugefügt',
 		unloved: 'Der Park wurde von deinen Favoriten entfernt'
+	},
+	favorites: {
+		title: 'Deine Favoriten',
+		description: 'Du bist offline. Die Karte konnte deshalb nicht geladen werden. Statdessen findest du hier eine Liste deiner Favoriten.'
 	},
 	geolocation: {
 		active: 'Position wird angezeigt..',
