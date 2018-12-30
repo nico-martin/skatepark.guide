@@ -170,7 +170,7 @@ const config = {
 					}
 				}
 			],
-			navigateFallback: 'index.html',
+			navigateFallback: 'index.php',
 			skipWaiting: true,
 		})
 	]

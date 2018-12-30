@@ -114,7 +114,16 @@ export default {
             content.show();
         }
 
-        if (!IsDev) {
+        swUserAgent = true;
+        if (
+            navigator.userAgent.indexOf("facebookexternalhit/") !== -1 ||
+            navigator.userAgent.indexOf("Facebot") !== -1
+        ) {
+            // Facebook
+            swUserAgent = false;
+        }
+
+        if (!IsDev && swUserAgent) {
             ServiceWorker().then(controller => {
                 if (controller) {
                     console.log("New content is available.");

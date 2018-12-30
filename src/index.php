@@ -11,7 +11,6 @@ if ( ! empty( $matches ) ) {
 	if ( file_exists( $file ) && filemtime( $file ) <= time() + 60 * 60 * 8 ) {
 		$data_raw = file_get_contents( $file );
 	} else {
-		echo 'fetched:<br>';
 		$url = "https://skateparkguide.ch/wp-json/wp/v2/parks/?slug={$slug}";
 		$ch = curl_init();
 		curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
@@ -21,7 +20,7 @@ if ( ! empty( $matches ) ) {
 		$data_raw = curl_exec( $ch );
 		curl_close( $ch );
 		@mkdir( 'ssr-cache' );
-		file_put_contents( $file, $data );
+		file_put_contents( $file, $data_raw );
 	}
 
 	$data = json_decode( $data_raw, true );
