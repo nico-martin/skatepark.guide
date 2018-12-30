@@ -41,6 +41,7 @@ if ( ! empty( $matches ) ) {
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="description" content="<?php echo ( $data ? htmlspecialchars( strip_tags( $park['content']['rendered'] ) ) : '' ); ?>">
 
+	<meta property="og:title" content="<?php echo ( $data ? $park['title']['rendered'] . ' 💗 Skatepark.guide' : '<%= htmlWebpackPlugin.options.title %>' ); ?>">
 	<meta property="og:image" content="<?php echo ( $data ? htmlspecialchars( strip_tags( $park['head-image']['3x2']['sizes']['page']['url'] ) ) : '' ); ?>">
 	<meta property="og:image:width" content="<?php echo ( $data ? htmlspecialchars( strip_tags( $park['head-image']['3x2']['sizes']['page']['width'] ) ) : '' ); ?>">
 	<meta property="og:image:height" content="<?php echo ( $data ? htmlspecialchars( strip_tags( $park['head-image']['3x2']['sizes']['page']['height'] ) ) : '' ); ?>">
