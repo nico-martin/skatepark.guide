@@ -153,20 +153,19 @@ const config = {
 		}),
 		new GenerateSW({
 			importWorkboxFrom: 'local',
-			include: [/\.html$/, /\.js$/, /\.css$/],
+			include: [/\.php$/, /\.js$/, /\.css$/],
 			runtimeCaching: [
 				{
-					urlPattern: new RegExp('https://skateparkguide.ch.*\.(jpg|jpeg|png|gif|svg)'),
-					handler: 'cacheFirst',
+					urlPattern: new RegExp('^https://skateparkguide\.ch/wp-content/uploads/'),
+					handler: 'staleWhileRevalidate',
 					options: {
-						cacheName: 'spg-image-cache',
+						cacheName: 'spg-image-cache'
 					}
-				},
-				{
+				}, {
 					urlPattern: new RegExp(/\.(?:png|gif|jpg|svg|ico)$/),
 					handler: 'cacheFirst',
 					options: {
-						cacheName: 'image-cache',
+						cacheName: 'image-cache'
 					}
 				}
 			],
