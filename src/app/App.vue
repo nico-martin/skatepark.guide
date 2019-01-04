@@ -5,7 +5,7 @@
             class="controls controls--logo logo"
             v-html="logo"
         ></router-link>
-        <Map v-if="!online"></Map>
+        <Map v-if="online"></Map>
         <Favorites v-else></Favorites>
         <div id="content" class="app__content" aria-hidden="true">
             <router-view></router-view>
@@ -56,6 +56,7 @@ import Settings from "./components/Settings.vue";
 import ServiceWorker from "./modules/serviceworker";
 import { IsDev } from "./modules/settings";
 import { setI18nLanguage } from "./i18n";
+import { settingsDB } from "./store/storeDB.js";
 
 export default {
     data() {
@@ -135,6 +136,11 @@ export default {
     created() {
         window.addEventListener("online", () => {
             this.online = true;
+        });
+        settingsDB.get("user").then(user => {
+            if (user) {
+                this.$store.dispatch("setUser", user);
+            }
         });
     }
 };

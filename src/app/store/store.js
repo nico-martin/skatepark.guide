@@ -3,14 +3,14 @@ import Vuex from 'vuex';
 import axios from 'axios';
 import router from '../router'
 import { api } from '../modules/settings';
-import { pagesDB, parksDB } from './storeDB';
+import { pagesDB, parksDB, settingsDB } from './storeDB';
 import { i18n } from '../i18n';
 
 Vue.use(Vuex);
 
 function fetchPark(slug) {
 	return new Promise((resolve, reject) => {
-		axios.get(`${api.base}parks/?slug=${slug}`)
+		axios.get(`${api.base}wp/v2/parks/?slug=${slug}`)
 			.then(r => r.data)
 			.then(resp => {
 				if (!resp.length) {
@@ -44,7 +44,7 @@ function fetchPark(slug) {
 
 function fetchPage(path, dbKey) {
 	return new Promise((resolve, reject) => {
-		axios.get(`${api.base}${path}`)
+		axios.get(`${api.base}wp/v2/${path}`)
 			.then(r => r.data)
 			.then(resp => {
 				pagesDB.set(dbKey, resp.content.rendered);
@@ -58,11 +58,12 @@ export const store = new Vuex.Store({
 		map: [],
 		mapFilter: {},
 		page: [],
-		park: []
+		park: [],
+		user: false
 	},
 	actions: {
 		loadMapParks({ commit }, data) {
-			axios.get(`${api.base}map-parks/?bounds=${data}`)
+			axios.get(`${api.base}wp/v2/map-parks/?bounds=${data}`)
 				.then(r => r.data)
 				.then(resp => {
 					const r = {};
@@ -136,6 +137,41 @@ export const store = new Vuex.Store({
 				});
 			});
 		},
+		validateUser({ commit }, data) {
+			axios.post(`${api.base}jwt-auth/v1/token/`, {
+				username: data.username,
+				password: data.password
+			})
+				.then(r => r.data)
+				.catch(() => {
+					console.log('could not validate user');
+				})
+				.then(resp => {
+					axios.defaults.headers.common['Authorization'] = `Bearer ${resp.token}`;
+					commit('SET_USER', resp);
+				});
+		},
+		setUser({ commit }, user) {
+			axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+			commit('SET_USER', user);
+		},
+		validateToken({ commit }, token) {
+			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+			axios.post(`${api.base}wp/v2/users/me/`)
+				.then(r => r.data)
+				.catch(() => {
+					commit('SET_USER', false);
+					console.log('could not fetch /me');
+				})
+				.then(resp => {
+					commit('SET_USER', {
+						token,
+						user_display_name: resp.name,
+						user_email: resp.email,
+						user_nicename: resp.username
+					});
+				})
+		}
 	},
 	mutations: {
 		SET_PARKS(state, parks) {
@@ -151,6 +187,10 @@ export const store = new Vuex.Store({
 		},
 		SET_PAGE(state, page) {
 			state.page = page;
+		},
+		SET_USER(state, user) {
+			settingsDB.set('user', user);
+			state.user = user;
 		}
 	},
 });

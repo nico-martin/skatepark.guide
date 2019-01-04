@@ -21,7 +21,7 @@ export const IsDev = window.location.href.indexOf('.hello') !== -1;
  */
 
 export const api = {
-	base: 'https://skateparkguide.ch/wp-json/wp/v2/',
+	base: 'https://skateparkguide.ch/wp-json/',
 };
 
 /**
