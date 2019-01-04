@@ -5,7 +5,7 @@
             class="controls controls--logo logo"
             v-html="logo"
         ></router-link>
-        <Map v-if="online"></Map>
+        <Map v-if="!online"></Map>
         <Favorites v-else></Favorites>
         <div id="content" class="app__content" aria-hidden="true">
             <router-view></router-view>
@@ -118,19 +118,19 @@ export default {
             content.show();
         }
 
-        //if (!IsDev) {
-        ServiceWorker().then(controller => {
-            if (controller) {
-                console.log("New content is available.");
-                if (IsDev) location.reload();
-            } else {
-                this.$snack.success({
-                    text: this.$t("pwa.installed"),
-                    button: "OK"
-                });
-            }
-        });
-        //}
+        if (!IsDev) {
+            ServiceWorker().then(controller => {
+                if (controller) {
+                    console.log("New content is available.");
+                    if (IsDev) location.reload();
+                } else {
+                    this.$snack.success({
+                        text: this.$t("pwa.installed"),
+                        button: "OK"
+                    });
+                }
+            });
+        }
     },
     created() {
         window.addEventListener("online", () => {

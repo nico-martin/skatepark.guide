@@ -7,10 +7,18 @@ import router from './router';
 import 'vue-cookies';
 
 Vue.use(VueI18n);
+let lang = 'en'; // default
+const appLangs = ['de', 'en'];
+const browserLang = window.navigator.userLanguage || window.navigator.language;
+appLangs.forEach(l => {
+	if (browserLang.indexOf(l) !== -1) {
+		lang = l;
+	}
+});
 
-let lang = ($cookies.isKey('lang') ? $cookies.get('lang') : 'en');
-if (!['de', 'en'].includes(lang)) {
-	lang = 'en';
+const cookieLang = ($cookies.isKey('lang') ? $cookies.get('lang') : false);
+if (cookieLang && appLangs.includes(cookieLang)) {
+	lang = cookieLang;
 }
 
 export const defaultLang = lang;

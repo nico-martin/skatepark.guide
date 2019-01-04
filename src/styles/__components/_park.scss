@@ -121,6 +121,13 @@
 				transform: translateY(-2px) scale(1.03);
 			}
 		}
+		span {
+			display: block;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			white-space: nowrap;
+			max-width: 100%;
+		}
 	}
 
 	&__share {

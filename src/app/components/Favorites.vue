@@ -5,12 +5,7 @@
             <p>{{$t('favorites.description')}}</p>
             <ul class="favorites__parks">
                 <li v-for="park in parks" class="favorites-park" v-bind:key="park.slug">
-                    <LazyImage
-                        class="favorites-park__image"
-                        v-if="park.image"
-                        :image="park.image"
-                        ratio="3x2"
-                    ></LazyImage>
+                    <img class="favorites-park__image" :src="park.image['3x2'].sizes.medium.url">
                     <div class="favorites-park__content">
                         <h2>{{park.title}}</h2>
                         <router-link
@@ -25,7 +20,6 @@
 </template>
 <script>
 import { lovedDB } from "../store/storeDB";
-import LazyImage from "./globals/LazyImage.vue";
 
 export default {
     data() {
@@ -37,9 +31,6 @@ export default {
         lovedDB.getAll().then(resp => {
             this.parks = resp;
         });
-    },
-    components: {
-        LazyImage
     }
 };
 </script>

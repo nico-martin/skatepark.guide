@@ -1,5 +1,6 @@
 <template>
     <main class="park">
+        <link v-if="park.image" :href="park.image['3x2'].sizes.medium.url">
         <header class="park__header">
             <div class="park__image">
                 <LazyImage v-if="park.image" :image="park.image" ratio="3x1"></LazyImage>
