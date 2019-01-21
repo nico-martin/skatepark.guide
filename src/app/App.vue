@@ -139,7 +139,7 @@ export default {
         });
         settingsDB.get("user").then(user => {
             if (user) {
-                this.$store.dispatch("setUser", user);
+                this.$store.commit("SET_USER", user);
             }
         });
     }

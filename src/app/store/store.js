@@ -63,7 +63,7 @@ export const store = new Vuex.Store({
 	},
 	actions: {
 		loadMapParks({ commit }, data) {
-			axios.get(`${api.base}wp/v2/map-parks/?bounds=${data}`)
+			axios.get(`${api.base}skateparkguide/v1/map-parks/?bounds=${data}`)
 				.then(r => r.data)
 				.then(resp => {
 					const r = {};
@@ -137,32 +137,40 @@ export const store = new Vuex.Store({
 				});
 			});
 		},
-		validateUser({ commit }, data) {
-			axios.post(`${api.base}jwt-auth/v1/token/`, {
-				username: data.username,
-				password: data.password
-			})
-				.then(r => r.data)
-				.catch(() => {
-					console.log('could not validate user');
+		userValidate({ commit }, data) {
+			return new Promise((resolve, reject) => {
+				axios.post(`${api.base}jwt-auth/v1/token/`, {
+					username: data.email,
+					password: data.password
 				})
-				.then(resp => {
-					axios.defaults.headers.common['Authorization'] = `Bearer ${resp.token}`;
-					commit('SET_USER', resp);
-				});
+					.then(r => r.data)
+					.catch(() => {
+						reject();
+					})
+					.then(resp => {
+						if (resp) {
+							commit('SET_USER', resp);
+						} else {
+							reject();
+						}
+					});
+			});
 		},
-		setUser({ commit }, user) {
-			axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
-			commit('SET_USER', user);
+		userSignup({ commit }, data) {
+			return new Promise((resolve, reject) => {
+				axios.post(`${api.base}skateparkguide/v1/signup/`, {
+					email: data.email,
+					password: data.password,
+					password2: data.password2
+				})
+					.then(r => commit('SET_USER', r.data))
+					.catch(error => reject(error.response.data.message));
+			});
 		},
 		validateToken({ commit }, token) {
 			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 			axios.post(`${api.base}wp/v2/users/me/`)
 				.then(r => r.data)
-				.catch(() => {
-					commit('SET_USER', false);
-					console.log('could not fetch /me');
-				})
 				.then(resp => {
 					commit('SET_USER', {
 						token,
@@ -171,6 +179,10 @@ export const store = new Vuex.Store({
 						user_nicename: resp.username
 					});
 				})
+				.catch(() => {
+					commit('SET_USER', false);
+					console.log('could not fetch /me');
+				});
 		}
 	},
 	mutations: {
@@ -189,6 +201,7 @@ export const store = new Vuex.Store({
 			state.page = page;
 		},
 		SET_USER(state, user) {
+			axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
 			settingsDB.set('user', user);
 			state.user = user;
 		}

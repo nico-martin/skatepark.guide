@@ -5,76 +5,78 @@
 >> variables used inside Sass
 >> no output expected
 */
-@import "_______settings/grid";
-@import "_______settings/fonts";
+@import '_______settings/grid';
+@import '_______settings/fonts';
 /*
 >> TOOLS
 >> Mixins and Functions used inside Sass
 >> no output expected
 */
-@import "______tools/mixins.transition";
-@import "______tools/mixins.box-shadow";
-@import "______tools/functions.breakpoints";
-@import "______tools/mixins.clearfix";
-@import "______tools/mixins.ellipsis";
-@import "______tools/mixins.breakpoints";
-@import "______tools/mixins.spinner";
-@import "______tools/mixins.grid";
-@import "______tools/mixins.theme";
-@import "______tools/functions.color";
+@import '______tools/mixins.transition';
+@import '______tools/mixins.box-shadow';
+@import '______tools/functions.breakpoints';
+@import '______tools/mixins.clearfix';
+@import '______tools/mixins.ellipsis';
+@import '______tools/mixins.breakpoints';
+@import '______tools/mixins.spinner';
+@import '______tools/mixins.grid';
+@import '______tools/mixins.theme';
+@import '______tools/functions.color';
 /*
 >> GENERIC
 >> reset and/or normalize styles, box-sizing definition, etc.
 */
-@import "_____generic/box-sizing";
-@import "_____generic/normalize";
-@import "_____generic/resets";
-@import "_____generic/button";
-@import "_____generic/a11y";
-@import "_____generic/keyframes.spinner";
+@import '_____generic/box-sizing';
+@import '_____generic/normalize';
+@import '_____generic/resets';
+@import '_____generic/button';
+@import '_____generic/a11y';
+@import '_____generic/keyframes.spinner';
 /*
 >> ELEMENTS
 >> styling for bare HTML elements (like H1, A, etc.) 
 */
-@import "____elements/document";
-@import "____elements/forms";
-@import "____elements/input";
-@import "____elements/font";
-@import "____elements/font-heading";
-@import "____elements/iframe";
-@import "____elements/table";
-@import "____elements/img";
-@import "____elements/modules/flickity/flickity";
-@import "____elements/modules/flickity/custom";
-@import "____elements/modules/photoswipe/photoswipe";
-@import "____elements/modules/photoswipe/skin";
-@import "____elements/modules/photoswipe/custom";
-@import "____elements/modules/vue-snack/vue-snack";
+@import '____elements/document';
+@import '____elements/forms';
+@import '____elements/input';
+@import '____elements/font';
+@import '____elements/font-heading';
+@import '____elements/iframe';
+@import '____elements/table';
+@import '____elements/img';
+@import '____elements/modules/flickity/flickity';
+@import '____elements/modules/flickity/custom';
+@import '____elements/modules/photoswipe/photoswipe';
+@import '____elements/modules/photoswipe/skin';
+@import '____elements/modules/photoswipe/custom';
+@import '____elements/modules/vue-snack/vue-snack';
 /*
 >> OBJECTS
 >> class-based selectors which define undecorated design patterns, for example media object known from OOCSS
 */
-@import "___objects/hidden";
-@import "___objects/button";
-@import "___objects/hello-icon";
-@import "___objects/dev";
-@import "___objects/browser-check";
-@import "___objects/lazyimage";
+@import '___objects/hidden';
+@import '___objects/button';
+@import '___objects/hello-icon';
+@import '___objects/dev';
+@import '___objects/browser-check';
+@import '___objects/lazyimage';
 /*
 >> COMPONENTS
 >> specific UI components
 */
-@import "__components/app";
-@import "__components/controls";
-@import "__components/settings";
-@import "__components/menu";
-@import "__components/menutoggler";
-@import "__components/map";
-@import "__components/favorites";
-@import "__components/content";
-@import "__components/park";
-@import "__components/weather";
-@import "__components/post-content";
+@import '__components/app';
+@import '__components/controls';
+@import '__components/settings';
+@import '__components/menu';
+@import '__components/menutoggler';
+@import '__components/map';
+@import '__components/favorites';
+@import '__components/content';
+@import '__components/pwreset';
+@import '__components/form';
+@import '__components/park';
+@import '__components/weather';
+@import '__components/post-content';
 
 /*
 >> TRUMPS

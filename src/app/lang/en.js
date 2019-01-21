@@ -44,6 +44,30 @@ export default {
 			text: 'Visit "{parkTitle}" on Skatepark.guide.'
 		}
 	},
+	auth: {
+		name: 'Name',
+		email: 'Email',
+		password: 'Password',
+		password2: 'Repeat password',
+		login: 'Login',
+		signup: 'Sign up',
+		already: 'You are already logged in as {userName}',
+		pwreset: 'Passwort reset',
+		dologin: 'Already have an Account? Log In.',
+		dosignup: 'create Account',
+		privacyinfo: 'By creating your account you agree to the Terms & Conditions',
+		form: {
+			login: {
+				empty: 'Please enter your email address and your password.',
+				error: 'Email address and password do not match.'
+			}
+		}
+	},
+	pwreset: {
+		title: 'Reset Password',
+		already: 'You are already logged in.',
+		email: 'Email'
+	},
 	menu: {
 		about: {
 			title: 'About',

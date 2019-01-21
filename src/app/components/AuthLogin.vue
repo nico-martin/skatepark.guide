@@ -1,46 +1,49 @@
 <template>
-    <div id="login">
-        <h1>Login</h1>
-        <input type="text" name="username" v-model="input.username" placeholder="Username">
-        <input type="password" name="password" v-model="input.password" placeholder="Password">
-        <button type="button" v-on:click="login()">Login</button>
-    </div>
+    <HelloForm formKey="login" :formSubmit="login" :formError="error" :formLoading="loading">
+        <HelloInput :title="$t('auth.email')" name="email" type="email"></HelloInput>
+        <HelloInput :title="$t('auth.password')" name="password" type="password"></HelloInput>
+        <router-link
+            :to="'/'+this.$i18n.locale+'/account/password-reset/'"
+            class="form__control form__control--pwreset"
+        >{{$t('auth.pwreset')}}</router-link>
+    </HelloForm>
 </template>
 
 <script>
+import HelloForm from "./globals/HelloForm.vue";
+import HelloInput from "./globals/HelloInput.vue";
+
 export default {
-    name: "Login",
     data() {
         return {
-            input: {
-                username: "",
-                password: ""
-            }
+            error: false,
+            loading: false
         };
     },
     methods: {
-        login() {
-            this.$store.dispatch("validateUser", {
-                username: this.input.username,
-                password: this.input.password
-            });
-
-            /*
-            if (this.input.username != "" && this.input.password != "") {
-                if (
-                    this.input.username == this.$parent.mockAccount.username &&
-                    this.input.password == this.$parent.mockAccount.password
-                ) {
-                    this.$emit("authenticated", true);
-                    this.$router.replace({ name: "secure" });
-                } else {
-                    console.log("The username and / or password is incorrect");
-                }
-            } else {
-                console.log("A username and password must be present");
-			}
-			*/
+        login: function(data) {
+            if (data.email === "" || data.password === "") {
+                this.form.error = this.$t("auth.form.login.empty");
+                return;
+            }
+            this.form.loading = true;
+            this.$store
+                .dispatch("userValidate", {
+                    email: data.email,
+                    password: data.password
+                })
+                .catch(respData => {
+                    this.form.error = this.$t("auth.form.login.error");
+                    this.form.loading = false;
+                })
+                .then(respData => {
+                    this.form.loading = false;
+                });
         }
+    },
+    components: {
+        HelloForm,
+        HelloInput
     }
 };
 </script>

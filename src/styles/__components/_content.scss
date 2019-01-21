@@ -54,4 +54,12 @@
 			margin-top: 1em;
 		}
 	}
+
+	&__form {
+		margin-top: $space-section * 2 !important;
+		margin-bottom: $space-section !important;
+		padding: 0 $space-section;
+		margin: 0 auto;
+		max-width: 400px;
+	}
 }
