@@ -1,5 +1,11 @@
 <template>
-    <HelloForm formKey="signup" :formSubmit="signup" :formError="error" :formLoading="loading">
+    <HelloForm
+        formKey="signup"
+        :formSubmit="signup"
+        :formError="error"
+        :formLoading="loading"
+        :submit="$t('auth.signup')"
+    >
         <HelloInput :title="$t('auth.email')" name="email" type="email"></HelloInput>
         <HelloInput :title="$t('auth.password')" name="password" type="password"></HelloInput>
         <HelloInput :title="$t('auth.password2')" name="password2" type="password"></HelloInput>

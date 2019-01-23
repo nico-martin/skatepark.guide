@@ -1,5 +1,8 @@
 <template>
-    <form :id="formKey" class="form" @submit.prevent="onSubmit">
+    <div class="form__feedback form__feedback--success" v-if="formSuccess">
+        <p>{{formSuccess}}</p>
+    </div>
+    <form v-else :id="formKey" class="form" @submit.prevent="onSubmit">
         <div class="form__feedback form__feedback--error" v-if="formError">
             <p>{{formError}}</p>
         </div>
@@ -9,7 +12,7 @@
                 class="button form__control"
                 type="submit"
                 :disabled="formLoading"
-            >{{$t('auth.login')}}</button>
+            >{{submitButton}}</button>
         </div>
     </form>
 </template>
@@ -28,10 +31,23 @@ export default {
             type: Boolean | String,
             required: true
         },
+        formSuccess: {
+            type: Boolean | String,
+            required: false
+        },
         formSubmit: {
             type: Function,
             required: true
+        },
+        submit: {
+            type: String,
+            default: ""
         }
+    },
+    data() {
+        return {
+            submitButton: this.submit != "" ? this.submit : this.$t("form.send")
+        };
     },
     methods: {
         onSubmit: function($form) {

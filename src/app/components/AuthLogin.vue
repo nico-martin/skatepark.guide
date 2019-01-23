@@ -1,5 +1,11 @@
 <template>
-    <HelloForm formKey="login" :formSubmit="login" :formError="error" :formLoading="loading">
+    <HelloForm
+        formKey="login"
+        :formSubmit="login"
+        :formError="error"
+        :formLoading="loading"
+        :submit="$t('auth.login')"
+    >
         <HelloInput :title="$t('auth.email')" name="email" type="email"></HelloInput>
         <HelloInput :title="$t('auth.password')" name="password" type="password"></HelloInput>
         <router-link
@@ -23,21 +29,21 @@ export default {
     methods: {
         login: function(data) {
             if (data.email === "" || data.password === "") {
-                this.form.error = this.$t("auth.form.login.empty");
+                this.error = this.$t("auth.form.login.empty");
                 return;
             }
-            this.form.loading = true;
+            this.loading = true;
             this.$store
                 .dispatch("userValidate", {
                     email: data.email,
                     password: data.password
                 })
                 .catch(respData => {
-                    this.form.error = this.$t("auth.form.login.error");
-                    this.form.loading = false;
+                    this.error = this.$t("auth.form.login.error");
+                    this.loading = false;
                 })
                 .then(respData => {
-                    this.form.loading = false;
+                    this.loading = false;
                 });
         }
     },

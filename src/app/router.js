@@ -25,6 +25,9 @@ export default new Router({
 			path: '/:lang/account/password-reset/',
 			component: PwReset
 		}, {
+			path: '/:lang/account/password-reset/:pwresetkey/',
+			component: PwReset
+		}, {
 			path: '/:lang/account/',
 			component: Account
 		}, {

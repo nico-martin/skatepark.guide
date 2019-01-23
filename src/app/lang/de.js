@@ -66,7 +66,13 @@ export default {
 	pwreset: {
 		title: 'Passwort zurücksetzen',
 		already: 'Du bist bereits eingeloggt.',
-		email: 'Email'
+		email: 'Email',
+		password: 'neues Passwort',
+		password2: 'neues Passwort wiederholen',
+		login: 'zum Login'
+	},
+	form: {
+		send: 'Absenden'
 	},
 	menu: {
 		about: {
