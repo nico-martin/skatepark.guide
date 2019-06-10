@@ -1,6 +1,6 @@
 <template>
     <button v-if="show" class="button button--has-icon button--transparent" @click="share();">
-        <Icon icon="share"></Icon>
+        <icon icon="share"></icon>
         {{title}}
     </button>
 </template>

@@ -1,17 +1,19 @@
 import path from 'path';
+import app from './app.json';
+
 import LiveReloadPlugin from 'webpack-livereload-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
-import { GenerateSW } from 'workbox-webpack-plugin';
+import {GenerateSW} from 'workbox-webpack-plugin';
 import WebpackPwaManifest from 'webpack-pwa-manifest'
-import CleanWebpackPlugin from 'clean-webpack-plugin';
+import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const DIST_DIR = path.resolve(__dirname, "dist");
 const SRC_DIR = path.resolve(__dirname, "src");
 
-const config = {
+module.exports = {
 	entry: [
 		`${SRC_DIR}/styles/app.scss`,
 		`${SRC_DIR}/app/app.js`
@@ -47,35 +49,41 @@ const config = {
 			},
 			{
 				test: /\.(s*)css$/,
-				use: ExtractTextPlugin.extract({
-					fallback: 'style-loader',
-					use: [
-						{
-							loader: 'css-loader',
-							options: {
-								url: false
-							}
+				use: [
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							// you can specify a publicPath here
+							// by default it uses publicPath in webpackOptions.output
+							//publicPath: '../',
+							hmr: process.env.NODE_ENV === 'development',
 						},
-						{
-							loader: 'postcss-loader',
-							options: {
-								plugins: () => [require('autoprefixer')]
-							}
-						},
-						{
-							loader: 'sass-loader'
-						},
-						{
-							loader: "@epegzz/sass-vars-loader",
-							options: {
-								syntax: 'scss',
-								files: [
-									`${SRC_DIR}/settings.json`
-								]
-							}
+					},
+					{
+						loader: 'css-loader',
+						options: {
+							url: false
 						}
-					]
-				})
+					},
+					{
+						loader: 'postcss-loader',
+						options: {
+							plugins: () => [require('autoprefixer')]
+						}
+					},
+					{
+						loader: 'sass-loader'
+					},
+					{
+						loader: "@epegzz/sass-vars-loader",
+						options: {
+							syntax: 'scss',
+							files: [
+								`${SRC_DIR}/settings.json`
+							]
+						}
+					}
+				]
 			},
 		]
 	},
@@ -86,9 +94,12 @@ const config = {
 	},
 	devtool: '#eval-source-map',
 	plugins: [
-		new CleanWebpackPlugin(['dist']),
-		new ExtractTextPlugin({
-			filename: 'assets/app-[hash].css'
+		new CleanWebpackPlugin({
+			cleanStaleWebpackAssets: false
+		}),
+		new MiniCssExtractPlugin({
+			filename: 'assets/app-[hash].css',
+			chunkFilename: 'assets/app-[id]-[hash].css'
 		}),
 		new CopyWebpackPlugin([
 			{
@@ -96,21 +107,35 @@ const config = {
 				to: './.htaccess',
 				toType: 'file'
 			}, {
-				from: 'src/img/*',
+				from: 'src/img/**/*',
 				to: './assets/img/',
-				flatten: true
+				transformPath(targetPath, absolutePath) {
+					return targetPath.replace('src/img/', '');
+				},
 			}, {
 				from: 'src/fonts/*',
 				to: './assets/fonts/',
 				flatten: true
+			}, {
+				from: 'src/version.json',
+				to: './version.json',
+				toType: 'file'
 			}
 		]),
 		new LiveReloadPlugin(),
 		new HtmlWebpackPlugin({
 			//hash: true,
-			title: 'Skatepark.guide',
-			template: 'src/index.php',
-			filename: './index.php'
+			title: app.title,
+			description: app.description,
+			filename: './index.php',
+			minify: {
+				collapseWhitespace: true,
+				removeComments: true,
+				removeRedundantAttributes: true,
+				removeScriptTypeAttributes: true,
+				removeStyleLinkTypeAttributes: true,
+				useShortDoctype: true,
+			}
 		}),
 		new FaviconsWebpackPlugin({
 			logo: './src/icons/favicon.png',
@@ -119,8 +144,8 @@ const config = {
 			statsFilename: 'assets/icon/iconstats-[hash].json',
 			persistentCache: true,
 			inject: true,
-			background: '#fff',
-			title: 'Skatepark.guide',
+			background: app.colorbkg,
+			title: app.title,
 			icons: {
 				android: true,
 				appleIcon: true,
@@ -135,11 +160,11 @@ const config = {
 			}
 		}),
 		new WebpackPwaManifest({
-			name: 'Skatepark.guide',
-			short_name: 'Skatepark.guide',
-			description: 'A Progressive Web App for skateparks around the world!',
-			theme_color: '#00796B',
-			background_color: '#ffffff',
+			name: app.title,
+			short_name: app.title.replace(' ', ''),
+			description: app.description,
+			theme_color: app.color,
+			background_color: app.colorbkg,
 			crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
 			fingerprints: false,
 			icons: [
@@ -154,6 +179,7 @@ const config = {
 		new GenerateSW({
 			importWorkboxFrom: 'local',
 			include: [/\.php$/, /\.js$/, /\.css$/],
+			importsDirectory: 'wb-assets',
 			runtimeCaching: [
 				{
 					urlPattern: new RegExp('^https://skateparkguide\.ch/wp-content/uploads/'),
@@ -174,5 +200,3 @@ const config = {
 		})
 	]
 };
-
-module.exports = config;

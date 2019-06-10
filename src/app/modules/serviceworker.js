@@ -1,5 +1,3 @@
-import { rejects } from "assert";
-
 export default () => {
 	return new Promise((resolve, reject) => {
 		if (!"serviceWorker" in navigator) {
