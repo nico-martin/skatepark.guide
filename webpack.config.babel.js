@@ -12,6 +12,9 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 const DIST_DIR = path.resolve(__dirname, "dist");
 const SRC_DIR = path.resolve(__dirname, "src");
+const env = process.env.NODE_ENV;
+const minify = env === 'production';
+const sourceMap = env === 'development';
 
 module.exports = {
 	entry: [
@@ -23,6 +26,7 @@ module.exports = {
 		filename: "assets/app-[hash].js",
 		publicPath: '/'
 	},
+	devtool: sourceMap ? `cheap-module-eval-source-map` : undefined,
 	module: {
 		rules: [
 			{
@@ -92,7 +96,6 @@ module.exports = {
 			'vue$': 'vue/dist/vue.common.js'
 		}
 	},
-	devtool: '#eval-source-map',
 	plugins: [
 		new CleanWebpackPlugin({
 			cleanStaleWebpackAssets: false
@@ -127,15 +130,16 @@ module.exports = {
 			//hash: true,
 			title: app.title,
 			description: app.description,
-			filename: './index.php',
-			minify: {
+			template: 'src/index.html',
+			filename: './index.html',
+			minify: minify ? {
 				collapseWhitespace: true,
 				removeComments: true,
 				removeRedundantAttributes: true,
 				removeScriptTypeAttributes: true,
 				removeStyleLinkTypeAttributes: true,
 				useShortDoctype: true,
-			}
+			} : false
 		}),
 		new FaviconsWebpackPlugin({
 			logo: './src/icons/favicon.png',

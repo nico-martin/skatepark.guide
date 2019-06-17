@@ -1,14 +1,17 @@
 import * as s from '../../settings.json';
 
-export const settings = s;
+export const settings = s.default;
 export const isDev = window.location.href.indexOf('.hello') !== -1;
+console.log(isDev);
 
 /**
  * API
  */
 
+const apiBase = 'https://skateparkguide.ch/wp-json';
 export const api = {
-	base: 'https://skateparkguide.ch/wp-json/',
+	base: apiBase,
+	lang: apiBase + '/lang/'
 };
 
 /**

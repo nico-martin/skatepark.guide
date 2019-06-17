@@ -1,7 +1,7 @@
 <template>
-	<figure v-bind:class="bemBlock">
-		<img v-bind:class="bemBlock+'__preview'" v-bind:src="img.placeholder"/>
-		<img v-bind:width="biggestWidth" v-bind:height="biggestHeight" v-bind:class="bemBlock+'__image '+bemBlock+'__image--lazyload'" data-sizes="auto" v-bind:src="image.placeholder" v-bind:data-srcset="srcSet"/>
+	<figure :class="bemBlock">
+		<img :class="bemBlock+'__preview'" :src="img.placeholder"/>
+		<img :width="biggestWidth" :height="biggestHeight" :class="bemBlock+'__image '+bemBlock+'__image--lazyload'" data-sizes="auto" :src="image.placeholder" :data-srcset="srcSet"/>
 	</figure>
 </template>
 

@@ -46,7 +46,7 @@ export default {
     },
     data() {
         return {
-            submitButton: this.submit != "" ? this.submit : this.$t("form.send")
+            submitButton: this.submit !== '' ? this.submit : this.$t("form.send")
         };
     },
     methods: {

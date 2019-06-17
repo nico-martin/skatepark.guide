@@ -1,180 +1,174 @@
 <template>
-    <main class="park">
-        <link v-if="park.image" :href="park.image['3x2'].sizes.medium.url">
-        <header class="park__header">
-            <div class="park__image">
-                <LazyImage v-if="park.image" :image="park.image" ratio="3x1"></LazyImage>
-            </div>
-            <div class="park__heading">
-                <span class="park__float-title">{{park.title}}</span>
-                <button
-                    :class="'park__love '+(isLoved ? 'park__love--loved': '')"
-                    @click="lovePark(isLoved)"
-                >
-                    <Icon icon="heart"></Icon>
-                    <Icon icon="heart-empty"></Icon>
-                </button>
-            </div>
-        </header>
-        <h1 class="park__title">{{park.title}}</h1>
-        <div class="park__loader" v-if="park.loading"></div>
-        <div class="park__body" v-else>
-            <ParkVideo class="park__video" v-if="park.video" :link="park.video"></ParkVideo>
-            <ParkGallery class="park__gallery" v-if="park.gallery" :images="park.gallery"></ParkGallery>
-            <div class="park__content post-content" v-html="park.content"></div>
-            <div class="park__contact">
-                <a
-                    class="park__contact-link"
-                    target="_blank"
-                    v-if="park.homepage"
-                    v-bind:href="park.homepage"
-                >
-                    <Icon icon="link" class="hello-icon--button hello-icon--round"></Icon>
-                    <span v-html="displayUrl(park.homepage)"></span>
-                </a>
-                <a class="park__contact-link" v-if="park.email" v-bind:href="'mailto:'+park.email">
-                    <Icon icon="at" class="hello-icon--button hello-icon--round"></Icon>
-                    {{park.email}}
-                </a>
-                <a class="park__contact-link" v-if="park.phone" v-bind:href="park.phone">
-                    <Icon icon="phone" class="hello-icon--button hello-icon--round"></Icon>
-                    {{park.phone}}
-                </a>
-                <a
-                    class="park__contact-link"
-                    v-if="park.address"
-                    v-bind:href="'https://www.google.com/maps?q='+park.address"
-                    target="_blank"
-                >
-                    <Icon icon="home" class="hello-icon--button hello-icon--round"></Icon>
-                    <span v-html="nl2br(park.address)"></span>
-                </a>
-                <a
-                    class="park__contact-link"
-                    v-if="park.facebook"
-                    v-bind:href="park.facebook"
-                    target="_blank"
-                >
-                    <Icon icon="facebook" class="hello-icon--button hello-icon--round"></Icon>
-                    <span v-html="displayUrl(park.facebook)"></span>
-                </a>
-            </div>
-            <ParkWeather class="park__weather" :slug="park.slug"></ParkWeather>
-            <Share
-                class="park__share"
-                :title="$t('share.park.title')"
-                :text="$t('share.park.text', {'parkTitle': park.title})"
-            ></Share>
-        </div>
-    </main>
+	<main class="park">
+		<link v-if="park.image" :href="park.image['3x2'].sizes.medium.url">
+		<header class="park__header">
+			<div class="park__image">
+				<lazy-image v-if="park.image" :image="park.image" ratio="3x1"></lazy-image>
+			</div>
+			<div class="park__heading">
+				<span class="park__float-title">{{park.title}}</span>
+				<button
+					:class="'park__love '+(isLoved ? 'park__love--loved': '')"
+					@click="lovePark(isLoved)"
+				>
+					<icon icon="heart"></icon>
+					<icon icon="heart-empty"></icon>
+				</button>
+			</div>
+		</header>
+		<h1 class="park__title">{{park.title}}</h1>
+		<div class="park__loader" v-if="park.loading"></div>
+		<div class="park__body" v-else>
+			<park-video class="park__video" v-if="park.video" :link="park.video"></park-video>
+			<park-gallery class="park__gallery" v-if="park.gallery" :images="park.gallery"></park-gallery>
+			<div class="park__content post-content" v-html="park.content"></div>
+			<div class="park__contact">
+				<a
+					class="park__contact-link"
+					target="_blank"
+					v-if="park.homepage"
+					:href="park.homepage"
+				>
+					<icon icon="link" class="hello-icon--button hello-icon--round"></icon>
+					<span v-html="displayUrl(park.homepage)"></span>
+				</a>
+				<a class="park__contact-link" v-if="park.email" :href="'mailto:'+park.email">
+					<icon icon="at" class="hello-icon--button hello-icon--round"></icon>
+					{{park.email}}
+				</a>
+				<a class="park__contact-link" v-if="park.phone" :href="park.phone">
+					<icon icon="phone" class="hello-icon--button hello-icon--round"></icon>
+					{{park.phone}}
+				</a>
+				<a
+					class="park__contact-link"
+					v-if="park.address"
+					:href="'https://www.google.com/maps?q='+park.address"
+					target="_blank"
+				>
+					<icon icon="home" class="hello-icon--button hello-icon--round"></icon>
+					<span v-html="nl2br(park.address)"></span>
+				</a>
+				<a
+					class="park__contact-link"
+					v-if="park.facebook"
+					:href="park.facebook"
+					target="_blank"
+				>
+					<icon icon="facebook" class="hello-icon--button hello-icon--round"></icon>
+					<span v-html="displayUrl(park.facebook)"></span>
+				</a>
+			</div>
+			<park-weather class="park__weather" :slug="park.slug"></park-weather>
+			<share
+				class="park__share"
+				:title="$t('share_park_title')"
+				:text="$t('share_park_text', {'parkTitle': park.title})"
+			></share>
+		</div>
+	</main>
 </template>
 
 <script>
-import { lovedDB } from "../store/storeDB";
-import Icon from "./globals/Icon.vue";
-import LazyImage from "./globals/LazyImage.vue";
-import ParkGallery from "./ParkGallery.vue";
-import ParkVideo from "./ParkVideo.vue";
-import ParkWeather from "./ParkWeather.vue";
-import Share from "./globals/Share.vue";
-import { mapState } from "vuex";
+	import {lovedDB} from '../store/storeDB';
+	import ParkGallery from './ParkGallery.vue';
+	import ParkVideo from './ParkVideo.vue';
+	import ParkWeather from './ParkWeather.vue';
+	import {mapState} from 'vuex';
 
-let offset = false;
+	let offset = false;
 
-function setHeadingPosition() {
-    const $heading = document.querySelector(".park__heading");
-    const $header = document.querySelector(".park__header");
-    if ($heading && $header) {
-        offset = $header.offsetHeight - $heading.offsetHeight;
-        $header.style.top = `-${offset}px`;
-    }
-}
+	function setHeadingPosition() {
+		const $heading = document.querySelector('.park__heading');
+		const $header = document.querySelector('.park__header');
+		if ($heading && $header) {
+			offset = $header.offsetHeight - $heading.offsetHeight;
+			$header.style.top = `-${offset}px`;
+		}
+	}
 
-window.addEventListener("resize", () => {
-    setHeadingPosition();
-});
+	window.addEventListener('resize', () => {
+		setHeadingPosition();
+	});
 
-export default {
-    data() {
-        return {
-            isLoved: false
-        };
-    },
-    metaInfo: function() {
-        return {
-            title: this.park.title
-        };
-    },
-    mounted() {
-        lovedDB.get(this.$route.params.slug).then(result => {
-            if (result) {
-                this.isLoved = true;
-            }
-        });
+	export default {
+		data() {
+			return {
+				isLoved: false
+			};
+		},
+		metaInfo: function () {
+			return {
+				title: this.park.title
+			};
+		},
+		mounted() {
+			lovedDB.get(this.$route.params.slug).then(result => {
+				if (result) {
+					this.isLoved = true;
+				}
+			});
 
-        this.$store.dispatch("loadPark", this.$route.params.slug);
+			this.$store.dispatch('loadPark', this.$route.params.slug);
 
-        setHeadingPosition();
-        const $image = this.$el.querySelector(".park__image");
-        const $title = this.$el.querySelector(".park__float-title");
+			setHeadingPosition();
+			const $image = this.$el.querySelector('.park__image');
+			const $title = this.$el.querySelector('.park__float-title');
 
-        document.querySelector("#content").addEventListener("scroll", () => {
-            if (!offset) {
-                return;
-            }
+			document.querySelector('#content').addEventListener('scroll', () => {
+				if (!offset) {
+					return;
+				}
 
-            let scroll = document.querySelector("#content").scrollTop;
-            if (scroll >= offset) {
-                scroll = offset;
-            }
+				let scroll = document.querySelector('#content').scrollTop;
+				if (scroll >= offset) {
+					scroll = offset;
+				}
 
-            $image.style.opacity = 1 - (1 / offset) * scroll;
-            $title.style.opacity = (1 / offset) * scroll;
-        });
-    },
-    beforeDestroy() {
-        this.$store.dispatch("loadPark", false);
-    },
-    updated() {
-        setHeadingPosition();
-    },
-    components: {
-        Icon,
-        LazyImage,
-        ParkGallery,
-        ParkVideo,
-        ParkWeather,
-        Share
-    },
-    computed: mapState(["park"]),
-    methods: {
-        nl2br: function(str = "") {
-            return str === ""
-                ? ""
-                : (str + "").replace(/(\r\n|\n\r|\r|\n)/g, "<br>$1");
-        },
-        displayUrl: function(url = "") {
-            return url
-                .replace(/http:\/\//g, "")
-                .replace(/https:\/\//g, "")
-                .replace(/www./g, "")
-                .replace(/facebook.com/g, "");
-        },
-        lovePark: function(isLoved) {
-            if (isLoved) {
-                this.isLoved = false;
-                lovedDB.delete(this.$route.params.slug);
-            } else {
-                this.isLoved = true;
-                lovedDB.set(this.$route.params.slug, this.park);
-            }
-            this.$snack.success({
-                text: this.isLoved
-                    ? this.$t("park.loved")
-                    : this.$t("park.unloved"),
-                button: "OK"
-            });
-        }
-    }
-};
+				$image.style.opacity = 1 - (1 / offset) * scroll;
+				$title.style.opacity = (1 / offset) * scroll;
+			});
+		},
+		beforeDestroy() {
+			this.$store.dispatch('loadPark', false);
+		},
+		updated() {
+			setHeadingPosition();
+		},
+		components: {
+			ParkGallery,
+			ParkVideo,
+			ParkWeather
+		},
+		computed: mapState(['park']),
+		methods: {
+			nl2br: function (str = '') {
+				return str === ''
+					? ''
+					: (str + '').replace(/(\r\n|\n\r|\r|\n)/g, "<br>$1");
+			},
+			displayUrl: function (url = '') {
+				return url
+					.replace(/http:\/\//g, "")
+					.replace(/https:\/\//g, "")
+					.replace(/www./g, "")
+					.replace(/facebook.com/g, "");
+			},
+			lovePark: function (isLoved) {
+				if (isLoved) {
+					this.isLoved = false;
+					lovedDB.delete(this.$route.params.slug);
+				} else {
+					this.isLoved = true;
+					lovedDB.set(this.$route.params.slug, this.park);
+				}
+				this.$snack.success({
+					text: this.isLoved
+						? this.$t('park_loved')
+						: this.$t('park_unloved'),
+					button: 'OK'
+				});
+			}
+		}
+	};
 </script>

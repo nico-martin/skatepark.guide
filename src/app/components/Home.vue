@@ -1,6 +1,6 @@
 <template></template>
 <script>
-	import content from './../modules/content';
+	import content from './../vendor/content';
 
 	export default {
 		mounted: function () {

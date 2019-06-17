@@ -1,13 +1,15 @@
-const fs = require('fs');
-const fileName = './package.json';
-const file = require(fileName);
+import fs from 'fs';
+import file from './../package.json';
+
 const versionNumbers = file.version.split('.');
 
 versionNumbers[versionNumbers.length - 1]++;
 
 const newVersion = versionNumbers.join('.');
+
 file.version = newVersion;
-fs.writeFile(fileName, JSON.stringify(file), function (err) {
+
+fs.writeFile('./package.json', JSON.stringify(file), function (err) {
 	if (err) return console.log(err);
 	console.log('new Version: ' + newVersion);
 });

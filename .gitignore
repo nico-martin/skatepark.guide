@@ -6,3 +6,4 @@ npm-debug.log
 dist/
 skatepark-guide.code-workspace
 ssr-cache/
+build/tmp/

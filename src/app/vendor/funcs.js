@@ -1,7 +1,6 @@
-import {settings} from './settings';
+import {settings} from './settings.js';
 
-export const getColor = (mycolor, tone = 'base') => {
-	console.log(settings.theme_colors);
+export const getColor = function (mycolor, tone = 'base') {
 	if (!mycolor in settings.theme_colors) {
 		return false;
 	}

@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import router from '../router'
-import { api } from '../modules/settings';
+import { api } from '../vendor/settings';
 import { pagesDB, parksDB, settingsDB } from './storeDB';
 import { i18n } from '../i18n';
 
@@ -105,8 +105,8 @@ export const store = new Vuex.Store({
 		loadPage({ commit }, data) {
 
 			const slug = data[0];
-			const validPage = i18n.t('menu.' + slug);
-			if (i18n.t('menu.' + slug) === 'menu.' + slug) {
+			const validPage = i18n.t('menu_' + slug);
+			if (i18n.t('menu_' + slug) === 'menu_' + slug) {
 				commit('SET_PAGE', {
 					title: '404 error',
 					content: 'Page not found',

@@ -5,14 +5,15 @@
 </template>
 
 <script>
+
 	export default {
-		props: ["to", "tag", "activeClass"],
+		props: ['to', 'tag', 'activeClass'],
 
 		methods: {
 			getUri() {
 				let locale = this.$route.params.locale;
 
-				if (this.to === "/") {
+				if (this.to === '/') {
 					return `/${locale}/`;
 				}
 				return `/${locale}/${this.to.replace(/^\/|\/$/g, "")}/`;

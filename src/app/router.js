@@ -6,7 +6,7 @@ import Page from './components/Page.vue';
 import Account from './components/Account.vue';
 import PwReset from './components/PwReset.vue';
 import Home from './components/Home.vue';
-import { defaultLang } from './i18n';
+import {vueInstance} from './app';
 
 Vue.use(Router);
 Vue.use(Meta);
@@ -15,27 +15,29 @@ export default new Router({
 	mode: 'history',
 	routes: [
 		{
-			path: '/',
-			redirect: `/${defaultLang}/`,
-		},
-		{
-			path: '/:lang/',
+			path: '/:locale/',
 			component: Home
 		}, {
-			path: '/:lang/account/password-reset/',
+			path: '/:locale/account/password-reset/',
 			component: PwReset
 		}, {
-			path: '/:lang/account/password-reset/:pwresetkey/',
+			path: '/:locale/account/password-reset/:pwresetkey/',
 			component: PwReset
 		}, {
-			path: '/:lang/account/',
+			path: '/:locale/account/',
 			component: Account
 		}, {
-			path: '/:lang/parks/:slug/',
+			path: '/:locale/parks/:slug/',
 			component: Park
 		}, {
-			path: '/:lang/:page/',
+			path: '/:locale/:page/',
 			component: Page
 		}
 	]
 });
+
+window.routerBackHome = function () {
+	vueInstance.$router.push({
+		path: `/${vueInstance.$i18n.locale}/`
+	});
+};
