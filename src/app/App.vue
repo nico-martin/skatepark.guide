@@ -91,13 +91,11 @@
 			}
 		},
 		mounted() {
-			/*
 			window.setTimeout(() => {
 				document.getElementById('app').classList.add('app--loaded');
 			}, 100);
 
 			i18nSetLang();
-			*/
 		},
 		created() {
 			window.addEventListener('online', () => {

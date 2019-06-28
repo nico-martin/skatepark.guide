@@ -11,7 +11,7 @@ console.log(isDev);
 const apiBase = 'https://skateparkguide.ch/wp-json';
 export const api = {
 	base: apiBase,
-	lang: apiBase + '/lang/'
+	lang: apiBase + '/skateparkguide/v1/lang'
 };
 
 /**

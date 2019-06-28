@@ -1,92 +1,47 @@
-/*
-import idb from 'idb';
+import {openDB, deleteDB, wrap, unwrap} from 'idb';
 
-const db = 'skatepark.guide';
-const dbVersion = 1;
-*/
-const stores = [
+const dbName = 'skatepark.guide';
+const dbVersion = 3;
+const dbStores = [
 	'settings',
 	'pages',
 	'parks',
-	'loved'
+	'loved',
+	'translations'
 ];
-/*
-const Store = idb.open(db, dbVersion, upgradeDB => {
-	stores.forEach((store) => {
-		upgradeDB.createObjectStore(store);
-	});
+const idbPromise = openDB(dbName, dbVersion, {
+	upgrade(db) {
+		dbStores.forEach(store => {
+			db.createObjectStore(store);
+		});
+	}
 });
-*/
-const exp = {};
-stores.forEach((store) => {
-	exp[store] = {
-		set: function (key, val) {
-			return new Promise(resolve => {
-				resolve();
-			});
-			/*
-			return Store.then(db => {
-				const tx = db.transaction(store, 'readwrite');
-				tx.objectStore(store).put(val, key);
-				return tx.complete;
-			});
-			*/
-		},
-		get: function (key) {
-			return new Promise(resolve => {
-				resolve();
-			});
-			/*
-			return Store.then(db => {
-				return db.transaction(store)
-					.objectStore(store).get(key);
-			});
-			*/
-		},
-		delete: function (key) {
-			return new Promise(resolve => {
-				resolve();
-			});
-			/*
-			return Store.then(db => {
-				const tx = db.transaction(store, 'readwrite');
-				tx.objectStore(store).delete(key);
-				return tx.complete;
-			});
-			*/
-		},
-		getAll: function () {
-			return new Promise(resolve => {
-				resolve();
-			});
-			/*
-			return Store.then(db => {
-				return db.transaction(store)
-					.objectStore(store).getAll();
-			});
-			*/
-		},
-		keys: function () {
-			return new Promise(resolve => {
-				resolve();
-			});
-			/*
-			return Store.then(db => {
-				const tx = db.transaction(store);
-				const keys = [];
-				const oStore = tx.objectStore(store);
-				(oStore.iterateKeyCursor || oStore.iterateCursor).call(oStore, cursor => {
-					if (!cursor) return;
-					keys.push(cursor.key);
-					cursor.continue();
-				});
 
-				return tx.complete.then(() => keys);
-			});
-			*/
+const exp = {};
+dbStores.forEach(store => {
+	exp[store] = {
+		async get(key) {
+			return (await idbPromise).get(store, key);
+		},
+		async set(key, val) {
+			return (await idbPromise).put(store, val, key);
+		},
+		async delete(key) {
+			return (await idbPromise).delete(store, key);
+		},
+		async clear() {
+			return (await idbPromise).clear(store);
+		},
+		async getAll() {
+			return (await idbPromise).getAll(store);
+		},
+		async keys() {
+			return (await idbPromise).getAllKeys(store);
 		}
 	};
 });
+
+export const storeDB = exp;
 
 export const settingsDB = exp['settings'];
 export const pagesDB = exp['pages'];

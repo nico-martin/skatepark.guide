@@ -6,13 +6,12 @@ import router from './router';
 import 'vue-cookies';
 
 import {api} from "./vendor/settings";
-import {store} from "./store/store";
+//import {store} from "./store/store";
+import {settingsDB, storeDB} from "./store/storeDB";
 
 Vue.use(VueI18n);
 
 const fallback = 'de';
-const loadedLanguages = [fallback];
-
 export const i18nDefault = fallback;
 export const i18n = new VueI18n({
 	locale: fallback,
@@ -40,66 +39,59 @@ export const i18nGetLang = function () {
 	return fallback;
 };
 
-export const i18nSetLang = function (lang = false) {
+export const i18nSetLang = async function (lang = false) {
 	if (!lang) {
 		lang = i18nGetLang();
 	}
 
-	const load = new Promise((resolve, reject) => {
-		if (i18n.locale !== lang) {
-			if (loadedLanguages.indexOf(lang) === -1) {
-				return axios
-					.get(`${api.wp.base}wc-guide/v1/translations/${lang}/`)
-					.then(response => {
-						const msgs = response.data;
-						i18n.setLocaleMessage(lang, msgs);
-						loadedLanguages.push(lang);
-						resolve(lang);
-					}).catch(() => reject());
-			}
-			resolve(lang);
+	let apiSet = false;
+
+	axios
+		.get(`${api.lang}/${lang}/`)
+		.then(response => {
+			const msgs = response.data;
+			storeDB.translations.set(lang, msgs);
+			apiSet = true;
+			setLang(lang, msgs);
+		});
+
+	storeDB.translations.get(lang).then(msgs => {
+		if (!apiSet) {
+			setLang(lang, msgs);
 		}
-		resolve(lang)
 	});
-
-	load.then(lang => {
-
-		/**
-		 * Set Lang
-		 */
-		i18n.locale = lang;
-		axios.defaults.headers.common['Accept-Language'] = lang;
-		document.querySelector('html').setAttribute('lang', lang);
-		$cookies.set('lang', lang);
-
-		/**
-		 * Push
-		 */
-		let pushPath = false;
-		const currentRoute = router.currentRoute;
-
-		if (currentRoute.fullPath === '/') {
-			pushPath = `${currentRoute.fullPath}${i18n.locale}/`;
-		} else if (i18n.locale !== currentRoute.params.locale) {
-			pushPath = currentRoute.fullPath.replace(`/${currentRoute.params.locale}/`, `/${i18n.locale}/`);
-		}
-
-		if (pushPath) {
-			router.push(pushPath);
-		}
-
-		/**
-		 * MapLanguage
-		 */
-		i18nSetMapLang(lang);
-
-		/**
-		 * Return
-		 */
-		return lang;
-	}).catch(() => i18nSetLang(fallback));
 };
 
+function setLang(lang, msgs) {
+	i18n.setLocaleMessage(lang, msgs);
+
+	/**
+	 * Set Lang
+	 */
+	i18n.locale = lang;
+	axios.defaults.headers.common['Accept-Language'] = lang;
+	document.querySelector('html').setAttribute('lang', lang);
+	$cookies.set('lang', lang);
+
+	/**
+	 * Push
+	 */
+	let pushPath = false;
+	const currentRoute = router.currentRoute;
+
+	if (currentRoute.fullPath === '/') {
+		pushPath = `${currentRoute.fullPath}${i18n.locale}/`;
+	} else if (i18n.locale !== currentRoute.params.locale) {
+		pushPath = currentRoute.fullPath.replace(`/${currentRoute.params.locale}/`, `/${i18n.locale}/`);
+	}
+
+	if (pushPath) {
+		router.push(pushPath);
+	}
+	return lang;
+}
+
+/*
 export const i18nSetMapLang = function (lang = false) {
 	if (!lang) {
 		lang = i18nGetLang();
@@ -113,3 +105,4 @@ export const i18nSetMapLang = function (lang = false) {
 		store.state.map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + mapLang]);
 	}
 };
+*/

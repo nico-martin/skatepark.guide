@@ -32,7 +32,7 @@ module.exports = {
 			{
 				test: /\.svg$/,
 				exclude: /node_modules/,
-				use: 'raw-loader'
+				loader: 'vue-svg-loader',
 			},
 			{
 				test: /\.vue$/,
@@ -199,7 +199,7 @@ module.exports = {
 					}
 				}
 			],
-			navigateFallback: 'index.php',
+			navigateFallback: 'index.html',
 			skipWaiting: true,
 		})
 	]
