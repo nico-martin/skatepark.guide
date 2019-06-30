@@ -6,8 +6,7 @@ import router from './router';
 import 'vue-cookies';
 
 import {api} from "./vendor/settings";
-//import {store} from "./store/store";
-import {settingsDB, storeDB} from "./store/storeDB";
+import {storeDB} from "./store/storeDB";
 
 Vue.use(VueI18n);
 
@@ -18,6 +17,8 @@ export const i18n = new VueI18n({
 	fallbackLocale: fallback,
 	messages: {de}
 });
+
+storeDB.translations.set(fallback, de);
 
 export const i18nGetLang = function () {
 
@@ -90,19 +91,3 @@ function setLang(lang, msgs) {
 	}
 	return lang;
 }
-
-/*
-export const i18nSetMapLang = function (lang = false) {
-	if (!lang) {
-		lang = i18nGetLang();
-	}
-	if (store.state.map) {
-		const mapBoxLanguages = ['en', 'es', 'fr', 'de', 'ru', 'zh', 'pt', 'ar', 'ja'];
-		let mapLang = lang;
-		if (mapBoxLanguages.indexOf(mapLang) === -1) {
-			mapLang = fallback;
-		}
-		store.state.map.setLayoutProperty('country-label', 'text-field', ['get', 'name_' + mapLang]);
-	}
-};
-*/

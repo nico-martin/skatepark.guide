@@ -1,6 +1,8 @@
 <template>
 	<div class="app" id="app">
-		<localized-link to="/" class="controls controls--logo logo" v-html="logo"></localized-link>
+		<localized-link to="/" class="controls controls--logo logo">
+			<icon icon="logo-portrait"></icon>
+		</localized-link>
 		<Map v-if="online"></Map>
 		<Favorites v-else></Favorites>
 		<div id="content" class="app__content" aria-hidden="true">
@@ -13,37 +15,36 @@
 				<span class="menutoggler__line menutoggler__line--2"></span>
 				<span class="menutoggler__line menutoggler__line--3"></span>
 			</button>
-			<localized-link to="/" class="menu__links menu__links--information button button--icon button--small">
-				<icon icon="information"></icon>
+			<localized-link to="/about/" class="menu__links menu__links--information button button--icon button--small">
+				<hello-icon icon="information"></hello-icon>
 			</localized-link>
 			<button @click="newPark()" class="menu__links menu__links--markerplus button button--icon button--small">
-				<icon icon="markerplus"></icon>
+				<hello-icon icon="markerplus"></hello-icon>
 			</button>
 			<localized-link to="/account/" class="menu__links menu__links--account button button--icon button--small">
-				<icon icon="account"></icon>
+				<hello-icon icon="account"></hello-icon>
 			</localized-link>
 		</div>
 		<button class="controls controls--settings button button--icon" @click="toggleSettings()">
-			<icon icon="close"></icon>
-			<icon icon="settings"></icon>
+			<hello-icon icon="close"></hello-icon>
+			<hello-icon icon="settings"></hello-icon>
 		</button>
 		<Settings class="app__settings settings" aria-hidden="true"></Settings>
 	</div>
 </template>
 
 <script>
-	import logo from './../icons/logo-portrait.svg';
 	import content from './vendor/content';
 	import Map from './components/Map.vue';
 	import Favorites from './components/Favorites.vue';
-	import Settings from './components/Settings.vue';
 	import {i18nSetLang} from './i18n';
 	import {settingsDB} from './store/storeDB.js';
+
+	const Settings = () => import(/* webpackChunkName: "settings" */ './components/Settings.vue');
 
 	export default {
 		data() {
 			return {
-				logo,
 				online: navigator.onLine
 			};
 		},

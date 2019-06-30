@@ -9,7 +9,7 @@
 				:key="data.title"
 			>
 				<h4 class="weather__heading">{{data.title}}</h4>
-				<icon class="weather__icon" :icon="data.icon"></icon>
+				<hello-icon class="weather__icon" :icon="data.icon"></hello-icon>
 				<span class="weather__description">{{data.description}}</span>
 				<span class="weather__temp">{{data.temp}} °C</span>
 			</li>

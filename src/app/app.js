@@ -13,11 +13,13 @@ import {isDev} from './vendor/settings';
 import {getColor} from './vendor/funcs';
 
 import Icon from "./components/globals/import/Icon.vue";
+import HelloIcon from "./components/globals/import/HelloIcon.vue";
 import LocalizedLink from "./components/globals/import/LocalizedLink.vue";
 import LazyImage from "./components/globals/import/LazyImage.vue";
 import Share from "./components/globals/import/Share.vue";
 
 Vue.component('icon', Icon);
+Vue.component('hello-icon', HelloIcon);
 Vue.component('localized-link', LocalizedLink);
 Vue.component('lazy-image', LazyImage);
 Vue.component('share', Share);
@@ -41,7 +43,6 @@ import {store} from './store/store';
 import {i18n} from './i18n';
 import router from './router';
 
-console.log(isDev);
 if (!isDev) {
 	Vue.use(VueMatomo, {
 		host: 'https://analytics.sayhello.agency/',

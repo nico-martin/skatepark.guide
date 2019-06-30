@@ -7,7 +7,7 @@
 			                :to="`/${element}/`"
 			                class="content__link"
 			>
-				{{$t(`menu-${element}-title`)}}
+				{{$t(`menu_${element}_title`)}}
 			</localized-link>
 		</nav>
 		<h1 class="content__title">{{page.title}}</h1>
@@ -22,7 +22,7 @@
 	export default {
 		data() {
 			return {
-				navigation: ['about', 'imporessum', 'privacy']
+				navigation: ['about', 'impressum', 'privacy']
 			}
 		},
 		metaInfo: function () {
@@ -31,12 +31,14 @@
 			};
 		},
 		mounted: function () {
-			this.$store.dispatch('loadPage', [this.$route.params.page]);
+			this.$store.dispatch('page/load', [this.$route.params.page]);
 		},
 		beforeRouteUpdate(to, from, next) {
-			this.$store.dispatch('loadPage', [to.params.page]);
+			this.$store.dispatch('page/load', [to.params.page]);
 			next();
 		},
-		computed: mapState(['page'])
+		computed: mapState({
+			page: state => state.page.current
+		}),
 	};
 </script>

@@ -1,7 +1,5 @@
 <template>
-	<span class="hello-icon">
-		<component :is="svg" v-on="$listeners"/>
-	</span>
+	<component :is="svg" v-on="$listeners"/>
 </template>
 
 <script>
@@ -18,12 +16,15 @@
 			icon: {
 				type: String,
 				required: true
+			},
+			folder: {
+				type: String,
+				default: ''
 			}
 		},
 
 		async created() {
-			console.log(this.icon);
-			const loaded = await import(/* webpackMode: "eager" */ `../../../../icons/mdi/${this.icon}.svg`);
+			const loaded = await import(/* webpackMode: "eager" */ `@/icons/${this.folder + this.icon}.svg`);
 			this.svg = loaded.default
 		}
 	}

@@ -20,7 +20,7 @@
 	</div>
 </template>
 <script>
-	//import {lovedDB} from "../store/storeDB";
+	import {lovedDB} from "../store/storeDB";
 
 	export default {
 		data() {
@@ -29,11 +29,9 @@
 			};
 		},
 		mounted() {
-			/*
 			lovedDB.getAll().then(resp => {
 				this.parks = resp;
 			});
-			*/
 		}
 	};
 </script>

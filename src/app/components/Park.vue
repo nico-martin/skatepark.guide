@@ -11,8 +11,8 @@
 					:class="'park__love '+(isLoved ? 'park__love--loved': '')"
 					@click="lovePark(isLoved)"
 				>
-					<icon icon="heart"></icon>
-					<icon icon="heart-empty"></icon>
+					<hello-icon icon="heart"></hello-icon>
+					<hello-icon icon="heart-empty"></hello-icon>
 				</button>
 			</div>
 		</header>
@@ -29,15 +29,15 @@
 					v-if="park.homepage"
 					:href="park.homepage"
 				>
-					<icon icon="link" class="hello-icon--button hello-icon--round"></icon>
+					<hello-icon icon="link" class="hello-icon--button hello-icon--round"></hello-icon>
 					<span v-html="displayUrl(park.homepage)"></span>
 				</a>
 				<a class="park__contact-link" v-if="park.email" :href="'mailto:'+park.email">
-					<icon icon="at" class="hello-icon--button hello-icon--round"></icon>
+					<hello-icon icon="at" class="hello-icon--button hello-icon--round"></hello-icon>
 					{{park.email}}
 				</a>
 				<a class="park__contact-link" v-if="park.phone" :href="park.phone">
-					<icon icon="phone" class="hello-icon--button hello-icon--round"></icon>
+					<hello-icon icon="phone" class="hello-icon--button hello-icon--round"></hello-icon>
 					{{park.phone}}
 				</a>
 				<a
@@ -46,7 +46,7 @@
 					:href="'https://www.google.com/maps?q='+park.address"
 					target="_blank"
 				>
-					<icon icon="home" class="hello-icon--button hello-icon--round"></icon>
+					<hello-icon icon="home" class="hello-icon--button hello-icon--round"></hello-icon>
 					<span v-html="nl2br(park.address)"></span>
 				</a>
 				<a
@@ -55,7 +55,7 @@
 					:href="park.facebook"
 					target="_blank"
 				>
-					<icon icon="facebook" class="hello-icon--button hello-icon--round"></icon>
+					<hello-icon icon="facebook" class="hello-icon--button hello-icon--round"></hello-icon>
 					<span v-html="displayUrl(park.facebook)"></span>
 				</a>
 			</div>

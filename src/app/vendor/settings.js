@@ -2,7 +2,6 @@ import * as s from '../../settings.json';
 
 export const settings = s.default;
 export const isDev = window.location.href.indexOf('.hello') !== -1;
-console.log(isDev);
 
 /**
  * API

@@ -2,9 +2,11 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
 import router from '../router'
-import { api } from '../vendor/settings';
-import { pagesDB, parksDB, settingsDB } from './storeDB';
-import { i18n } from '../i18n';
+import {api} from '../vendor/settings';
+import {pagesDB, parksDB, settingsDB} from './storeDB';
+import {i18n} from '../i18n';
+
+import page from './modules/page';
 
 Vue.use(Vuex);
 
@@ -42,27 +44,18 @@ function fetchPark(slug) {
 	});
 }
 
-function fetchPage(path, dbKey) {
-	return new Promise((resolve, reject) => {
-		axios.get(`${api.base}wp/v2/${path}`)
-			.then(r => r.data)
-			.then(resp => {
-				pagesDB.set(dbKey, resp.content.rendered);
-				resolve(resp.content.rendered);
-			});
-	});
-}
-
 export const store = new Vuex.Store({
+	modules: {
+		page
+	},
 	state: {
 		map: [],
 		mapFilter: {},
-		page: [],
 		park: [],
 		user: false
 	},
 	actions: {
-		loadMapParks({ commit }, data) {
+		loadMapParks({commit}, data) {
 			axios.get(`${api.base}skateparkguide/v1/map-parks/?bounds=${data}`)
 				.then(r => r.data)
 				.then(resp => {
@@ -83,10 +76,10 @@ export const store = new Vuex.Store({
 					commit('SET_PARKS', r);
 				});
 		},
-		changeMapFilter({ commit }, data) {
+		changeMapFilter({commit}, data) {
 			commit('SET_MAP_FILTER', data);
 		},
-		loadPark({ commit, state }, slug) {
+		loadPark({commit, state}, slug) {
 			commit('SET_PARK', {
 				'title': '',
 				'image': false,
@@ -102,42 +95,7 @@ export const store = new Vuex.Store({
 				});
 			});
 		},
-		loadPage({ commit }, data) {
-
-			const slug = data[0];
-			const validPage = i18n.t('menu_' + slug);
-			if (i18n.t('menu_' + slug) === 'menu_' + slug) {
-				commit('SET_PAGE', {
-					title: '404 error',
-					content: 'Page not found',
-					loading: false
-				});
-				return;
-			}
-
-			const path = validPage.path;
-			const dbKey = path.replace('/', '');
-
-			commit('SET_PAGE', {
-				title: validPage.title,
-				loading: true
-			});
-			pagesDB.get(dbKey).then(resp => {
-				commit('SET_PAGE', {
-					title: validPage.title,
-					content: resp,
-					loading: !resp
-				});
-				fetchPage(path, dbKey).then(content => {
-					commit('SET_PAGE', {
-						title: validPage.title,
-						content: content,
-						loading: false
-					});
-				});
-			});
-		},
-		userValidate({ commit }, data) {
+		userValidate({commit}, data) {
 			return new Promise((resolve, reject) => {
 				axios.post(`${api.base}jwt-auth/v1/token/`, {
 					username: data.email,
@@ -156,7 +114,7 @@ export const store = new Vuex.Store({
 					});
 			});
 		},
-		userSignup({ commit }, data) {
+		userSignup({commit}, data) {
 			return new Promise((resolve, reject) => {
 				axios.post(`${api.base}skateparkguide/v1/signup/`, {
 					email: data.email,
@@ -167,7 +125,7 @@ export const store = new Vuex.Store({
 					.catch(error => reject(error.response.data.message));
 			});
 		},
-		validateToken({ commit }, token) {
+		validateToken({commit}, token) {
 			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 			axios.post(`${api.base}wp/v2/users/me/`)
 				.then(r => r.data)
@@ -196,9 +154,6 @@ export const store = new Vuex.Store({
 		},
 		SET_PARK(state, park) {
 			state.park = park;
-		},
-		SET_PAGE(state, page) {
-			state.page = page;
 		},
 		SET_USER(state, user) {
 			axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
