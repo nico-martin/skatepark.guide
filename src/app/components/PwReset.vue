@@ -30,7 +30,9 @@
 		},
 		mounted() {
 		},
-		computed: mapState(['user']),
+		computed: mapState({
+			user: state => state.user.login
+		}),
 		components: {
 			Reset: PwResetReset,
 			Confirm: PwResetConfirm

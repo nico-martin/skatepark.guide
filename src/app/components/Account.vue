@@ -13,9 +13,9 @@
 	import {mapState} from 'vuex';
 
 	export default {
-		mounted() {
-		},
-		computed: mapState(['user']),
+		computed: mapState({
+			user: state => state.user.login
+		}),
 		components: {
 			Auth
 		}

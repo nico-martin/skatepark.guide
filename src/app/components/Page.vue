@@ -18,6 +18,7 @@
 
 <script>
 	import {mapState} from 'vuex';
+	import content from './../vendor/content';
 
 	export default {
 		data() {
@@ -32,6 +33,10 @@
 		},
 		mounted: function () {
 			this.$store.dispatch('page/load', [this.$route.params.page]);
+			content.show();
+		},
+		beforeDestroy: function () {
+			content.hide();
 		},
 		beforeRouteUpdate(to, from, next) {
 			this.$store.dispatch('page/load', [to.params.page]);

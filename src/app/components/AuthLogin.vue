@@ -30,17 +30,17 @@
 		methods: {
 			login: function (data) {
 				if (data.email === '' || data.password === '') {
-					this.error = this.$t('auth_form_login_empty');
+					this.error = this.$t('auth_form_empty');
 					return;
 				}
 				this.loading = true;
 				this.$store
-					.dispatch('userValidate', {
+					.dispatch('user/validate', {
 						email: data.email,
 						password: data.password
 					})
 					.catch(respData => {
-						this.error = this.$t('auth_form_login_error');
+						this.error = this.$t('auth_form_error');
 						this.loading = false;
 					})
 					.then(respData => {

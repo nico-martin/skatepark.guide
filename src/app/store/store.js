@@ -7,6 +7,7 @@ import {pagesDB, parksDB, settingsDB} from './storeDB';
 import {i18n} from '../i18n';
 
 import page from './modules/page';
+import user from './modules/user';
 
 Vue.use(Vuex);
 
@@ -46,13 +47,13 @@ function fetchPark(slug) {
 
 export const store = new Vuex.Store({
 	modules: {
-		page
+		page,
+		user
 	},
 	state: {
 		map: [],
 		mapFilter: {},
 		park: [],
-		user: false
 	},
 	actions: {
 		loadMapParks({commit}, data) {
@@ -94,53 +95,6 @@ export const store = new Vuex.Store({
 					commit('SET_PARK', resp);
 				});
 			});
-		},
-		userValidate({commit}, data) {
-			return new Promise((resolve, reject) => {
-				axios.post(`${api.base}jwt-auth/v1/token/`, {
-					username: data.email,
-					password: data.password
-				})
-					.then(r => r.data)
-					.catch(() => {
-						reject();
-					})
-					.then(resp => {
-						if (resp) {
-							commit('SET_USER', resp);
-						} else {
-							reject();
-						}
-					});
-			});
-		},
-		userSignup({commit}, data) {
-			return new Promise((resolve, reject) => {
-				axios.post(`${api.base}skateparkguide/v1/signup/`, {
-					email: data.email,
-					password: data.password,
-					password2: data.password2
-				})
-					.then(r => commit('SET_USER', r.data))
-					.catch(error => reject(error.response.data.message));
-			});
-		},
-		validateToken({commit}, token) {
-			axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-			axios.post(`${api.base}wp/v2/users/me/`)
-				.then(r => r.data)
-				.then(resp => {
-					commit('SET_USER', {
-						token,
-						user_display_name: resp.name,
-						user_email: resp.email,
-						user_nicename: resp.username
-					});
-				})
-				.catch(() => {
-					commit('SET_USER', false);
-					console.log('could not fetch /me');
-				});
 		}
 	},
 	mutations: {
@@ -154,11 +108,6 @@ export const store = new Vuex.Store({
 		},
 		SET_PARK(state, park) {
 			state.park = park;
-		},
-		SET_USER(state, user) {
-			axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
-			settingsDB.set('user', user);
-			state.user = user;
 		}
 	},
 });

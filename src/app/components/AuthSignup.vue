@@ -28,16 +28,16 @@
 		},
 		methods: {
 			signup: function (data) {
-				this.form.loading = true;
+				this.loading = true;
 				this.$store
-					.dispatch('userSignup', {
+					.dispatch('user/signup', {
 						email: data.email,
 						password: data.password,
 						password2: data.password2
 					})
 					.catch(error => {
-						this.form.loading = false;
-						this.form.error = error;
+						this.loading = false;
+						this.error = error;
 					});
 			}
 		},

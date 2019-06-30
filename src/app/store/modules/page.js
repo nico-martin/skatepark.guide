@@ -1,7 +1,7 @@
 import {i18n} from "./../../i18n";
 import {storeDB} from "./../storeDB";
 import axios from "axios/index";
-import {api} from "../../vendor/settings";
+import {api} from "./../../vendor/settings";
 
 function fetch(path, dbKey) {
 	return new Promise((resolve, reject) => {
