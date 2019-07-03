@@ -31,7 +31,6 @@
 		mounted: async function () {
 			const google = await mapLoader();
 			this.$store.dispatch('parks/loadFromDB');
-
 			this.map.addListener('bounds_changed', () => {
 				this.showLoader(true);
 				const bounds = this.map.getBounds();
@@ -45,17 +44,8 @@
 			});
 
 			this.$store.subscribe((mutation, state) => {
-				if (['parks/setParks', 'parks/setMapFilter'].includes(mutation.type)) {
+				if (mutation.type === 'parks/setParks') {
 					this.showLoader(false);
-
-					//console.log(this.filter);
-
-					/*
-					for (let i = 0; i < this.markers.length; i++) {
-						this.markers[i].setMap(null);
-					}
-					this.markers = [];
-					*/
 					Object.keys(state.parks.map).forEach(parkSlug => {
 						if (!this.markersSet.includes(parkSlug)) {
 							const park = state.parks.map[parkSlug];
@@ -65,10 +55,12 @@
 									lng: park.map.lng
 								},
 								icon: maps.marker,
-								map: this.map,
+								map: null,
 								title: park.title,
-								facilities: park['parks-facilities']
+								facilities: park.facilities
 							});
+
+							this.filterMarker(marker);
 
 							google.maps.event.addListener(
 								marker,
@@ -84,21 +76,40 @@
 							this.markersSet.push(parkSlug)
 						}
 					});
-
-					if (this.cluster) {
-						this.cluster.clearMarkers();
+					this.resetCluster();
+				} else if (mutation.type === 'parks/setMapFilter') {
+					for (let i = 0; i < this.markers.length; i++) {
+						const marker = this.markers[i];
+						this.filterMarker(marker)
 					}
-					if (this.markers.length) {
-						this.cluster = new MarkerClusterer(this.map, this.markers, {
-							styles: maps.clusterStyles
-						});
-					} else {
-						this.cluster = false;
-					}
+					this.resetCluster();
 				}
 			});
 		},
-		methods: {},
+		methods: {
+			resetCluster: function () {
+				return;
+				if (this.cluster) {
+					this.cluster.clearMarkers();
+				}
+				if (this.markers.length) {
+					this.cluster = new MarkerClusterer(this.map, this.markers, {
+						styles: maps.clusterStyles
+					});
+				} else {
+					this.cluster = false;
+				}
+			},
+			filterMarker(marker) {
+				let valid = false;
+				Object.keys(this.filter).forEach(f => {
+					if (this.filter[f] && marker.facilities[f] === '1') {
+						valid = true;
+					}
+				});
+				marker.setMap(valid ? this.map : null);
+			}
+		},
 		computed: mapState({
 			filter: state => state.parks.filter
 		})

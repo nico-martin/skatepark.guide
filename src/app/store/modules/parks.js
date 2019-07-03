@@ -55,6 +55,7 @@ const actions = {
 	changeMapFilter({commit}, data) {
 		commit('setMapFilter', data);
 	}
+	// TODO: load deleted Parks
 };
 
 const mutations = {
