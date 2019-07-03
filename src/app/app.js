@@ -39,7 +39,7 @@ Vue.use(VueSnackbar, {
 	]
 });
 
-import {store} from './store/store';
+import store from './store/store';
 import {i18n} from './i18n';
 import router from './router';
 
@@ -89,7 +89,6 @@ window.addEventListener("beforeinstallprompt", e => {
 	window.installEvent = e;
 	document.body.classList.add('can-install');
 });
-
 
 /**
  * ServiceWorker install

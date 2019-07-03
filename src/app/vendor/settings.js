@@ -10,7 +10,9 @@ export const isDev = window.location.href.indexOf('.hello') !== -1;
 const apiBase = 'https://skateparkguide.ch/wp-json';
 export const api = {
 	base: apiBase,
-	lang: apiBase + '/skateparkguide/v1/lang'
+	lang: apiBase + '/skateparkguide/v1/lang',
+	parks: apiBase + '/wp/v2/parks',
+	map: apiBase + '/skateparkguide/v1/map-parks',
 };
 
 /**

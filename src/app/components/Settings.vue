@@ -3,17 +3,17 @@
 		<div class="settings__element settings__element--filter">
 			<h2 class="settings__heading">{{$t('filter')}}</h2>
 			<div class="settings-filter">
-				<div v-for="facility in facilities" :key="facility" class="settings-filter__element">
+				<div v-for="(checked, facility) in facilities" :key="facility" class="settings-filter__element">
 					<input
 						@change="updateCheckedFacilities"
-						:id="'facility-'+facility"
+						:id="`facility-${facility}`"
 						:value="facility"
 						type="checkbox"
 						class="settings-filter__checkbox js-park-facilities input-checkbox"
-						checked
+						:checked="checked"
 					>
-					<label :for="'facility-'+facility" class="settings-filter__label">
-						{{$t('facilities_'+facility)}}
+					<label :for="`facility-${facility}`" class="settings-filter__label">
+						{{$t(`facilities_${facility}`)}}
 					</label>
 				</div>
 			</div>
@@ -54,7 +54,7 @@
 </template>
 
 <script>
-	import {store} from '../store/store';
+	import {mapState} from 'vuex';
 	import {maps} from '../vendor/settings'
 	import LanguagesSelect from './SettingsLanguageSelect.vue';
 
@@ -87,7 +87,6 @@
 	export default {
 		data() {
 			return {
-				facilities: ['bowl', 'mini', 'pumptrack', 'street'],
 				geolocation: 'geolocation' in navigator,
 				geolocationPerm: false,
 				geolocationActive: false,
@@ -103,7 +102,7 @@
 					facilities[$el.getAttribute('value')] = $el.checked;
 				});
 
-				store.dispatch('changeMapFilter', facilities);
+				this.$store.dispatch('parks/changeMapFilter', facilities);
 			},
 			setGeoPosition: function () {
 				if (this.geolocationActive) {
@@ -163,6 +162,9 @@
 				installEvent = e;
 				this.installBanner = true;
 			});
-		}
+		},
+		computed: mapState({
+			facilities: state => state.parks.filter
+		})
 	};
 </script>

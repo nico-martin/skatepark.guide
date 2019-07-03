@@ -29,17 +29,17 @@
 			<hello-icon icon="close"></hello-icon>
 			<hello-icon icon="settings"></hello-icon>
 		</button>
-		<Settings class="app__settings settings" aria-hidden="true"></Settings>
+		<settings class="app__settings settings" aria-hidden="true"></settings>
 	</div>
 </template>
 
 <script>
 	import content from './vendor/content';
-	import Map from './components/Map.vue';
-	import Favorites from './components/Favorites.vue';
 	import {i18nSetLang} from './i18n';
 	import {settingsDB} from './store/storeDB.js';
 
+	const Map = () => import(/* webpackChunkName: "map" */'./components/Map.vue');
+	const Favorites = () => import(/* webpackChunkName: "favorites" */'./components/Favorites.vue');
 	const Settings = () => import(/* webpackChunkName: "settings" */ './components/Settings.vue');
 
 	export default {

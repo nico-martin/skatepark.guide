@@ -114,7 +114,7 @@ module.exports = {
 				from: 'src/img/**/*',
 				to: './assets/img/',
 				transformPath(targetPath, absolutePath) {
-					return targetPath.replace('src/img/', '');
+					return targetPath.replace('\\src\\img', '');
 				},
 			}, {
 				from: 'src/fonts/*',
@@ -133,6 +133,7 @@ module.exports = {
 			description: app.description,
 			template: 'src/index.html',
 			filename: './index.html',
+			chunksSortMode: 'none',
 			minify: minify ? {
 				collapseWhitespace: true,
 				removeComments: true,

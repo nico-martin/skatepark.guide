@@ -15,7 +15,7 @@ function fetch(path, dbKey) {
 }
 
 const state = {
-	current: [],
+	current: {},
 };
 
 const getters = {};

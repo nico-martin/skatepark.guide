@@ -28,6 +28,13 @@
 			left: 20%;
 			position: absolute;
 		}
+
+		transform: translateY(-200%);
+		opacity: 0;
+		&[aria-hidden=false] {
+			transform: translateY(0);
+			opacity: 1;
+		}
 	}
 
 	&__map {

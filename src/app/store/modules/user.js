@@ -55,12 +55,19 @@ const actions = {
 				commit('setUser', false);
 				console.log('could not fetch /me');
 			});
+	},
+	logout({commit}) {
+		commit('setUser', false);
 	}
 };
 
 const mutations = {
 	setUser(state, user) {
-		axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+		if (user) {
+			axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
+		} else {
+			axios.defaults.headers.common['Authorization'] = '';
+		}
 		storeDB.settings.set('user', user);
 		state.login = user;
 	}
