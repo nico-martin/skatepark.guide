@@ -59,7 +59,7 @@
 					<span v-html="displayUrl(park.facebook)"></span>
 				</a>
 			</div>
-			<park-weather class="park__weather" :slug="park.slug"></park-weather>
+			<!--<park-weather class="park__weather" :slug="park.slug"></park-weather>-->
 			<share
 				class="park__share"
 				:title="$t('share_park_title')"
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-	import {lovedDB} from '../store/storeDB';
+	import {storeDB} from '../store/storeDB';
 	import ParkGallery from './ParkGallery.vue';
 	import ParkVideo from './ParkVideo.vue';
 	import ParkWeather from './ParkWeather.vue';
@@ -103,13 +103,13 @@
 			};
 		},
 		mounted() {
-			lovedDB.get(this.$route.params.slug).then(result => {
+			storeDB.loved.get(this.$route.params.slug).then(result => {
 				if (result) {
 					this.isLoved = true;
 				}
 			});
 
-			this.$store.dispatch('loadPark', this.$route.params.slug);
+			this.$store.dispatch('parks/loadSingle', this.$route.params.slug);
 
 			setHeadingPosition();
 			const $image = this.$el.querySelector('.park__image');
@@ -130,7 +130,7 @@
 			});
 		},
 		beforeDestroy() {
-			this.$store.dispatch('loadPark', false);
+			this.$store.dispatch('parks/loadSingle', false);
 		},
 		updated() {
 			setHeadingPosition();
@@ -140,7 +140,9 @@
 			ParkVideo,
 			ParkWeather
 		},
-		computed: mapState(['park']),
+		computed: mapState({
+			park: state => state.parks.single
+		}),
 		methods: {
 			nl2br: function (str = '') {
 				return str === ''
@@ -157,10 +159,10 @@
 			lovePark: function (isLoved) {
 				if (isLoved) {
 					this.isLoved = false;
-					lovedDB.delete(this.$route.params.slug);
+					storeDB.loved.delete(this.$route.params.slug);
 				} else {
 					this.isLoved = true;
-					lovedDB.set(this.$route.params.slug, this.park);
+					storeDB.loved.set(this.$route.params.slug, this.park);
 				}
 				this.$snack.success({
 					text: this.isLoved

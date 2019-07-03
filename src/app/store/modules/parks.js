@@ -10,7 +10,8 @@ const state = {
 		mini: true,
 		pumptrack: true,
 		street: true
-	}
+	},
+	single: []
 };
 
 const getters = {};
@@ -30,7 +31,9 @@ const actions = {
 						'loading': true,
 						'facilities': park['parks-facilities'],
 					};
-					storeDB.parks.set(slug, parkData);
+					storeDB.parks.get(slug).then(resp => {
+						if (!resp) storeDB.parks.set(slug, parkData);
+					});
 					responseParks[slug] = parkData;
 				});
 				commit('setParks', responseParks);
@@ -54,6 +57,55 @@ const actions = {
 	},
 	changeMapFilter({commit}, data) {
 		commit('setMapFilter', data);
+	},
+	loadSingle({commit, state}, slug) {
+		commit('setSingle', {
+			'title': '',
+			'image': false,
+			'loading': true,
+		});
+		if (!slug) {
+			return;
+		}
+		storeDB.parks.get(slug).then(respDB => {
+			if (respDB) commit('setSingle', respDB);
+			axios.get(`${api.parks}?slug=${slug}`)
+				.then(resp => {
+					if (resp.data.length) {
+						const park = resp.data[0];
+						const rendered = {
+							'title': park.title.rendered,
+							'slug': slug,
+							'image': park['head-image'],
+							'map': park.map,
+							'content': park.content.rendered,
+							'loading': false,
+							'gallery': park['parks-gallery'],
+							'video': park['parks-video'],
+							'anlage': park['parks-anlage'],
+							'facilities': park['parks-facilities'],
+							'homepage': park['parks-homepage'],
+							'email': park['parks-email'],
+							'phone': park['parks-phone'],
+							'facebook': park['parks-facebook'],
+							'address': park['parks-address'],
+						};
+						storeDB.parks.set(slug, rendered).then(msg => console.log(msg));
+						commit('setSingle', rendered);
+					}
+				})
+				.catch(error => {
+					vueInstance.$snack.danger({
+						text: vueInstance.$t('park_load_error'),
+						button: 'OK'
+					});
+					if (respDB && typeof respDB.content === 'undefined') {
+						respDB.content = vueInstance.$t('park_load_error_network');
+						respDB.loading = false;
+						commit('setSingle', respDB);
+					}
+				});
+		});
 	}
 	// TODO: load deleted Parks
 };
@@ -66,6 +118,9 @@ const mutations = {
 	},
 	setMapFilter(state, filters) {
 		state.filter = filters;
+	},
+	setSingle(state, park) {
+		state.single = park;
 	}
 };
 
