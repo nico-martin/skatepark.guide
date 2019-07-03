@@ -4,7 +4,7 @@
 <script>
 	import {mapState} from 'vuex';
 	import {maps} from './../vendor/settings';
-	import MarkerClusterer from '@google/markerclusterer';
+	import MarkerClusterer from '@google/markerclustererplus';
 	import mapLoader from './../vendor/gmaps';
 	import router from './../router';
 	import {i18n} from './../i18n';
@@ -45,11 +45,12 @@
 
 			this.$store.subscribe((mutation, state) => {
 				if (mutation.type === 'parks/setParks') {
+					this.clusterClear();
 					this.showLoader(false);
 					Object.keys(state.parks.map).forEach(parkSlug => {
 						if (!this.markersSet.includes(parkSlug)) {
 							const park = state.parks.map[parkSlug];
-							const marker = new google.maps.Marker({
+							let marker = new google.maps.Marker({
 								position: {
 									lat: park.map.lat,
 									lng: park.map.lng
@@ -59,8 +60,6 @@
 								title: park.title,
 								facilities: park.facilities
 							});
-
-							this.filterMarker(marker);
 
 							google.maps.event.addListener(
 								marker,
@@ -73,41 +72,52 @@
 							);
 
 							this.markers.push(marker);
-							this.markersSet.push(parkSlug)
+							this.markersSet.push(parkSlug);
 						}
 					});
-					this.resetCluster();
+					this.markers.forEach((marker, index) => {
+						this.filterMarker(index);
+					});
+					this.clusterSet();
 				} else if (mutation.type === 'parks/setMapFilter') {
-					for (let i = 0; i < this.markers.length; i++) {
-						const marker = this.markers[i];
-						this.filterMarker(marker)
-					}
-					this.resetCluster();
+					this.clusterClear();
+					this.markers.forEach((marker, index) => {
+						this.filterMarker(index);
+					});
+					this.clusterSet();
 				}
 			});
 		},
 		methods: {
-			resetCluster: function () {
-				return;
+			clusterClear: function () {
 				if (this.cluster) {
 					this.cluster.clearMarkers();
 				}
+			},
+			clusterSet: function () {
 				if (this.markers.length) {
-					this.cluster = new MarkerClusterer(this.map, this.markers, {
-						styles: maps.clusterStyles
-					});
+					if (this.cluster) {
+						const filtered = this.markers.filter(marker => {
+							return marker.getMap() !== null;
+						});
+						this.cluster.addMarkers(filtered);
+					} else {
+						this.cluster = new MarkerClusterer(this.map, this.markers, {
+							styles: maps.clusterStyles
+						});
+					}
 				} else {
 					this.cluster = false;
 				}
 			},
-			filterMarker(marker) {
+			filterMarker(index) {
 				let valid = false;
 				Object.keys(this.filter).forEach(f => {
-					if (this.filter[f] && marker.facilities[f] === '1') {
+					if (this.filter[f] && this.markers[index].facilities[f] === '1') {
 						valid = true;
 					}
 				});
-				marker.setMap(valid ? this.map : null);
+				this.markers[index].setMap(valid ? this.map : null);
 			}
 		},
 		computed: mapState({
