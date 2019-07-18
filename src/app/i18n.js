@@ -3,7 +3,6 @@ import VueI18n from 'vue-i18n';
 import de from './../../build/tmp/de.json';
 import axios from 'axios';
 import router from './router';
-import 'vue-cookies';
 
 import {api} from "./vendor/settings";
 import {storeDB} from "./store/storeDB";
@@ -20,29 +19,29 @@ export const i18n = new VueI18n({
 
 storeDB.translations.set(fallback, de);
 
-export const i18nGetLang = function () {
+export const i18nGetLang = async function () {
 
 	const pathElements = window.location.pathname.split('/');
 	if (pathElements.length >= 3) {
 		return pathElements[1];
 	}
 
-	const cookieLang = ($cookies.isKey('lang') ? $cookies.get('lang') : false);
-	if (cookieLang) {
-		return cookieLang;
+	let newLang = fallback;
+	const browserLang = navigator.language || navigator.userLanguage;
+	if (browserLang) {
+		newLang = browserLang.split('-')[0];
+	}
+	const storeLang = await storeDB.settings.get('lang');
+	if (storeLang) {
+		newLang = storeLang;
 	}
 
-	const userLang = navigator.language || navigator.userLanguage;
-	if (userLang) {
-		return userLang.split('-')[0];
-	}
-
-	return fallback;
+	return newLang;
 };
 
 export const i18nSetLang = async function (lang = false) {
 	if (!lang) {
-		lang = i18nGetLang();
+		lang = await i18nGetLang();
 	}
 
 	let apiSet = false;
@@ -69,25 +68,29 @@ function setLang(lang, msgs) {
 	/**
 	 * Set Lang
 	 */
+
 	i18n.locale = lang;
 	axios.defaults.headers.common['Accept-Language'] = lang;
 	document.querySelector('html').setAttribute('lang', lang);
-	$cookies.set('lang', lang);
+	storeDB.settings.set('lang', lang);
 
 	/**
 	 * Push
 	 */
-	let pushPath = false;
-	const currentRoute = router.currentRoute;
 
+	const currentRoute = router.currentRoute;
 	if (currentRoute.fullPath === '/') {
-		pushPath = `${currentRoute.fullPath}${i18n.locale}/`;
-	} else if (i18n.locale !== currentRoute.params.locale) {
+		return lang;
+	}
+
+	let pushPath = false;
+	if (i18n.locale !== currentRoute.params.locale) {
 		pushPath = currentRoute.fullPath.replace(`/${currentRoute.params.locale}/`, `/${i18n.locale}/`);
 	}
 
 	if (pushPath) {
 		router.push(pushPath);
 	}
+
 	return lang;
 }

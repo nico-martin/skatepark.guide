@@ -13,6 +13,7 @@ export const api = {
 	lang: apiBase + '/skateparkguide/v1/lang',
 	parks: apiBase + '/wp/v2/parks',
 	map: apiBase + '/skateparkguide/v1/map-parks',
+	weather: apiBase + '/skateparkguide/v1/park-weather',
 };
 
 /**

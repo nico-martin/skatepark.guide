@@ -59,7 +59,7 @@
 					<span v-html="displayUrl(park.facebook)"></span>
 				</a>
 			</div>
-			<!--<park-weather class="park__weather" :slug="park.slug"></park-weather>-->
+			<park-weather class="park__weather" :slug="park.slug"></park-weather>
 			<share
 				class="park__share"
 				:title="$t('share_park_title')"
@@ -71,10 +71,12 @@
 
 <script>
 	import {storeDB} from '../store/storeDB';
-	import ParkGallery from './ParkGallery.vue';
-	import ParkVideo from './ParkVideo.vue';
-	import ParkWeather from './ParkWeather.vue';
 	import {mapState} from 'vuex';
+	import content from './../vendor/content';
+
+	const ParkGallery = () => import(/* webpackChunkName: "park" */'./ParkGallery.vue');
+	const ParkVideo = () => import(/* webpackChunkName: "park" */'./ParkVideo.vue');
+	const ParkWeather = () => import(/* webpackChunkName: "park" */'./ParkWeather.vue');
 
 	let offset = false;
 
@@ -128,9 +130,11 @@
 				$image.style.opacity = 1 - (1 / offset) * scroll;
 				$title.style.opacity = (1 / offset) * scroll;
 			});
+			content.show();
 		},
 		beforeDestroy() {
 			this.$store.dispatch('parks/loadSingle', false);
+			content.hide();
 		},
 		updated() {
 			setHeadingPosition();

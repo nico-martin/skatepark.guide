@@ -90,7 +90,7 @@ const actions = {
 							'facebook': park['parks-facebook'],
 							'address': park['parks-address'],
 						};
-						storeDB.parks.set(slug, rendered).then(msg => console.log(msg));
+						storeDB.parks.set(slug, rendered);
 						commit('setSingle', rendered);
 					}
 				})

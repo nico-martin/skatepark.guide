@@ -35,7 +35,7 @@
 		mounted() {
 			if (this.slug) {
 				moment.locale(this.$i18n.locale);
-				const link = `${api.base}skateparkguide/v1/park-weather/${this.slug}/?lang=${this.$i18n.locale}`;
+				const link = `${api.weather}/${this.slug}/?lang=${this.$i18n.locale}`;
 				axios
 					.get(link)
 					.then(r => r.data)
