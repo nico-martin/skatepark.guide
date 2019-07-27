@@ -22,19 +22,26 @@ const actions = {
 			.then(resp => {
 				const responseParks = {};
 				Object.keys(resp.data.parks).forEach((slug) => {
-					const park = resp.data.parks[slug];
-					const parkData = {
-						'title': park.title,
-						'slug': slug,
-						'image': park['head-image'],
-						'map': park.map,
-						'loading': true,
-						'facilities': park['parks-facilities'],
-					};
-					storeDB.parks.get(slug).then(resp => {
-						if (!resp) storeDB.parks.set(slug, parkData);
-					});
-					responseParks[slug] = parkData;
+					if (resp.data.parks[slug].status === 'trash') {
+						storeDB.parks.delete(slug.replace('__trashed', ''));
+					} else {
+						const park = resp.data.parks[slug];
+						const parkData = {
+							'title': park.title,
+							'slug': slug,
+							'image': park['head-image'],
+							'map': park.map,
+							'loading': true,
+							'facilities': park['parks-facilities'],
+						};
+						storeDB.parks.set(slug, parkData);
+						/*
+						storeDB.parks.get(slug).then(resp => {
+							if (!resp) storeDB.parks.set(slug, parkData);
+						});
+						*/
+						responseParks[slug] = parkData;
+					}
 				});
 				commit('setParks', responseParks);
 			})

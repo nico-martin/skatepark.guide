@@ -104,7 +104,7 @@
 			});
 			settingsDB.get('user').then(user => {
 				if (user) {
-					this.$store.commit('SET_USER', user);
+					this.$store.commit('user/setUser', user);
 				}
 			});
 		}

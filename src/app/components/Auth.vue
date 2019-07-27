@@ -32,10 +32,6 @@
 			if (window.location.hash === '#signup') {
 				this.signup = true;
 			}
-			content.show();
-		},
-		beforeDestroy: function () {
-			content.hide();
 		},
 		computed: mapState({
 			user: state => state.user.login

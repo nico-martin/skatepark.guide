@@ -3,10 +3,10 @@
 	import content from './../vendor/content';
 
 	export default {
-		mounted: function () {
+		mounted() {
 			content.hide();
 		},
-		beforeDestroy: function () {
+		beforeDestroy() {
 			content.show();
 		}
 	}

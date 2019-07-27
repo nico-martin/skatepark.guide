@@ -99,7 +99,7 @@
 				isLoved: false
 			};
 		},
-		metaInfo: function () {
+		metaInfo() {
 			return {
 				title: this.park.title
 			};

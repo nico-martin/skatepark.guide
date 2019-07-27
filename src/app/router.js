@@ -28,6 +28,9 @@ export default new Router({
 			path: '/:locale/account/',
 			component: Account
 		}, {
+			path: '/:locale/account/:accountPage/',
+			component: Account
+		}, {
 			path: '/:locale/parks/:slug/',
 			component: Park
 		}, {

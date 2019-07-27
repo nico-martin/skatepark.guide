@@ -26,16 +26,16 @@
 				navigation: ['about', 'impressum', 'privacy']
 			}
 		},
-		metaInfo: function () {
+		metaInfo() {
 			return {
 				title: this.page.title
 			};
 		},
-		mounted: function () {
+		mounted() {
 			this.$store.dispatch('page/load', [this.$route.params.page]);
 			content.show();
 		},
-		beforeDestroy: function () {
+		beforeDestroy() {
 			content.hide();
 		},
 		beforeRouteUpdate(to, from, next) {
