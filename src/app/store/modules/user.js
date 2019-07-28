@@ -39,6 +39,17 @@ const actions = {
 				.catch(error => reject(error.response.data.message));
 		});
 	},
+	getUserData({commit}, data) {
+		return new Promise((resolve, reject) => {
+			axios.post(`${api.base}/skateparkguide/v1/signup/`, {
+				email: data.email,
+				password: data.password,
+				password2: data.password2
+			})
+				.then(r => commit('setUser', r.data))
+				.catch(error => reject(error.response.data.message));
+		});
+	},
 	validateToken({commit}, token) {
 		axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 		axios.post(`${api.base}wp/v2/users/me/`)

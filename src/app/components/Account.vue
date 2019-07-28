@@ -4,6 +4,9 @@
 			<localized-link v-for="(path, key) in navigation" :key="key" active-class="content__link--active" :to="path" class="content__link">
 				{{$t(`account_${key}`)}}
 			</localized-link>
+			<button class="content__link content__link--signout button button--danger" v-if="user" @click="logout">
+				{{$t('auth_logout')}}
+			</button>
 		</nav>
 		<auth class="content__form" v-if="!user"></auth>
 		<template v-else>
@@ -29,6 +32,11 @@
 					parks: '/account/parks/',
 				},
 				parks: false,
+			}
+		},
+		methods: {
+			logout() {
+				this.$store.dispatch('user/logout');
 			}
 		},
 		mounted() {

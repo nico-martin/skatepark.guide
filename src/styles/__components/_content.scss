@@ -33,6 +33,13 @@
 			opacity: 1;
 			transform: translateY(0);
 		}
+
+		&--signout {
+			margin-left: auto;
+			align-self: center;
+			padding: .9rem 1.3rem;
+			font-size: 1.4rem;
+		}
 	}
 
 	&__title {

@@ -6,8 +6,10 @@
 			<hello-form formKey="signup"
 			            :formSubmit="updateUser"
 			            :formError="error"
-			            :formLoading="loading">
-				<hello-input :title="$t('auth_email')" name="name"></hello-input>
+			            :formLoading="loading"
+			            formLayout="table"
+			>
+				<hello-input v-for="field in fields" :key="field.field" :title="$t(`account_profile_${field.field}`)" :choices="field.choices" :name="field.field" :value="user[field.field]" :type="field.type"/>
 			</hello-form>
 		</div>
 	</div>
@@ -23,7 +25,35 @@
 		data() {
 			return {
 				error: false,
-				loading: false
+				loading: false,
+				fields: {
+					firstname: {
+						field: 'user_firstname',
+						type: 'text',
+					},
+					lastname: {
+						field: 'user_lastname',
+						type: 'text',
+					},
+					url: {
+						field: 'user_url',
+						type: 'text',
+					},
+					sportart: {
+						field: 'sportart',
+						type: 'select',
+						choices: {
+							all: this.$t('account_profile_sportart_all'),
+							skateboard: this.$t('account_profile_sportart_skateboard'),
+							inline: this.$t('account_profile_sportart_inline'),
+							scooter: this.$t('account_profile_sportart_scooter'),
+						}
+					},
+					description: {
+						field: 'description',
+						type: 'textarea'
+					}
+				}
 			};
 		},
 		methods: {

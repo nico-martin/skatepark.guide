@@ -46,7 +46,13 @@
 	&--white {
 		background-color: #fff;
 		color: c();
-		border: 1px solid c(black, light);
+		border: 1px solid #fff;
+	}
+
+	&--danger {
+		background-color: #fff;
+		color: c(danger);
+		border: 1px solid #fff;
 	}
 
 	&--transparent {

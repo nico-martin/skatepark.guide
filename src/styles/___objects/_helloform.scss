@@ -1,0 +1,80 @@
+.o-helloform {
+	& > * + * {
+		margin-top: $space-item;
+	}
+
+	&__element {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+
+		&--controls {
+			flex-direction: row;
+			justify-content: flex-end;
+			align-items: center;
+		}
+	}
+
+	&__input,
+	&__label {
+		line-height: 120%;
+		cursor: pointer;
+	}
+
+	&__label {
+		position: absolute;
+		left: 1.6rem;
+		top: 2.5rem;
+		@include transition();
+		transform-origin: left top;
+		background-color: transparent;
+		transform: scale(1) translateY(-50%);
+	}
+
+	&__input {
+		width: 100%;
+		border: none;
+		padding: 2.4rem 1.4rem .6rem 1.4rem;
+		border-bottom: 1px solid c(black, light);
+		outline: none;
+		@include transition();
+		&:hover {
+			background-color: rgba(c(black, light), .2);
+		}
+		&:focus {
+			border-bottom-color: c(secondary);
+			background-color: rgba(c(black, light), .4);
+		}
+	}
+
+	&__input:focus,
+	&__input[has-value='true'] {
+		& + .o-helloform__label {
+			color: rgba(c(black), .8);
+			transform: scale(0.7) translateY(-120%) translateX(-3px);
+		}
+	}
+
+	&__control {
+		&--pwreset {
+			margin-right: auto;
+			font-size: $font-size-small;
+		}
+	}
+
+	&__privacy-info {
+		font-size: $font-size-small;
+	}
+
+	&__feedback {
+		background-color: c(secondary);
+		padding: $space-item * 0.5 $space-item * 0.75;
+		p {
+			color: #fff;
+			font-size: $font-size-small;
+		}
+		&--error {
+			background-color: c(danger);
+		}
+	}
+}
