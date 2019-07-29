@@ -6,12 +6,11 @@
 		:formLoading="loading"
 		:submit="$t('auth_login')"
 	>
-		<HelloInput :title="$t('auth_email')" name="email" type="email"></HelloInput>
-		<HelloInput :title="$t('auth_password')" name="password" type="password"></HelloInput>
-		<router-link
-			:to="'/'+this.$i18n.locale+'/account/password-reset/'"
-			class="form__control form__control--pwreset"
-		>{{$t('auth_pwreset')}}
+		<HelloInput :title="$t('auth_email')" name="email" type="email"/>
+		<HelloInput :title="$t('auth_password')" name="password" type="password"/>
+		<HelloInput :title="$t('auth_rememberme')" name="rememberme" type="checkbox"/>
+		<router-link :to="`/${this.$i18n.locale}/account/password-reset/`" class="form__control form__control--pwreset">
+			{{$t('auth_pwreset')}}
 		</router-link>
 	</HelloForm>
 </template>
@@ -34,11 +33,11 @@
 					return;
 				}
 				this.loading = true;
-				this.$store
-					.dispatch('user/validate', {
-						email: data.email,
-						password: data.password
-					})
+				this.$store.dispatch('user/login', {
+					email: data.email,
+					password: data.password,
+					rememberme: data.rememberme
+				})
 					.catch(respData => {
 						this.error = this.$t('auth_form_error');
 						this.loading = false;

@@ -1,8 +1,8 @@
 <template>
-	<div v-if="user">
+	<div v-if="loggedin">
 		<h1 class="content__title">{{$t('account_your_parks')}}</h1>
 		<div class="content__content">
-			<p>Hello {{user.user_display_name}}</p>
+			<p>Hello User</p>
 		</div>
 	</div>
 </template>
@@ -12,7 +12,7 @@
 
 	export default {
 		computed: mapState({
-			user: state => state.user.login
+			loggedin: state => state.user.auth
 		}),
 	};
 </script>

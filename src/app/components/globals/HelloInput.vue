@@ -2,41 +2,39 @@
 	<div
 		:class="`o-helloform__element o-helloform__element--type-${type} ${(disabled?'o-helloform__element--disabled':'')}`"
 	>
-		<template v-if="type === 'textarea' || type === 'select'">
-            <textarea
-	            v-if="type === 'textarea'"
-	            :name="name"
-	            :id="name"
-	            v-on:change="isEmpty"
-	            :value="value"
-	            class="o-helloform__input"
-	            :required="required"
-	            :placeholder="placeholder"
-	            :disabled="disabled"
-	            :has-value="(value?'true':'false')"
-            ></textarea>
-			<select
-				v-else
-				:name="name"
-				:id="name"
-				v-on:change="isEmpty"
-				:value="value"
-				class="o-helloform__input"
-				:required="required"
-				:placeholder="placeholder"
-				:disabled="disabled"
-				:has-value="(value?'true':'false')"
-			>
-				<template v-if="choices">
-					<option
-						v-for="(optiontitle, optionvalue) in choices"
-						:key="optionvalue"
-						:value="optionvalue"
-					>{{optiontitle}}
-					</option>
-				</template>
-			</select>
-		</template>
+        <textarea
+	        v-if="type === 'textarea'"
+	        :name="name"
+	        :id="name"
+	        v-on:change="isEmpty"
+	        :value="value"
+	        class="o-helloform__input"
+	        :required="required"
+	        :placeholder="placeholder"
+	        :disabled="disabled"
+	        :has-value="(value?'true':'false')"
+        />
+		<select
+			v-else-if="type === 'select'"
+			:name="name"
+			:id="name"
+			v-on:change="isEmpty"
+			:value="value"
+			class="o-helloform__input"
+			:required="required"
+			:placeholder="placeholder"
+			:disabled="disabled"
+			:has-value="(value?'true':'false')"
+		>
+			<template v-if="choices">
+				<option
+					v-for="(optiontitle, optionvalue) in choices"
+					:key="optionvalue"
+					:value="optionvalue"
+				>{{optiontitle}}
+				</option>
+			</template>
+		</select>
 		<input
 			v-else
 			:type="type"

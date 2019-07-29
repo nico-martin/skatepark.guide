@@ -16,6 +16,7 @@ export const api = {
 	weather: apiBase + '/skateparkguide/v1/park-weather',
 	page: apiBase + '/skateparkguide/v1/page',
 	updateUser: apiBase + '/skateparkguide/v1/user/update/',
+	user: apiBase + '/skateparkguide/v1/user/get/',
 };
 
 /**

@@ -4,11 +4,11 @@
 			<localized-link v-for="(path, key) in navigation" :key="key" active-class="content__link--active" :to="path" class="content__link">
 				{{$t(`account_${key}`)}}
 			</localized-link>
-			<button class="content__link content__link--signout button button--danger" v-if="user" @click="logout">
+			<button class="content__link content__link--signout button button--danger" v-if="loggedin" @click="logout">
 				{{$t('auth_logout')}}
 			</button>
 		</nav>
-		<auth class="content__form" v-if="!user"></auth>
+		<auth class="content__form" v-if="!loggedin"></auth>
 		<template v-else>
 			<account-parks v-if="('accountPage'in $route.params) && $route.params.accountPage === 'parks'"/>
 			<account-profile v-else/>
@@ -46,7 +46,7 @@
 			content.hide();
 		},
 		computed: mapState({
-			user: state => state.user.login
+			loggedin: state => state.user.auth
 		}),
 		components: {
 			Auth,

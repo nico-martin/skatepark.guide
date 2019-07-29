@@ -56,15 +56,15 @@
 		},
 		methods: {
 			onSubmit: function ($form) {
-				const $fields = $form.target.querySelectorAll(
-					"input, select, textarea"
-				);
-
+				const $fields = $form.target.querySelectorAll('input, select, textarea');
 				const data = {};
 				$fields.forEach(function ($field) {
-					data[$field.getAttribute("name")] = $field.value;
+					if ($field.getAttribute('type') === 'checkbox') {
+						data[$field.getAttribute('name')] = $field.checked;
+					} else {
+						data[$field.getAttribute('name')] = $field.value;
+					}
 				});
-
 				this.formSubmit(data);
 			}
 		}

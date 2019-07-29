@@ -1,5 +1,5 @@
 <template>
-	<div v-if="user">
+	<div v-if="loggedin">
 		<h1 class="content__title">{{$t('account_your_profile')}}</h1>
 		<div class="content__content">
 			<p><i>{{$t('account_profile_about')}}</i></p>
@@ -63,10 +63,8 @@
 				this.loading = true;
 				axios.post(api.updateUser, data)
 					.then(resp => {
-						resp.data['token'] = this.user.token;
 						this.$store.commit('user/setUser', resp.data);
 						this.loading = false;
-						//this.$store.dispatch('user/getUserData');
 					});
 			}
 		},
@@ -74,9 +72,11 @@
 			if (!'accountPage' in this.$route.params || this.$route.params.accountPage !== 'profile') {
 				this.$router.push(`/${this.$route.params.locale}/account/profile/`);
 			}
+			this.$store.dispatch('user/loadUserData');
 		},
 		computed: mapState({
-			user: state => state.user.login
+			loggedin: state => state.user.auth,
+			user: state => state.user.data
 		}),
 		components: {
 			HelloInput,
