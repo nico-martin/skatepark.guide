@@ -1,9 +1,9 @@
 <template>
-	<div class="o-helloform__feedback o-helloform__feedback--success" v-if="formSuccess">
-		<p>{{formSuccess}}</p>
-	</div>
-	<form v-else :id="formKey" :class="`o-helloform o-helloform--${formLayout}`" @submit.prevent="onSubmit">
-		<div class="o-helloform__feedback o-helloform__feedback--error" v-if="formError">
+	<form :id="formKey" :class="`o-helloform o-helloform--${formLayout}`" @submit.prevent="onSubmit">
+		<div class="o-helloform__feedback o-helloform__feedback--success" v-if="formSuccess">
+			<p>{{formSuccess}}</p>
+		</div>
+		<div class="o-helloform__feedback o-helloform__feedback--error" v-else-if="formError">
 			<p>{{formError}}</p>
 		</div>
 		<slot></slot>

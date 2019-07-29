@@ -7,10 +7,13 @@
 			            :formSubmit="updateUser"
 			            :formError="error"
 			            :formLoading="loading"
+			            :formSuccess="success"
 			            formLayout="table"
 			>
 				<hello-input v-for="field in fields" :key="field.field" :title="$t(`account_profile_${field.field}`)" :choices="field.choices" :name="field.field" :value="user[field.field]" :type="field.type"/>
 			</hello-form>
+			<h2>{{$t('account_profile_resetpw')}}</h2>
+			<pw-reset/>
 		</div>
 	</div>
 </template>
@@ -23,11 +26,14 @@
 	import {api} from './../vendor/settings'
 	import axios from 'axios';
 
+	import PwReset from './PwResetConfirm.vue';
+
 	export default {
 		data() {
 			return {
 				error: false,
 				loading: false,
+				success: false,
 				fields: {
 					firstname: {
 						field: 'user_firstname',
@@ -55,16 +61,23 @@
 						field: 'description',
 						type: 'textarea'
 					}
-				}
+				},
 			};
 		},
 		methods: {
 			updateUser(data) {
 				this.loading = true;
+				this.success = false;
+				this.error = false;
 				axios.post(api.updateUser, data)
 					.then(resp => {
 						this.$store.commit('user/setUser', resp.data);
 						this.loading = false;
+						this.success = this.$t('account_profile_update_success');
+					})
+					.catch(error => {
+						this.loading = false;
+						this.error = error.response.data.message;
 					});
 			}
 		},
@@ -80,7 +93,8 @@
 		}),
 		components: {
 			HelloInput,
-			HelloForm
+			HelloForm,
+			PwReset
 		}
 	};
 </script>

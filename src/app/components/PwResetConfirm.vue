@@ -6,18 +6,8 @@
 		:formLoading="form.loading"
 		:formSuccess="form.success"
 	>
-		<hello-input
-			:title="$t('pwreset_password')"
-			name="password"
-			type="password"
-			:required="true"
-		></hello-input>
-		<hello-input
-			:title="$t('pwreset_password2')"
-			name="password2"
-			type="password"
-			:required="true"
-		></hello-input>
+		<hello-input :title="$t('pwreset_password')" name="password" type="password" :required="true"/>
+		<hello-input :title="$t('pwreset_password2')" name="password2" type="password" :required="true"/>
 		<hello-input name="pwkey" type="hidden" :value="key"></hello-input>
 	</hello-form>
 </template>
@@ -48,14 +38,14 @@
 			onSubmit: function (data) {
 				this.form.loading = true;
 				axios
-					.post(`${api.base}skateparkguide/v1/password/confirm/`, data)
+					.post(`${api.password}/confirm/`, data)
 					.catch(error => {
 						this.form.loading = false;
 						this.form.error = error.response.data.message;
 					})
 					.then(r => {
 						this.form.loading = false;
-						this.form.success = r.data.message;
+						this.form.success = this.$t('auth_password_changed');
 					});
 			}
 		}
