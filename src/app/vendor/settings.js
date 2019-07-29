@@ -14,6 +14,8 @@ export const api = {
 	parks: apiBase + '/wp/v2/parks',
 	map: apiBase + '/skateparkguide/v1/map-parks',
 	weather: apiBase + '/skateparkguide/v1/park-weather',
+	page: apiBase + '/skateparkguide/v1/page',
+	updateUser: apiBase + '/skateparkguide/v1/user/update/',
 };
 
 /**

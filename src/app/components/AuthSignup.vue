@@ -29,16 +29,14 @@
 		methods: {
 			signup: function (data) {
 				this.loading = true;
-				this.$store
-					.dispatch('user/signup', {
-						email: data.email,
-						password: data.password,
-						password2: data.password2
-					})
-					.catch(error => {
-						this.loading = false;
-						this.error = error;
-					});
+				this.$store.dispatch('user/signup', {
+					email: data.email,
+					password: data.password,
+					password2: data.password2
+				}).catch(error => {
+					this.loading = false;
+					this.error = error;
+				});
 			}
 		},
 		components: {

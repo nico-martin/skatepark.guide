@@ -2,6 +2,8 @@ import axios from "axios/index";
 import {api} from "./../../vendor/settings";
 import {storeDB} from '../storeDB';
 
+// Todo: check from time to time is user is still logged in
+
 const state = {
 	login: false,
 };

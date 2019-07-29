@@ -7,7 +7,7 @@
 			                :to="`/${element}/`"
 			                class="content__link"
 			>
-				{{$t(`menu_${element}_title`)}}
+				{{$t(`menu_${element}`)}}
 			</localized-link>
 		</nav>
 		<h1 class="content__title">{{page.title}}</h1>
@@ -23,7 +23,7 @@
 	export default {
 		data() {
 			return {
-				navigation: ['about', 'impressum', 'privacy']
+				navigation: ['about', 'impressum', 'privacy'],
 			}
 		},
 		metaInfo() {

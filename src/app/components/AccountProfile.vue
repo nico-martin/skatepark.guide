@@ -20,6 +20,8 @@
 	import HelloForm from './globals/HelloForm.vue';
 	import HelloInput from './globals/HelloInput.vue';
 	import {mapState} from 'vuex';
+	import {api} from './../vendor/settings'
+	import axios from 'axios';
 
 	export default {
 		data() {
@@ -59,18 +61,13 @@
 		methods: {
 			updateUser(data) {
 				this.loading = true;
-				/*
-				this.$store
-					.dispatch('user/signup', {
-						email: data.email,
-						password: data.password,
-						password2: data.password2
-					})
-					.catch(error => {
+				axios.post(api.updateUser, data)
+					.then(resp => {
+						resp.data['token'] = this.user.token;
+						this.$store.commit('user/setUser', resp.data);
 						this.loading = false;
-						this.error = error;
+						//this.$store.dispatch('user/getUserData');
 					});
-					*/
 			}
 		},
 		mounted() {

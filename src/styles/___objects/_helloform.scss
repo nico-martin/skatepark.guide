@@ -29,29 +29,47 @@
 		transform-origin: left top;
 		background-color: transparent;
 		transform: scale(1) translateY(-50%);
+		span {
+			display: inline-block;
+			position: relative;
+			&:before {
+				content: '';
+				z-index: -1;
+				background-color: #fff;
+				position: absolute;
+				bottom: 0;
+				right: -.7rem;
+				left: -.7rem;
+				top: 0;
+			}
+			background-color: #fff;
+		}
 	}
 
 	&__input {
 		width: 100%;
-		border: none;
-		padding: 2.4rem 1.4rem .6rem 1.4rem;
-		border-bottom: 1px solid c(black, light);
+		//border: none;
+		padding: 1.5rem 1.4rem 1.3rem 1.4rem;
+		border: 1px solid c(black, light);
+		border-radius: 4px;
 		outline: none;
 		@include transition();
 		&:hover {
-			background-color: rgba(c(black, light), .2);
+			border-color: c();
 		}
 		&:focus {
-			border-bottom-color: c(secondary);
-			background-color: rgba(c(black, light), .4);
+			border-color: c(secondary) !important;
+			& + .o-helloform__label {
+				color: c(secondary, dark) !important;
+			}
 		}
 	}
 
 	&__input:focus,
 	&__input[has-value='true'] {
 		& + .o-helloform__label {
+			transform: scale(0.7) translateY(-195%) translateX(-3px);
 			color: rgba(c(black), .8);
-			transform: scale(0.7) translateY(-120%) translateX(-3px);
 		}
 	}
 
